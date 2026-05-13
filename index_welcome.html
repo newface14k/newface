@@ -1,0 +1,2816 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timemark</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="theme-color" content="#f5b800" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Timemark" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "RobotoCondensed", sans-serif;
+        background: #1c2227;
+        color: #f9fafb;
+        min-height: 100vh;
+      }
+      header {
+        background: #1f2937;
+        border-bottom: 1px solid #374151;
+        padding: 13px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .logo-mark {
+        width: 34px;
+        height: 34px;
+        background: #f5b800;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 12px;
+        color: #1a1a1a;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+      .hl {
+        display: flex;
+        align-items: center;
+      }
+      .ht {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .hs {
+        font-size: 11px;
+        color: #9ca3af;
+      }
+      .header-btns {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      #btn-dl {
+        background: #f5b800;
+        color: #1a1a1a;
+        border: none;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 13px;
+        display: none;
+      }
+      #btn-dl:hover {
+        background: #e0a800;
+      }
+      #btn-dl-video {
+        background: #f5b800;
+        color: #1a1a1a;
+        border: none;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 13px;
+        display: none;
+      }
+      #btn-dl-video:hover {
+        background: #e0a800;
+      }
+      #btn-dl-video:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+      }
+      #btn-install {
+        background: #0ea5e9;
+        color: #ffffff;
+        border: none;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 13px;
+        display: none;
+      }
+      #btn-install:hover {
+        background: #0284c7;
+      }
+      .install-hint {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 8px;
+        text-align: right;
+        line-height: 1.4;
+      }
+      .main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 20px;
+      }
+      @font-face {
+        font-family: "RobotoCondensed";
+        src: url("./fonts/RobotoCondensed-Bold.ttf");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "RobotoCondensed";
+        src: url("./fonts/bigshoulderstext-medium.ttf");
+        font-weight: 900;
+      }
+      @font-face {
+        font-family: "RobotoCondensed";
+        src: url("./fonts/RobotoCondensed-Regular.ttf") format("truetype");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "RobotoCondensed";
+        src: url("./fonts/RobotoCondensed-Medium.ttf") format("truetype");
+        font-weight: 600;
+      }
+      @media (max-width: 768px) {
+        .main {
+          grid-template-columns: 1fr;
+        }
+      }
+      .preview-box {
+        background: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 12px;
+        padding: 16px;
+        min-height: 380px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      #canvas {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        display: block;
+        margin: auto;
+      }
+      #video-preview {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        display: none;
+      }
+      .video-hint {
+        font-size: 13px;
+        color: #9ca3af;
+        margin-top: 10px;
+        text-align: center;
+        display: none;
+      }
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 20px;
+        cursor: pointer;
+        text-align: center;
+      }
+      .empty-icon {
+        width: 70px;
+        height: 70px;
+        background: #374151;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+        font-size: 28px;
+      }
+      .controls {
+        background: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 12px;
+        padding: 18px;
+        overflow-y: auto;
+        max-height: calc(100vh - 100px);
+      }
+      .controls h2 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 14px;
+      }
+      .field {
+        margin-bottom: 14px;
+      }
+      label.lbl {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #9ca3af;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+      input[type="text"],
+      input[type="datetime-local"] {
+        width: 100%;
+        background: #374151;
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 9px 11px;
+        color: #f9fafb;
+        font-size: 13px;
+        font-family: "RobotoCondensed", sans-serif;
+        outline: none;
+      }
+      input[type="text"]:focus,
+      input[type="datetime-local"]:focus {
+        border-color: #f5b800;
+      }
+      input[type="range"] {
+        width: 100%;
+        accent-color: #f5b800;
+        margin-top: 3px;
+      }
+      .btn-primary {
+        width: 100%;
+        background: #f5b800;
+        color: #1a1a1a;
+        border: none;
+        border-radius: 8px;
+        padding: 11px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn-primary:hover {
+        background: #e0a800;
+      }
+      .btn-secondary {
+        width: 100%;
+        background: transparent;
+        border: 1px solid #f5b800;
+        color: #f5b800;
+        border-radius: 8px;
+        padding: 11px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn-secondary:hover {
+        background: #f5b80015;
+      }
+      .btn-outline {
+        background: transparent;
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 9px 12px;
+        color: #f9fafb;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-outline:hover {
+        border-color: #f5b800;
+        color: #f5b800;
+      }
+      .btn-red {
+        background: transparent;
+        border: 1px solid #ef4444;
+        border-radius: 8px;
+        padding: 9px 11px;
+        color: #ef4444;
+        cursor: pointer;
+        font-size: 13px;
+      }
+      .btn-red:hover {
+        background: #ef444420;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .row .btn-outline {
+        flex: 1;
+      }
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .toggle {
+        position: relative;
+        width: 40px;
+        height: 22px;
+        cursor: pointer;
+      }
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider-t {
+        position: absolute;
+        inset: 0;
+        background: #374151;
+        border-radius: 11px;
+        transition: 0.2s;
+      }
+      .slider-t:before {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 3px;
+        bottom: 3px;
+        background: #fff;
+        border-radius: 50%;
+        transition: 0.2s;
+      }
+      input:checked + .slider-t {
+        background: #f5b800;
+      }
+      input:checked + .slider-t:before {
+        transform: translateX(18px);
+      }
+      .gps-row {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .gps-row input {
+        flex: 1;
+      }
+      .gps-btn {
+        background: #374151;
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 9px 10px;
+        color: #f9fafb;
+        cursor: pointer;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+      .gps-btn:hover {
+        border-color: #f5b800;
+      }
+      .gps-status {
+        font-size: 11px;
+        margin-top: 4px;
+      }
+      .gps-idle {
+        color: #9ca3af;
+      }
+      .gps-loading {
+        color: #60a5fa;
+      }
+      .gps-ok {
+        color: #4ade80;
+      }
+      .gps-err {
+        color: #f87171;
+      }
+      .tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .tab {
+        flex: 1;
+        padding: 9px 6px;
+        border-radius: 8px;
+        border: 1px solid #4b5563;
+        background: transparent;
+        color: #9ca3af;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.15s;
+      }
+      .tab.active {
+        background: #f5b800;
+        color: #1a1a1a;
+        border-color: #f5b800;
+      }
+      .note-table {
+        border: 1px solid #374151;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .note-head {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        background: #374151;
+        padding: 7px 10px;
+      }
+      .note-head span {
+        font-size: 11px;
+        color: #9ca3af;
+        font-weight: 600;
+      }
+      .note-row {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        border-top: 1px solid #374151;
+      }
+      .note-row input {
+        background: #1f2937;
+        border: none;
+        padding: 9px 10px;
+        color: #f9fafb;
+        font-size: 13px;
+        font-family: "RobotoCondensed", sans-serif;
+        outline: none;
+      }
+      .note-row input:first-child {
+        border-right: 1px solid #374151;
+      }
+      .logo-prev {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 7px;
+      }
+      .logo-prev img {
+        width: 38px;
+        height: 38px;
+        border-radius: 6px;
+        object-fit: cover;
+        border: 1px solid #4b5563;
+      }
+      .media-btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .processing-bar {
+        background: #374151;
+        border-radius: 6px;
+        height: 6px;
+        overflow: hidden;
+        margin-top: 6px;
+        display: none;
+      }
+      .processing-bar-inner {
+        height: 100%;
+        background: #f5b800;
+        border-radius: 6px;
+        animation: progress-pulse 1.5s ease-in-out infinite;
+      }
+      @keyframes progress-pulse {
+        0%,
+        100% {
+          opacity: 0.6;
+          width: 30%;
+        }
+        50% {
+          opacity: 1;
+          width: 80%;
+        }
+      }
+
+      /* ===== LOCK OVERLAY ===== */
+      #lock-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 14, 20, 0.97);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 20px;
+      }
+      .lock-box {
+        background: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 16px;
+        padding: 32px 28px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+      .lock-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+      .lock-box h2 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #f9fafb;
+      }
+      .lock-box p {
+        font-size: 13px;
+        color: #9ca3af;
+        margin-bottom: 24px;
+        line-height: 1.5;
+      }
+      .key-input {
+        width: 100%;
+        background: #374151;
+        border: 1px solid #4b5563;
+        border-radius: 10px;
+        padding: 12px 14px;
+        color: #f9fafb;
+        font-size: 15px;
+        font-family: "RobotoCondensed", sans-serif;
+        outline: none;
+        text-align: center;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+      }
+      .key-input:focus {
+        border-color: #f5b800;
+      }
+      .key-input::placeholder {
+        letter-spacing: 0;
+        color: #6b7280;
+      }
+      .btn-activate {
+        width: 100%;
+        background: #f5b800;
+        color: #1a1a1a;
+        border: none;
+        border-radius: 10px;
+        padding: 13px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: "RobotoCondensed", sans-serif;
+        transition: background 0.15s;
+        margin-bottom: 10px;
+      }
+      .btn-activate:hover {
+        background: #e0a800;
+      }
+      .btn-activate:disabled {
+        background: #4b5563;
+        color: #9ca3af;
+        cursor: not-allowed;
+      }
+      .btn-buy {
+        width: 100%;
+        background: transparent;
+        color: #9ca3af;
+        border: 1px solid #374151;
+        border-radius: 10px;
+        padding: 11px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: "RobotoCondensed", sans-serif;
+        transition: all 0.15s;
+      }
+      .btn-buy:hover {
+        border-color: #f5b800;
+        color: #f5b800;
+      }
+      .lock-note {
+        font-size: 11px;
+        color: #6b7280;
+        margin-top: 14px;
+        line-height: 1.4;
+      }
+      .lock-error {
+        background: #7f1d1d22;
+        border: 1px solid #7f1d1d;
+        color: #f87171;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 13px;
+        margin-bottom: 12px;
+        display: none;
+        line-height: 1.4;
+      }
+
+      /* ===== NOTIFY MODAL ===== */
+      #notify-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 14, 20, 0.85);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9998;
+        padding: 20px;
+      }
+      .notify-box {
+        background: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 16px;
+        padding: 28px 24px;
+        width: 100%;
+        max-width: 380px;
+        text-align: center;
+      }
+      .notify-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+      }
+      .notify-box h3 {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #f9fafb;
+      }
+      .notify-box p {
+        font-size: 13px;
+        color: #9ca3af;
+        white-space: pre-line;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      .notify-actions {
+        display: flex;
+        gap: 8px;
+        flex-direction: column;
+      }
+      .notify-btn-primary {
+        background: #f5b800;
+        color: #1a1a1a;
+        border: none;
+        border-radius: 8px;
+        padding: 11px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: "RobotoCondensed", sans-serif;
+      }
+      .notify-btn-secondary {
+        background: transparent;
+        color: #9ca3af;
+        border: 1px solid #374151;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: "RobotoCondensed", sans-serif;
+      }
+      .notify-btn-secondary:hover {
+        border-color: #f5b800;
+        color: #f5b800;
+      }
+
+      /* ===== KEY EXPIRY BAR ===== */
+      .key-bar {
+        background: #1f2937;
+        border-bottom: 1px solid #374151;
+        padding: 6px 20px;
+        font-size: 12px;
+        color: #9ca3af;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .key-bar.warning {
+        background: #78350f22;
+        color: #fbbf24;
+      }
+      .key-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #4ade80;
+        flex-shrink: 0;
+      }
+      .key-bar.warning .key-dot {
+        background: #fbbf24;
+      }
+
+      /* ===== CONFETTI ===== */
+      .confetti-piece {
+        position: fixed;
+        top: -10px;
+        font-size: 20px;
+        z-index: 99999;
+        animation: fall 4s linear forwards;
+      }
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* ===== WELCOME / INSTALL SCREEN ===== */
+      #welcome-overlay {
+        position: fixed; inset: 0;
+        background: #0a0e14;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 10000; padding: 20px;
+      }
+      .welcome-box {
+        background: #1f2937; border: 1px solid #374151;
+        border-radius: 20px; padding: 32px 24px;
+        width: 100%; max-width: 400px; text-align: center;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        animation: wSlideUp 0.4s ease;
+      }
+      @keyframes wSlideUp {
+        from { transform: translateY(40px); opacity: 0; }
+        to   { transform: translateY(0);    opacity: 1; }
+      }
+      .welcome-logo {
+        width: 72px; height: 72px; border-radius: 18px;
+        background: linear-gradient(135deg, #f5b800 0%, #e0a800 100%);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 36px; margin: 0 auto 16px;
+        box-shadow: 0 8px 20px rgba(245,184,0,0.35);
+      }
+      .welcome-box h2 { font-size: 22px; font-weight: 800; color: #f9fafb; margin-bottom: 6px; }
+      .welcome-sub { font-size: 13px; color: #9ca3af; margin-bottom: 20px; line-height: 1.5; }
+      .welcome-badge {
+        display: inline-block; background: #78350f33; color: #fbbf24;
+        border: 1px solid #78350f66; border-radius: 20px;
+        padding: 3px 12px; font-size: 11px; font-weight: 700; margin-bottom: 12px;
+      }
+      .pwa-already {
+        background: #052e1633; border: 1px solid #166534aa;
+        border-radius: 10px; padding: 12px 14px; margin-bottom: 16px;
+        font-size: 13px; color: #4ade80; display: none; line-height: 1.5;
+      }
+      .install-cards { display: flex; gap: 10px; margin-bottom: 16px; }
+      .install-card {
+        flex: 1; border: 1.5px solid #374151; border-radius: 12px;
+        padding: 14px 8px; cursor: pointer; transition: all 0.2s;
+        background: #111827;
+      }
+      .install-card:hover  { border-color: #f5b800; background: #1f2937; transform: translateY(-2px); }
+      .install-card.active { border-color: #f5b800; background: #1f2937; }
+      .ic-icon  { font-size: 26px; margin-bottom: 5px; }
+      .ic-title { font-size: 12px; font-weight: 700; color: #f9fafb; margin-bottom: 2px; }
+      .ic-sub   { font-size: 10px; color: #6b7280; line-height: 1.4; }
+      .install-steps {
+        background: #111827; border: 1px solid #374151;
+        border-radius: 10px; padding: 14px 16px; margin-bottom: 16px;
+        text-align: left; display: none;
+      }
+      .install-steps.show { display: block; }
+      .install-steps .step-title { font-size: 12px; font-weight: 700; color: #f5b800; margin-bottom: 8px; }
+      .install-steps ol { padding-left: 18px; }
+      .install-steps li  { font-size: 12px; color: #9ca3af; margin-bottom: 5px; line-height: 1.5; }
+      .install-steps li b { color: #f9fafb; }
+      .btn-welcome-main {
+        width: 100%; padding: 14px; font-size: 15px; font-weight: 700;
+        background: #f5b800; color: #1a1a1a; border: none; border-radius: 10px;
+        cursor: pointer; transition: all 0.2s; margin-bottom: 8px;
+        box-shadow: 0 4px 15px rgba(245,184,0,0.3);
+      }
+      .btn-welcome-main:hover { background: #e0a800; transform: translateY(-1px); }
+      .btn-welcome-skip {
+        width: 100%; background: transparent; color: #6b7280;
+        border: 1px solid #374151; border-radius: 10px; padding: 11px;
+        font-size: 13px; cursor: pointer; transition: all 0.2s;
+      }
+      .btn-welcome-skip:hover { border-color: #f5b800; color: #f5b800; }
+    </style>
+  </head>
+  <body>
+    <!-- ===== WELCOME / INSTALL SCREEN ===== -->
+    <div id="welcome-overlay">
+      <div class="welcome-box">
+        <div class="welcome-logo">⏱️</div>
+        <div class="welcome-badge">📲 Cài app để dùng offline</div>
+        <h2>Timemark</h2>
+        <p class="welcome-sub">Watermark ngày giờ chuyên nghiệp.<br>Cài app để truy cập nhanh, dùng được offline!</p>
+
+        <div class="pwa-already" id="pwa-already">
+          ✅ Bạn đã cài app rồi! Nhấn <b>Vào ứng dụng</b> để tiếp tục.
+        </div>
+
+        <div class="install-cards" id="install-cards">
+          <div class="install-card" id="card-android" onclick="selectPlatform('android')">
+            <div class="ic-icon">🤖</div>
+            <div class="ic-title">Android</div>
+            <div class="ic-sub">Chrome / Edge</div>
+          </div>
+          <div class="install-card" id="card-ios" onclick="selectPlatform('ios')">
+            <div class="ic-icon">🍎</div>
+            <div class="ic-title">iPhone / iPad</div>
+            <div class="ic-sub">Safari</div>
+          </div>
+          <div class="install-card" id="card-pc" onclick="selectPlatform('pc')">
+            <div class="ic-icon">💻</div>
+            <div class="ic-title">Máy tính</div>
+            <div class="ic-sub">Chrome / Edge</div>
+          </div>
+        </div>
+
+        <div class="install-steps" id="steps-android">
+          <div class="step-title">📲 Cài trên Android (Chrome)</div>
+          <ol>
+            <li>Mở trang này bằng <b>Chrome</b></li>
+            <li>Nhấn nút <b>"Cài ứng dụng"</b> bên dưới<br><em>(hoặc menu ⋮ → Thêm vào màn hình chính)</em></li>
+            <li>Xác nhận <b>Cài đặt</b> → App xuất hiện trên màn hình chính</li>
+          </ol>
+        </div>
+        <div class="install-steps" id="steps-ios">
+          <div class="step-title">📱 Cài trên iPhone / iPad (Safari)</div>
+          <ol>
+            <li>Mở trang này bằng <b>Safari</b></li>
+            <li>Nhấn nút <b>Chia sẻ</b> <em>(biểu tượng □↑)</em> ở thanh dưới</li>
+            <li>Chọn <b>"Thêm vào màn hình chính"</b></li>
+            <li>Nhấn <b>Thêm</b> → App xuất hiện trên Home Screen</li>
+          </ol>
+        </div>
+        <div class="install-steps" id="steps-pc">
+          <div class="step-title">💻 Cài trên máy tính (Chrome / Edge)</div>
+          <ol>
+            <li>Mở trang này bằng <b>Chrome</b> hoặc <b>Edge</b></li>
+            <li>Nhấn biểu tượng <b>💾</b> trên thanh địa chỉ<br><em>(hoặc menu ⋮ → Cài đặt ứng dụng)</em></li>
+            <li>Xác nhận <b>Cài đặt</b></li>
+          </ol>
+        </div>
+
+        <button class="btn-welcome-main" id="btn-install-pwa" style="display:none" onclick="triggerInstall()">
+          📲 Cài ứng dụng ngay
+        </button>
+        <button class="btn-welcome-main" id="btn-welcome-continue" onclick="proceedToApp()">
+          Tiếp tục →
+        </button>
+        <button class="btn-welcome-skip" onclick="proceedToApp()">
+          Bỏ qua, dùng trên trình duyệt
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== LOCK OVERLAY ===== -->
+    <div id="lock-overlay">
+      <div class="lock-box">
+        <div class="lock-icon">🔐</div>
+        <h2>Kích hoạt Timemark</h2>
+        <p>
+          Nhập key để sử dụng đầy đủ tính năng.<br />Mỗi key chỉ dùng được trên
+          1 thiết bị.
+        </p>
+        <div class="lock-error" id="lock-error"></div>
+        <input
+          class="key-input"
+          id="key-input"
+          placeholder="Nhập key của bạn (VD: ABCD-1234-WXYZ-5678)"
+          maxlength="24"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button class="btn-activate" id="btn-activate" onclick="activate()">
+          Kích hoạt
+        </button>
+        <button
+          class="btn-buy"
+          onclick="window.open('https://zalo.me/', '_blank')"
+        >
+          🛒 Mua key Timemark
+        </button>
+        <div class="lock-note">
+          Chưa có key? Liên hệ admin để mua.<br />1 key = 1 thiết bị, không thể
+          dùng chung.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== NOTIFY MODAL ===== -->
+    <div id="notify-modal">
+      <div class="notify-box">
+        <div class="notify-icon" id="notify-icon">ℹ️</div>
+        <h3 id="notify-title"></h3>
+        <p id="notify-msg"></p>
+        <div class="notify-actions" id="notify-actions"></div>
+      </div>
+    </div>
+
+    <header>
+      <div class="hl">
+        <div class="logo-mark">TM</div>
+        <div>
+          <div class="ht">Timemark</div>
+          <div class="hs">Công cụ tạo watermark</div>
+        </div>
+      </div>
+      <div class="header-btns">
+        <button id="btn-dl" onclick="showTrialNotice()">⬇ Tải ảnh</button>
+        <button id="btn-dl-video" onclick="showTrialNotice()">
+          🎬 Tải video
+        </button>
+        <button id="btn-install" onclick="installPWA()">+ Cài app</button>
+      </div>
+    </header>
+
+    <!-- KEY EXPIRY BAR -->
+    <div class="key-bar" id="key-bar" style="display: none">
+      <div class="key-dot" id="key-dot"></div>
+      <span id="key-bar-text">Đang kiểm tra key...</span>
+      <span
+        style="
+          margin-left: auto;
+          cursor: pointer;
+          color: #ef4444;
+          font-size: 11px;
+        "
+        onclick="logout()"
+        >Đăng xuất</span
+      >
+    </div>
+
+    <div class="install-hint" id="install-hint" style="display: none"></div>
+
+    <div class="main">
+      <div class="preview-box" id="preview-box">
+        <div
+          class="empty-state"
+          id="empty-state"
+          onclick="document.getElementById('file-in').click()"
+        >
+          <div class="empty-icon">🖼️</div>
+          <div style="font-size: 17px; font-weight: 600; margin-bottom: 5px">
+            Chọn ảnh hoặc video để bắt đầu
+          </div>
+          <div style="font-size: 13px; color: #6b7280">
+            Nhấn vào đây hoặc kéo thả file
+          </div>
+        </div>
+        <canvas id="canvas"></canvas>
+        <video id="video-preview" controls></video>
+        <div class="video-hint" id="video-hint">
+          🎬 Video đã chọn — watermark sẽ được thêm khi tải về
+        </div>
+      </div>
+
+      <div class="controls">
+        <h2>Tùy chỉnh</h2>
+
+        <!-- Media selector -->
+        <div class="field">
+          <div class="media-btns">
+            <button
+              class="btn-primary"
+              onclick="document.getElementById('file-in').click()"
+            >
+              📁 Chọn ảnh
+            </button>
+            <button
+              class="btn-secondary"
+              onclick="document.getElementById('video-in').click()"
+            >
+              🎬 Chọn video
+            </button>
+          </div>
+          <input
+            type="file"
+            id="file-in"
+            accept="image/*"
+            style="display: none"
+            onchange="handleImg(this)"
+          />
+          <input
+            type="file"
+            id="video-in"
+            accept="video/*"
+            style="display: none"
+            onchange="handleVideo(this)"
+          />
+        </div>
+
+        <div class="tabs">
+          <button class="tab" id="tab1" onclick="setTemplate('1')">
+            Mẫu 1 — Điểm danh
+          </button>
+          <button class="tab active" id="tab2" onclick="setTemplate('2')">
+            Mẫu 2 — Đồng hồ
+          </button>
+        </div>
+
+        <div class="field">
+          <label class="lbl">🕐 Ngày &amp; Giờ</label>
+          <input type="datetime-local" id="dt" oninput="redraw()" />
+        </div>
+
+        <div class="field">
+          <label class="lbl">📍 Vị trí</label>
+          <div class="gps-row">
+            <input
+              type="text"
+              id="loc"
+              value="Hà Nội, Việt Nam"
+              oninput="redraw()"
+            />
+            <button class="gps-btn" id="gps-btn" onclick="getGPS()">
+              📡 GPS
+            </button>
+          </div>
+          <div class="gps-status gps-idle" id="gps-status">
+            Nhấn GPS để tự động lấy vị trí
+          </div>
+        </div>
+
+        <!-- Mẫu 1 fields -->
+        <div id="m1-fields">
+          <div class="field">
+            <label class="lbl">🏷️ Nhãn</label>
+            <input
+              type="text"
+              id="label"
+              value="Điểm danh"
+              oninput="redraw()"
+            />
+          </div>
+          <div class="field">
+            <label class="lbl">🖼️ Logo</label>
+            <div class="row">
+              <button
+                class="btn-outline"
+                onclick="document.getElementById('logo-in').click()"
+                id="logo-btn"
+              >
+                📷 Chọn logo
+              </button>
+              <button
+                class="btn-red"
+                id="logo-rm"
+                onclick="removeLogo()"
+                style="display: none"
+              >
+                ✕
+              </button>
+            </div>
+            <div class="logo-prev" id="logo-prev" style="display: none">
+              <img id="logo-img" src="" /><span
+                style="font-size: 11px; color: #9ca3af"
+                >Logo đã chọn</span
+              >
+            </div>
+            <div id="logo-extras" style="display: none; margin-top: 8px">
+              <div style="display: flex; gap: 6px; margin-bottom: 6px">
+                <button
+                  id="pos-above"
+                  class="tab active"
+                  style="font-size: 11px; padding: 6px"
+                  onclick="setLogoPos('above')"
+                >
+                  ↑ Trên
+                </button>
+                <button
+                  id="pos-inline"
+                  class="tab"
+                  style="font-size: 11px; padding: 6px"
+                  onclick="setLogoPos('inline')"
+                >
+                  → Bên giờ
+                </button>
+              </div>
+              <label class="lbl"
+                >Kích thước logo: <span id="ls-val">150</span>%</label
+              >
+              <input
+                type="range"
+                min="50"
+                max="250"
+                step="5"
+                value="150"
+                id="logo-size"
+                oninput="
+                  document.getElementById('ls-val').textContent = this.value;
+                  redraw();
+                "
+              />
+            </div>
+            <input
+              type="file"
+              id="logo-in"
+              accept="image/*"
+              style="display: none"
+              onchange="handleLogo(this)"
+            />
+          </div>
+        </div>
+
+        <!-- Mẫu 2 fields -->
+        <div id="m2-fields" style="display: none">
+          <div class="field">
+            <label class="lbl">🖼️ Logo (trên đồng hồ)</label>
+            <div class="row">
+              <button
+                class="btn-outline"
+                onclick="document.getElementById('logo2-in').click()"
+                id="logo2-btn"
+              >
+                📷 Chọn logo
+              </button>
+              <button
+                class="btn-red"
+                id="logo2-rm"
+                onclick="removeLogo2()"
+                style="display: none"
+              >
+                ✕
+              </button>
+            </div>
+            <div class="logo-prev" id="logo2-prev" style="display: none">
+              <img id="logo2-img" src="" /><span
+                style="font-size: 11px; color: #9ca3af"
+                >Logo đã chọn</span
+              >
+            </div>
+            <div id="logo2-extras" style="display: none; margin-top: 6px">
+              <label class="lbl"
+                >Kích thước logo: <span id="ls2-val">150</span>%</label
+              >
+              <input
+                type="range"
+                min="50"
+                max="250"
+                step="5"
+                value="150"
+                id="logo2-size"
+                oninput="
+                  document.getElementById('ls2-val').textContent = this.value;
+                  redraw();
+                "
+              />
+            </div>
+            <input
+              type="file"
+              id="logo2-in"
+              accept="image/*"
+              style="display: none"
+              onchange="handleLogo2(this)"
+            />
+          </div>
+          <div class="field">
+            <label class="lbl">📝 Ghi chú (tối đa 3 dòng)</label>
+            <div class="note-table">
+              <div class="note-head">
+                <span>Tiêu đề</span><span>Nội dung</span>
+              </div>
+              <div class="note-row">
+                <input
+                  type="text"
+                  id="n0t"
+                  placeholder="Tiêu đề"
+                  oninput="redraw()"
+                />
+                <input
+                  type="text"
+                  id="n0c"
+                  placeholder="Vui lòng nhập nội dung"
+                  oninput="redraw()"
+                />
+              </div>
+              <div class="note-row">
+                <input
+                  type="text"
+                  id="n1t"
+                  placeholder="Tiêu đề"
+                  oninput="redraw()"
+                />
+                <input
+                  type="text"
+                  id="n1c"
+                  placeholder="Vui lòng nhập nội dung"
+                  oninput="redraw()"
+                />
+              </div>
+              <div class="note-row">
+                <input
+                  type="text"
+                  id="n2t"
+                  placeholder="Tiêu đề"
+                  oninput="redraw()"
+                />
+                <input
+                  type="text"
+                  id="n2c"
+                  placeholder="Vui lòng nhập nội dung"
+                  oninput="redraw()"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="lbl"
+            >🔍 Kích thước watermark: <span id="wm-val">140</span>%</label
+          >
+          <input
+            type="range"
+            min="50"
+            max="180"
+            step="5"
+            value="140"
+            id="wm-scale"
+            oninput="
+              document.getElementById('wm-val').textContent = this.value;
+              redraw();
+            "
+          />
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-size: 10px;
+              color: #6b7280;
+              margin-top: 2px;
+            "
+          >
+            <span>Nhỏ</span><span>Mặc định</span><span>To</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="toggle-row">
+            <label class="lbl" style="margin-bottom: 0">🔢 Mã ảnh</label>
+            <label class="toggle"
+              ><input
+                type="checkbox"
+                id="show-code"
+                checked
+                onchange="redraw()" /><span class="slider-t"></span
+            ></label>
+          </div>
+          <div style="margin-top: 7px">
+            <input
+              type="text"
+              id="code-txt"
+              style="font-family: monospace"
+              placeholder="HUTM3M6MTURKLB"
+              oninput="redraw()"
+            />
+          </div>
+        </div>
+
+        <!-- Video processing status -->
+        <div id="video-processing-wrap" style="display: none">
+          <div
+            style="font-size: 12px; color: #f5b800; margin-bottom: 4px"
+            id="video-processing-label"
+          >
+            ⏳ Đang xử lý video...
+          </div>
+          <div
+            class="processing-bar"
+            id="processing-bar"
+            style="display: block"
+          >
+            <div class="processing-bar-inner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ===== KEY ACTIVATION =====
+      const API_URL =
+        "https://script.google.com/macros/s/AKfycbyY3xOpMGt-ffP1oq0EBsl6C9V_i5SYA-tDdcAeKiPVbTe8XodHDsL5nGb3fywzUGBfqg/exec";
+
+      let keyWatcher = null;
+
+      function getDevice() {
+        let d = localStorage.getItem("tm_device");
+        if (!d) {
+          d = ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+            (
+              c ^
+              (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+            ).toString(16),
+          );
+          localStorage.setItem("tm_device", d);
+        }
+        return d;
+      }
+
+      function showNotify(icon, title, msg, buttons) {
+        document.getElementById("notify-icon").textContent = icon;
+        document.getElementById("notify-title").textContent = title;
+        document.getElementById("notify-msg").textContent = msg;
+        const acts = document.getElementById("notify-actions");
+        acts.innerHTML = "";
+        (buttons || []).forEach((b) => {
+          const btn = document.createElement("button");
+          btn.className = b.primary
+            ? "notify-btn-primary"
+            : "notify-btn-secondary";
+          btn.textContent = b.label;
+          btn.onclick = b.action;
+          acts.appendChild(btn);
+        });
+        document.getElementById("notify-modal").style.display = "flex";
+      }
+      function closeNotify() {
+        document.getElementById("notify-modal").style.display = "none";
+      }
+
+      function startConfetti() {
+        for (let i = 0; i < 24; i++) {
+          const p = document.createElement("div");
+          p.className = "confetti-piece";
+          p.textContent = ["🎉", "✨", "🌟", "🎊"][i % 4];
+          p.style.left = Math.random() * 100 + "vw";
+          p.style.animationDelay = Math.random() * 1.5 + "s";
+          p.style.fontSize = 16 + Math.random() * 16 + "px";
+          document.body.appendChild(p);
+          setTimeout(() => p.remove(), 5000);
+        }
+      }
+
+      function updateKeyBar(data) {
+        const bar = document.getElementById("key-bar");
+        const txt = document.getElementById("key-bar-text");
+        if (!data || data.status !== "ok") {
+          bar.style.display = "none";
+          return;
+        }
+        bar.style.display = "flex";
+        const d = Number(data.daysLeft || 0);
+        bar.className = "key-bar" + (d <= 3 ? " warning" : "");
+        txt.textContent = `Key: ${data.level || ""} • HSD: ${data.expireDate || ""} • Còn ${d} ngày`;
+      }
+
+      function activate() {
+        const key = document
+          .getElementById("key-input")
+          .value.trim()
+          .toUpperCase();
+        const errEl = document.getElementById("lock-error");
+        const btn = document.getElementById("btn-activate");
+        errEl.style.display = "none";
+        if (!key) {
+          errEl.textContent = "⚠️ Vui lòng nhập key trước.";
+          errEl.style.display = "block";
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = "⏳ Đang kiểm tra...";
+        fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({ key, device: getDevice() }),
+        })
+          .then((r) => r.json())
+          .then((d) => {
+            btn.disabled = false;
+            btn.textContent = "Kích hoạt";
+            if (d.status === "ok") {
+              localStorage.setItem("tm_active", "1");
+              localStorage.setItem("tm_key", key);
+              localStorage.removeItem("tm_notify_once");
+              document.getElementById("lock-overlay").style.display = "none";
+              updateKeyBar(d);
+              startConfetti();
+              startRealtimeCheck();
+              showNotify(
+                "🎉",
+                "Kích hoạt thành công!",
+                `Gói: ${d.level} (${d.type})\nKích hoạt: ${d.startDate}\nHết hạn: ${d.expireDate}\nCòn lại: ${d.daysLeft} ngày`,
+                [
+                  {
+                    label: "Bắt đầu sử dụng",
+                    primary: true,
+                    action: closeNotify,
+                  },
+                ],
+              );
+            } else {
+              errEl.textContent = "❌ " + (d.message || "Key không hợp lệ.");
+              errEl.style.display = "block";
+            }
+          })
+          .catch(() => {
+            btn.disabled = false;
+            btn.textContent = "Kích hoạt";
+            errEl.textContent =
+              "❌ Không kết nối được server. Vui lòng thử lại.";
+            errEl.style.display = "block";
+          });
+      }
+
+      function autoCheckKey() {
+        const savedKey = localStorage.getItem("tm_key");
+        if (!savedKey) {
+          updateKeyBar(null);
+          return;
+        }
+        fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({ key: savedKey, device: getDevice() }),
+        })
+          .then((r) => r.json())
+          .then((d) => {
+            if (d.maintenance) {
+              logout();
+              showNotify(
+                "🛠️",
+                "Hệ thống bảo trì",
+                d.message ||
+                  "Timemark đang được nâng cấp. Vui lòng thử lại sau.",
+                [
+                  {
+                    label: "🏠 Về trang chủ",
+                    primary: true,
+                    action: () => (window.location.href = "../"),
+                  },
+                ],
+              );
+              return;
+            }
+            if (d.status !== "ok") {
+              logout();
+              showNotify(
+                "⚠️",
+                "Thông báo hệ thống",
+                d.message || "Key không hợp lệ.",
+                [
+                  {
+                    label: "🏠 Về trang chủ",
+                    primary: true,
+                    action: () => (window.location.href = "../"),
+                  },
+                  {
+                    label: "🛒 Mua key",
+                    primary: false,
+                    action: () =>
+                      window.open("https://zalo.me/", "_blank"),
+                  },
+                ],
+              );
+              return;
+            }
+            updateKeyBar(d);
+            if (localStorage.getItem("tm_notify_once") === "1") return;
+            localStorage.setItem("tm_notify_once", "1");
+            showNotify(
+              "🛡️",
+              "Thông tin bản quyền",
+              `Gói: ${d.level} (${d.type})\nCòn lại: ${d.daysLeft} ngày\nHết hạn: ${d.expireDate}\n\nCảm ơn bạn đã sử dụng Timemark!`,
+              [
+                {
+                  label: "Bắt đầu sử dụng",
+                  primary: true,
+                  action: closeNotify,
+                },
+              ],
+            );
+          })
+          .catch(() => {});
+      }
+
+      function startRealtimeCheck() {
+        if (keyWatcher) return;
+        autoCheckKey();
+        keyWatcher = setInterval(autoCheckKey, 10000);
+      }
+
+      function logout() {
+        localStorage.removeItem("tm_active");
+        localStorage.removeItem("tm_key");
+        localStorage.removeItem("tm_notify_once");
+        if (keyWatcher) {
+          clearInterval(keyWatcher);
+          keyWatcher = null;
+        }
+        updateKeyBar(null);
+        document.getElementById("lock-overlay").style.display = "flex";
+        document.getElementById("key-input").value = "";
+        document.getElementById("lock-error").style.display = "none";
+      }
+
+      // ===== WELCOME SCREEN =====
+      let deferredInstallPrompt = null;
+      const _isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const _isAndroid = /Android/i.test(navigator.userAgent);
+      const _isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredInstallPrompt = e;
+        document.getElementById("btn-install-pwa").style.display = "block";
+        updateInstallUI();
+      });
+
+      function selectPlatform(p) {
+        ["android","ios","pc"].forEach(id => {
+          document.getElementById("card-"+id).classList.remove("active");
+          document.getElementById("steps-"+id).classList.remove("show");
+        });
+        document.getElementById("card-"+p).classList.add("active");
+        document.getElementById("steps-"+p).classList.add("show");
+      }
+
+      async function triggerInstall() {
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        const result = await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        document.getElementById("btn-install-pwa").style.display = "none";
+        if (result.outcome === "accepted") setTimeout(() => proceedToApp(), 600);
+      }
+
+      function proceedToApp() {
+        document.getElementById("welcome-overlay").style.display = "none";
+        if (localStorage.getItem("tm_active") === "1") {
+          startRealtimeCheck();
+          setTimeout(getGPS, 400);
+        } else {
+          document.getElementById("lock-overlay").style.display = "flex";
+        }
+      }
+      // ===== END WELCOME =====
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("key-input").addEventListener("keydown", (e) => {
+          if (e.key === "Enter") activate();
+        });
+
+        // Auto-detect platform for welcome screen
+        if (_isStandalone) {
+          document.getElementById("pwa-already").style.display = "block";
+          document.getElementById("install-cards").style.display = "none";
+          document.getElementById("btn-welcome-continue").textContent = "Vào ứng dụng →";
+        } else if (_isIOS) {
+          selectPlatform("ios");
+        } else if (_isAndroid) {
+          selectPlatform("android");
+        } else {
+          selectPlatform("pc");
+        }
+      });
+
+      // Chống devtools
+      document.addEventListener("keydown", (e) => {
+        const key = (e.key || "").toUpperCase();
+        if (
+          key === "F12" ||
+          (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(key)) ||
+          (e.ctrlKey && key === "U") ||
+          (e.ctrlKey && key === "S") ||
+          (e.ctrlKey && key === "P") ||
+          (e.metaKey && e.altKey && key === "I")
+        ) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      });
+      document.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        return false;
+      });
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) autoCheckKey();
+      });
+      // ===== END KEY ACTIVATION =====
+
+      const DAYS = [
+        "Chủ Nhật",
+        "Thứ Hai",
+        "Thứ Ba",
+        "Thứ Tư",
+        "Thứ Năm",
+        "Thứ Sáu",
+        "Thứ Bảy",
+      ];
+      const MONTHS = [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+      ];
+      const BRAND_URL =
+        "https://media.base44.com/images/public/69df6b2263c99b4b1dbec596/b9eb7783b_official_wm_new.png";
+      const PILL_BG =
+        "https://media.base44.com/images/public/69df6b2263c99b4b1dbec596/1f179f21a_bg_check_in_global.png";
+
+      let curImg = null,
+        curLogo = null,
+        curLogo2 = null,
+        logoPos = "above",
+        template = "2";
+      let curVideoFile = null,
+        curVideoURL = null;
+      let mediaMode = "none"; // "image" | "video" | "none"
+
+      const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+      const isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true;
+
+      function updateInstallUI() {
+        const installBtn = document.getElementById("btn-install");
+        const installHint = document.getElementById("install-hint");
+        if (!installBtn || !installHint) return;
+        if (isStandalone) { installBtn.style.display = "none"; installHint.style.display = "none"; return; }
+        if (isIos) { installBtn.style.display = "none"; installHint.style.display = "block"; installHint.innerHTML = "📲 Safari → Chia sẻ → <b>Thêm vào màn hình chính</b>"; return; }
+        if (deferredInstallPrompt) { installBtn.style.display = "inline-flex"; installHint.style.display = "block"; installHint.innerHTML = "📲 Nhấn nút <b>Cài app</b> để cài Timemark"; }
+        else { installBtn.style.display = "none"; installHint.style.display = "block"; installHint.innerHTML = "📲 Menu trình duyệt → <b>Thêm vào màn hình chính</b>"; }
+      }
+
+      window.addEventListener("appinstalled", () => { deferredInstallPrompt = null; updateInstallUI(); });
+
+      async function installPWA() {
+        if (!deferredInstallPrompt) { alert("Trình duyệt chưa hỗ trợ cài app."); return; }
+        deferredInstallPrompt.prompt();
+        const result = await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        updateInstallUI();
+      }
+
+      // load
+      window.addEventListener("load", async () => {
+        // register SW
+        if ("serviceWorker" in navigator) {
+          try {
+            await navigator.serviceWorker.register("./sw.js");
+
+            console.log("SW registered");
+          } catch (err) {
+            console.log("SW failed", err);
+          }
+        }
+
+        // delay để browser detect PWA
+        setTimeout(() => {
+          updateInstallUI();
+        }, 1500);
+      });
+
+      (() => {
+        const n = new Date();
+        document.getElementById("dt").value = new Date(
+          n - n.getTimezoneOffset() * 60000,
+        )
+          .toISOString()
+          .slice(0, 16);
+      })();
+      (() => {
+        const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let s = "";
+        for (let i = 0; i < 16; i++)
+          s += c[Math.floor(Math.random() * c.length)];
+        document.getElementById("code-txt").value = s;
+      })();
+
+      function setGPS(state, msg) {
+        const el = document.getElementById("gps-status");
+        el.textContent = msg;
+        el.className = "gps-status gps-" + state;
+      }
+      function getGPS() {
+        if (!navigator.geolocation) {
+          setGPS("err", "Trình duyệt không hỗ trợ GPS");
+          return;
+        }
+        setGPS("loading", "Đang lấy vị trí GPS...");
+        navigator.geolocation.getCurrentPosition(
+          async (pos) => {
+            try {
+              const {
+                latitude: lat,
+                longitude: lon,
+                accuracy: acc,
+              } = pos.coords;
+              setGPS("loading", "Đang tra địa chỉ...");
+              const r = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=vi`,
+              );
+              const d = await r.json();
+              const a = d.address || {};
+              const parts = [
+                a.road || a.pedestrian || a.suburb,
+                a.quarter || a.village || a.town || a.city_district,
+                a.city || a.county || a.state,
+              ].filter(Boolean);
+              document.getElementById("loc").value = parts.length
+                ? parts.join(", ")
+                : d.display_name;
+              setGPS("ok", `✓ GPS OK (±${Math.round(acc)}m)`);
+              redraw();
+            } catch {
+              setGPS("ok", "✓ GPS OK");
+            }
+          },
+          (e) => {
+            const m = {
+              1: "Bạn từ chối quyền vị trí",
+              2: "Không xác định được vị trí",
+              3: "Hết thời gian chờ",
+            };
+            setGPS("err", m[e.code] || "Lỗi GPS");
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
+        );
+      }
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("sw.js").catch(() => {});
+        }
+        updateInstallUI();
+        // GPS runs after welcome is dismissed
+      });
+
+      function setTemplate(t) {
+        template = t;
+        document.getElementById("tab1").className =
+          "tab" + (t === "1" ? " active" : "");
+        document.getElementById("tab2").className =
+          "tab" + (t === "2" ? " active" : "");
+        document.getElementById("m1-fields").style.display =
+          t === "1" ? "" : "none";
+        document.getElementById("m2-fields").style.display =
+          t === "2" ? "" : "none";
+        redraw();
+      }
+
+      // ===== MEDIA HANDLING =====
+
+      function handleImg(i) {
+        const f = i.files[0];
+        if (!f) return;
+
+        const r = new FileReader();
+
+        r.onload = (e) => {
+          curImg = e.target.result;
+
+          curVideoFile = null;
+
+          if (curVideoURL) {
+            URL.revokeObjectURL(curVideoURL);
+            curVideoURL = null;
+          }
+
+          mediaMode = "image";
+
+          // Ẩn video
+          document.getElementById("video-preview").style.display = "none";
+          document.getElementById("video-preview").src = "";
+          document.getElementById("video-hint").style.display = "none";
+          document.getElementById("btn-dl-video").style.display = "none";
+
+          // Hiện canvas
+          document.getElementById("canvas").style.display = "block";
+
+          // Ẩn empty state
+          document.getElementById("empty-state").style.display = "none";
+
+          redraw();
+        };
+
+        r.readAsDataURL(f);
+      }
+
+      function handleVideo(i) {
+        const f = i.files[0];
+        if (!f) return;
+        if (curVideoURL) URL.revokeObjectURL(curVideoURL);
+        curVideoFile = f;
+        curVideoURL = URL.createObjectURL(f);
+        curImg = null;
+        mediaMode = "video";
+
+        // Hide image canvas
+        document.getElementById("canvas").style.display = "none";
+        document.getElementById("btn-dl").style.display = "none";
+
+        // Show video preview
+        const vp = document.getElementById("video-preview");
+        vp.src = curVideoURL;
+        vp.style.display = "block";
+        document.getElementById("video-hint").style.display = "";
+        document.getElementById("empty-state").style.display = "none";
+        document.getElementById("btn-dl-video").style.display = "inline-flex";
+        document.getElementById("btn-dl-video").disabled = false;
+        document.getElementById("btn-dl-video").textContent = "🎬 Tải video";
+      }
+
+      function handleLogo(i) {
+        const f = i.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (e) => {
+          curLogo = e.target.result;
+          document.getElementById("logo-btn").textContent = "📷 Đổi logo";
+          document.getElementById("logo-rm").style.display = "";
+          document.getElementById("logo-prev").style.display = "flex";
+          document.getElementById("logo-img").src = curLogo;
+          document.getElementById("logo-extras").style.display = "";
+          redraw();
+        };
+        r.readAsDataURL(f);
+      }
+      function removeLogo() {
+        curLogo = null;
+        document.getElementById("logo-btn").textContent = "📷 Chọn logo";
+        document.getElementById("logo-rm").style.display = "none";
+        document.getElementById("logo-prev").style.display = "none";
+        document.getElementById("logo-extras").style.display = "none";
+        redraw();
+      }
+      function handleLogo2(i) {
+        const f = i.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (e) => {
+          curLogo2 = e.target.result;
+          document.getElementById("logo2-btn").textContent = "📷 Đổi logo";
+          document.getElementById("logo2-rm").style.display = "";
+          document.getElementById("logo2-prev").style.display = "flex";
+          document.getElementById("logo2-img").src = curLogo2;
+          document.getElementById("logo2-extras").style.display = "";
+          redraw();
+        };
+        r.readAsDataURL(f);
+      }
+      function removeLogo2() {
+        curLogo2 = null;
+        document.getElementById("logo2-btn").textContent = "📷 Chọn logo";
+        document.getElementById("logo2-rm").style.display = "none";
+        document.getElementById("logo2-prev").style.display = "none";
+        document.getElementById("logo2-extras").style.display = "none";
+        redraw();
+      }
+      function setLogoPos(p) {
+        logoPos = p;
+        document.getElementById("pos-above").className =
+          "tab" + (p === "above" ? " active" : "");
+        document.getElementById("pos-inline").className =
+          "tab" + (p === "inline" ? " active" : "");
+        redraw();
+      }
+
+      // ===== DRAWING HELPERS =====
+
+      function roundRect(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+      }
+      function setShadow(ctx, scale) {
+        ctx.shadowColor = "rgba(0,0,0,0.35)";
+        ctx.shadowBlur = 2 * scale;
+        ctx.shadowOffsetX = 1 * scale;
+        ctx.shadowOffsetY = 1 * scale;
+      }
+      function clearShadow(ctx) {
+        ctx.shadowColor = "transparent";
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+      }
+
+      function drawCodeVert(ctx, w, h, scale, code) {
+        ctx.save();
+        ctx.translate(w - 9 * scale, h * 0.5);
+        ctx.rotate(-Math.PI / 2);
+        const ic = 9 * scale;
+        ctx.font = `500 ${12 * scale}px RobotoCondensed`;
+        const textW = ctx.measureText(` ${code}  Timemark Verified`).width;
+        const startX = -(textW / 2) - ic - 2 * scale;
+        ctx.strokeStyle = "rgba(255,255,255,0.75)";
+        ctx.lineWidth = 1 * scale;
+        ctx.beginPath();
+        ctx.moveTo(startX + ic / 2, -ic / 2);
+        ctx.lineTo(startX + ic, -ic / 2 + ic * 0.22);
+        ctx.lineTo(startX + ic, -ic / 2 + ic * 0.55);
+        ctx.quadraticCurveTo(
+          startX + ic,
+          -ic / 2 + ic * 0.85,
+          startX + ic / 2,
+          -ic / 2 + ic,
+        );
+        ctx.quadraticCurveTo(
+          startX,
+          -ic / 2 + ic * 0.85,
+          startX,
+          -ic / 2 + ic * 0.55,
+        );
+        ctx.lineTo(startX, -ic / 2 + ic * 0.22);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(startX + ic * 0.28, -ic / 2 + ic * 0.52);
+        ctx.lineTo(startX + ic * 0.44, -ic / 2 + ic * 0.67);
+        ctx.lineTo(startX + ic * 0.72, -ic / 2 + ic * 0.36);
+        ctx.stroke();
+        ctx.fillStyle = "rgba(255,255,255,0.85)";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(` ${code}  Timemark Verified`, 0, 0);
+        ctx.restore();
+      }
+
+      // ===== WATERMARK PARAMS =====
+
+      function getWatermarkParams(w, h) {
+        const wmS = Number(document.getElementById("wm-scale").value);
+        const scale = (Math.min(w, h) / 800) * (wmS / 100);
+        const showCode = document.getElementById("show-code").checked;
+        const code = document.getElementById("code-txt").value;
+        const dt = new Date(document.getElementById("dt").value);
+        const loc = document.getElementById("loc").value || "Hà Nội, Việt Nam";
+        const dayName = DAYS[dt.getDay()] || "";
+        const day = dt.getDate(),
+          month = MONTHS[dt.getMonth()],
+          year = dt.getFullYear();
+        const hh = String(dt.getHours()).padStart(2, "0"),
+          mm = String(dt.getMinutes()).padStart(2, "0");
+        return {
+          scale,
+          showCode,
+          code,
+          loc,
+          dayName,
+          day,
+          month,
+          year,
+          hh,
+          mm,
+        };
+      }
+
+      // ===== REDRAW (image) =====
+
+      function redraw() {
+        if (mediaMode !== "image" || !curImg) return;
+
+        const canvas = document.getElementById("canvas");
+        const img = new Image();
+
+        img.onload = () => {
+          const ctx = canvas.getContext("2d");
+
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          // Xóa canvas cũ
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // Vẽ ảnh gốc
+          ctx.drawImage(img, 0, 0);
+
+          const w = canvas.width;
+          const h = canvas.height;
+
+          const p = getWatermarkParams(w, h);
+
+          const padding = 28 * p.scale;
+          const bottomY = h - padding;
+
+          if (template === "1") {
+            drawTemplate1(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              bottomY,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+            );
+          } else {
+            drawTemplate2(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+            );
+          }
+
+          // HIỆN PREVIEW
+          canvas.style.display = "block";
+
+          document.getElementById("empty-state").style.display = "none";
+
+          document.getElementById("btn-dl").style.display = "inline-flex";
+        };
+
+        img.onerror = () => {
+          document.getElementById("empty-state").style.display = "flex";
+        };
+
+        img.src = curImg;
+      }
+
+      // Draw watermark only onto ctx (used for video frames too)
+      function applyWatermark(ctx, w, h) {
+        const p = getWatermarkParams(w, h);
+        const padding = 28 * p.scale;
+        const bottomY = h - padding;
+        return new Promise((resolve) => {
+          const done = () => resolve();
+          if (template === "1") {
+            drawTemplate1Async(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              bottomY,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              done,
+            );
+          } else {
+            drawTemplate2Async(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              done,
+            );
+          }
+        });
+      }
+
+      // ===== TEMPLATE 1 =====
+
+      function drawTemplate1(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        bottomY,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        showCode,
+        code,
+      ) {
+        drawTemplate1Async(
+          ctx,
+          w,
+          h,
+          scale,
+          padding,
+          bottomY,
+          hh,
+          mm,
+          dayName,
+          day,
+          month,
+          year,
+          loc,
+          showCode,
+          code,
+          () => {
+            document.getElementById("empty-state").style.display = "none";
+            document.getElementById("canvas").style.display = "";
+            document.getElementById("btn-dl").style.display = "inline-flex";
+          },
+        );
+      }
+
+      function drawTemplate1Async(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        bottomY,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        showCode,
+        code,
+        callback,
+      ) {
+        padding = 12 * scale;
+        const labelTxt = document.getElementById("label").value || "Điểm danh";
+        const timeTxt = `${hh}:${mm}`;
+        const labelH = 38 * scale,
+          innerPad = 10 * scale,
+          gap = 6 * scale,
+          pillR = 8 * scale;
+
+        ctx.font = `700 ${22 * scale}px RobotoCondensed`;
+        const labelPartW = ctx.measureText(labelTxt).width + innerPad * 2;
+        ctx.font = `700 ${28 * scale}px RobotoCondensed`;
+        const timePartW = ctx.measureText(timeTxt).width + innerPad * 2;
+        const lBase = 48 * scale,
+          lSizePct = Number(document.getElementById("logo-size").value),
+          lSize = lBase * (lSizePct / 100);
+        const logoInlineW = curLogo && logoPos === "inline" ? lSize + gap : 0;
+        const totalW = gap + labelPartW + gap + timePartW + logoInlineW + gap;
+        const row1Y = bottomY - 82 * scale,
+          rowTop = row1Y - labelH + 1 * scale;
+
+        const drawAll = (patImg) => {
+          roundRect(ctx, padding, rowTop, totalW, labelH, pillR);
+          ctx.save();
+          ctx.clip();
+          if (patImg) {
+            const st = labelH / patImg.height,
+              tw = patImg.width * st;
+            let x = padding;
+            while (x < padding + totalW) {
+              ctx.drawImage(patImg, x, rowTop, tw, labelH);
+              x += tw;
+            }
+          } else {
+            ctx.fillStyle = "rgba(255,255,255,0.97)";
+            ctx.fillRect(padding, rowTop, totalW, labelH);
+          }
+          ctx.restore();
+
+          const yx = padding + gap;
+          ctx.fillStyle = "#f5b800";
+          roundRect(
+            ctx,
+            yx,
+            rowTop + 4 * scale,
+            labelPartW,
+            labelH - 8 * scale,
+            5 * scale,
+          );
+          ctx.fill();
+          ctx.fillStyle = "#1a1a1a";
+          ctx.font = `700 ${22 * scale}px RobotoCondensed`;
+          ctx.textBaseline = "middle";
+          ctx.fillText(labelTxt, yx + innerPad, rowTop + labelH / 2);
+
+          const tx = yx + labelPartW + gap;
+          ctx.fillStyle = "#1a3a6b";
+          ctx.font = `700 ${28 * scale}px RobotoCondensed`;
+          ctx.textBaseline = "middle";
+          ctx.fillText(timeTxt, tx + innerPad, rowTop + labelH / 2);
+
+          const barX = padding,
+            barY = row1Y + 10 * scale,
+            barH = 50 * scale;
+          ctx.fillStyle = "#e6a817";
+          ctx.fillRect(barX, barY, 3 * scale, barH);
+          const textX = barX + 14 * scale;
+
+          ctx.shadowColor = "rgba(0,0,0,0.25)";
+          ctx.shadowBlur = 0.5 * scale;
+          ctx.shadowOffsetX = 0.5 * scale;
+          ctx.shadowOffsetY = 0.5 * scale;
+          ctx.fillStyle = "#ffffff";
+          ctx.font = `700 ${18 * scale}px RobotoCondensed`;
+          ctx.textBaseline = "top";
+          ctx.strokeStyle = "rgba(80,80,80,0.45)";
+          ctx.lineWidth = 0.5 * scale;
+          ctx.lineJoin = "round";
+          ctx.strokeText(
+            `${dayName}, ${day} Tháng ${month},${year}`,
+            textX,
+            barY + 2 * scale,
+          );
+          ctx.fillText(
+            `${dayName}, ${day} Tháng ${month},${year}`,
+            textX,
+            barY + 2 * scale,
+          );
+          ctx.fillStyle = "rgba(255,255,255,0.92)";
+          ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+          ctx.strokeStyle = "rgba(60,60,60,0.4)";
+          ctx.lineWidth = 0.5 * scale;
+          ctx.strokeText(loc, textX, barY + 35 * scale);
+          ctx.fillText(loc, textX, barY + 35 * scale);
+          ctx.shadowColor = "transparent";
+          ctx.shadowBlur = 0;
+          ctx.shadowOffsetX = 0;
+          ctx.shadowOffsetY = 0;
+
+          const commitY = h - 15 * scale;
+          ctx.fillStyle = "rgba(255,255,255,0.75)";
+          ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+          ctx.textBaseline = "bottom";
+          const sx = padding,
+            sy = commitY - 15 * scale,
+            sw = 14 * scale,
+            sh = 14 * scale;
+          ctx.strokeStyle = "rgba(255,255,255,0.75)";
+          ctx.lineWidth = 1.2 * scale;
+          ctx.beginPath();
+          ctx.moveTo(sx + sw / 2, sy);
+          ctx.lineTo(sx + sw, sy + sh * 0.22);
+          ctx.lineTo(sx + sw, sy + sh * 0.55);
+          ctx.quadraticCurveTo(sx + sw, sy + sh * 0.85, sx + sw / 2, sy + sh);
+          ctx.quadraticCurveTo(sx, sy + sh * 0.85, sx, sy + sh * 0.55);
+          ctx.lineTo(sx, sy + sh * 0.22);
+          ctx.closePath();
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(sx + sw * 0.28, sy + sh * 0.52);
+          ctx.lineTo(sx + sw * 0.44, sy + sh * 0.67);
+          ctx.lineTo(sx + sw * 0.72, sy + sh * 0.36);
+          ctx.strokeStyle = "rgba(255,255,255,0.75)";
+          ctx.lineWidth = 1.3 * scale;
+          ctx.stroke();
+          ctx.fillText(
+            "Cam kết ngày giờ chân thực bởi Timemark",
+            padding + 18 * scale,
+            commitY,
+          );
+
+          const fin = () => {
+            const bi = new Image();
+            bi.crossOrigin = "anonymous";
+            bi.onload = () => {
+              const bh = 144 * scale,
+                bw = bh * (bi.width / bi.height);
+              ctx.drawImage(bi, w - bw, h - bh, bw, bh);
+              if (showCode) drawCodeVert(ctx, w, h, scale, code);
+              callback && callback();
+            };
+            bi.onerror = () => {
+              if (showCode) drawCodeVert(ctx, w, h, scale, code);
+              callback && callback();
+            };
+            bi.src = BRAND_URL;
+          };
+          if (curLogo) {
+            const li = new Image();
+            li.crossOrigin = "anonymous";
+            li.onload = () => {
+              if (logoPos === "inline")
+                ctx.drawImage(
+                  li,
+                  tx + timePartW + gap,
+                  rowTop + (labelH - lSize) / 2,
+                  lSize,
+                  lSize,
+                );
+              else
+                ctx.drawImage(
+                  li,
+                  padding,
+                  rowTop - lSize - 6 * scale,
+                  lSize,
+                  lSize,
+                );
+              fin();
+            };
+            li.onerror = () => fin();
+            li.src = curLogo;
+          } else fin();
+        };
+
+        const pi = new Image();
+        pi.crossOrigin = "anonymous";
+        pi.onload = () => drawAll(pi);
+        pi.onerror = () => drawAll(null);
+        pi.src = PILL_BG;
+      }
+
+      // ===== TEMPLATE 2 =====
+
+      function drawTemplate2(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        showCode,
+        code,
+      ) {
+        drawTemplate2Async(
+          ctx,
+          w,
+          h,
+          scale,
+          padding,
+          hh,
+          mm,
+          dayName,
+          day,
+          month,
+          year,
+          loc,
+          showCode,
+          code,
+          () => {
+            document.getElementById("empty-state").style.display = "none";
+            document.getElementById("canvas").style.display = "";
+            document.getElementById("btn-dl").style.display = "inline-flex";
+          },
+        );
+      }
+
+      function drawTemplate2Async(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        showCode,
+        code,
+        callback,
+      ) {
+        padding = 10 * scale;
+        const notes = [
+          {
+            title: document.getElementById("n0t").value,
+            content: document.getElementById("n0c").value,
+          },
+          {
+            title: document.getElementById("n1t").value,
+            content: document.getElementById("n1c").value,
+          },
+          {
+            title: document.getElementById("n2t").value,
+            content: document.getElementById("n2c").value,
+          },
+        ].filter((n) => n.title || n.content);
+
+        const noteH = 27 * scale,
+          noteGap = 3 * scale;
+        const noteW = w / 2 - padding;
+        const notesAreaH =
+          notes.length > 0 ? notes.length * (noteH + noteGap) - noteGap : 0;
+        const bottomEdge = h - padding;
+        const notesBottomY = bottomEdge,
+          notesTopY = notesBottomY - notesAreaH;
+        const locGap = notes.length > 0 ? 10 * scale : 0;
+        const locationY = notesTopY - locGap;
+        const timeBlockH = 80 * scale,
+          timeBlockY = locationY - timeBlockH - 8 * scale;
+        const lSizePct2 = Number(document.getElementById("logo2-size").value);
+        const lBase2 = 56 * scale,
+          lSize2 = lBase2 * (lSizePct2 / 100);
+
+        const finishDraw = () => {
+          setShadow(ctx, scale);
+          ctx.fillStyle = "#ffffff";
+          ctx.font = `900 ${60 * scale}px RobotoCondensed`;
+          ctx.textBaseline = "middle";
+          ctx.textAlign = "left";
+          ctx.strokeStyle = "rgba(0,0,0,0.20)";
+          ctx.lineWidth = 2 * scale;
+          ctx.lineJoin = "round";
+          const clockCenterY = timeBlockY + 31 * scale;
+          ctx.strokeText(`${hh}:${mm}`, padding, clockCenterY);
+          ctx.fillText(`${hh}:${mm}`, padding, clockCenterY);
+          clearShadow(ctx);
+
+          const timeW = ctx.measureText(`${hh}:${mm}`).width;
+          const sepX = padding + timeW + 14 * scale;
+          ctx.strokeStyle = "#f5b800";
+          ctx.lineWidth = 3 * scale;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(sepX, clockCenterY - 28 * scale);
+          ctx.lineTo(sepX, clockCenterY + 20 * scale);
+          ctx.stroke();
+
+          const dateX = sepX + 10 * scale;
+          ctx.fillStyle = "#ffffff";
+          ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+          ctx.textBaseline = "alphabetic";
+          ctx.strokeStyle = "rgba(0,0,0,0.10)";
+          ctx.lineWidth = 0.35 * scale;
+          const dateY = clockCenterY - 16 * scale;
+          ctx.strokeText(`${day} Tháng ${month},${year}`, dateX, dateY);
+          ctx.fillText(`${day} Tháng ${month},${year}`, dateX, dateY);
+          ctx.fillStyle = "rgba(255,255,255,0.92)";
+          ctx.strokeText(dayName, dateX, dateY + 34 * scale);
+          ctx.fillText(dayName, dateX, dateY + 34 * scale);
+
+          ctx.fillStyle = "#ffffff";
+          ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = "left";
+          ctx.strokeStyle = "rgba(0,0,0,0.18)";
+          ctx.lineWidth = 0.5 * scale;
+          ctx.strokeText(loc, padding, locationY - 5 * scale);
+          ctx.fillText(loc, padding, locationY - 5 * scale);
+          clearShadow(ctx);
+
+          if (notes.length > 0) {
+            const barY = notesTopY;
+            const grad = ctx.createLinearGradient(
+              padding,
+              barY,
+              padding + noteW,
+              barY,
+            );
+            grad.addColorStop(0, "rgba(255,255,255,0.42)");
+            grad.addColorStop(1, "rgba(255,255,255,0.0)");
+            ctx.fillStyle = grad;
+            roundRect(ctx, padding, barY, noteW, notesAreaH, 5 * scale);
+            ctx.fill();
+            notes.forEach((n, i) => {
+              const midY = barY + i * (noteH + noteGap) + noteH / 2;
+              ctx.textBaseline = "middle";
+              ctx.textAlign = "left";
+              ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+              ctx.fillStyle = "#ffffff";
+              if (n.title && n.content) {
+                const ts = n.title + ": ";
+                const tw = ctx.measureText(ts).width;
+                ctx.fillText(ts, padding + 14 * scale, midY);
+                ctx.fillText(n.content, padding + 14 * scale + tw, midY);
+              } else if (n.title) {
+                ctx.fillText(n.title, padding + 14 * scale, midY);
+              } else if (n.content) {
+                ctx.fillText(n.content, padding + 14 * scale, midY);
+              }
+            });
+          }
+
+          const bi = new Image();
+          bi.crossOrigin = "anonymous";
+          bi.onload = () => {
+            const bH = 144 * scale,
+              bW = bH * (bi.width / bi.height);
+            ctx.drawImage(bi, w - bW, h - bH, bW, bH);
+            if (showCode) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi.onerror = () => {
+            if (showCode) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi.src = BRAND_URL;
+        };
+
+        if (curLogo2) {
+          const li = new Image();
+          li.crossOrigin = "anonymous";
+          li.onload = () => {
+            ctx.drawImage(
+              li,
+              padding,
+              timeBlockY - lSize2 - 10 * scale,
+              lSize2,
+              lSize2,
+            );
+            finishDraw();
+          };
+          li.onerror = () => finishDraw();
+          li.src = curLogo2;
+        } else finishDraw();
+      }
+
+      // ===== DOWNLOAD IMAGE =====
+
+      function showTrialNotice() {
+        showNotify(
+          "🔒",
+          "Tính năng bị khóa",
+          "Bạn đang dùng thử Timemark.\nKích hoạt key để tải ảnh & video.",
+          [
+            {
+              label: "🛒 Mua key",
+              primary: true,
+              action: () => window.open("https://zalo.me/", "_blank"),
+            },
+            { label: "Đóng", primary: false, action: closeNotify },
+          ],
+        );
+      }
+
+      function downloadImage() {
+        const canvas = document.getElementById("canvas");
+        canvas.toBlob(
+          (blob) => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "Newface_" + Date.now() + ".jpg";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+          },
+          "image/jpeg",
+          0.75,
+        );
+      }
+
+      // ===== DOWNLOAD VIDEO WITH WATERMARK =====
+
+      async function downloadVideo() {
+        if (!curVideoFile) return;
+
+        const btn = document.getElementById("btn-dl-video");
+
+        btn.disabled = true;
+        btn.textContent = "⏳ Đang xử lý...";
+
+        document.getElementById("video-processing-wrap").style.display = "";
+
+        const video = document.createElement("video");
+
+        video.src = curVideoURL;
+        video.crossOrigin = "anonymous";
+        video.muted = true;
+        video.playsInline = true;
+
+        video.load();
+
+        video.onloadedmetadata = async () => {
+          const vw = video.videoWidth;
+          const vh = video.videoHeight;
+
+          // canvas output
+          const outputCanvas = document.createElement("canvas");
+          outputCanvas.width = vw;
+          outputCanvas.height = vh;
+
+          const outputCtx = outputCanvas.getContext("2d");
+
+          // watermark layer
+          const wmCanvas = document.createElement("canvas");
+          wmCanvas.width = vw;
+          wmCanvas.height = vh;
+
+          const wmCtx = wmCanvas.getContext("2d");
+
+          const p = getWatermarkParams(vw, vh);
+
+          const padding = 28 * p.scale;
+          const bottomY = vh - padding;
+
+          // render watermark trước
+          const renderDone = () => {
+            startRecording();
+          };
+
+          if (template === "1") {
+            drawTemplate1Async(
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              bottomY,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              renderDone,
+            );
+          } else {
+            drawTemplate2Async(
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              renderDone,
+            );
+          }
+
+          async function startRecording() {
+            // Ưu tiên MP4 cho iPhone + Android
+            let mimeType = "";
+
+            if (MediaRecorder.isTypeSupported("video/mp4;codecs=h264")) {
+              mimeType = "video/mp4;codecs=h264";
+            } else if (MediaRecorder.isTypeSupported("video/mp4")) {
+              mimeType = "video/mp4";
+            } else if (MediaRecorder.isTypeSupported("video/webm;codecs=vp8")) {
+              mimeType = "video/webm;codecs=vp8";
+            } else {
+              mimeType = "video/webm";
+            }
+
+            const stream = outputCanvas.captureStream(24);
+
+            const recorder = new MediaRecorder(stream, {
+              mimeType,
+              videoBitsPerSecond: 2500000,
+            });
+
+            const chunks = [];
+
+            let stopped = false;
+
+            recorder.ondataavailable = (e) => {
+              if (e.data && e.data.size > 0) {
+                chunks.push(e.data);
+              }
+            };
+
+            recorder.onstop = () => {
+              if (stopped) return;
+
+              stopped = true;
+
+              const ext = mimeType.includes("mp4") ? "mp4" : "webm";
+
+              const blob = new Blob(chunks, {
+                type: mimeType,
+              });
+
+              const url = URL.createObjectURL(blob);
+
+              const link = document.createElement("a");
+
+              link.href = url;
+              link.download = "Newface_" + Date.now() + "." + ext;
+
+              document.body.appendChild(link);
+
+              link.click();
+
+              document.body.removeChild(link);
+
+              setTimeout(() => {
+                URL.revokeObjectURL(url);
+              }, 3000);
+
+              btn.disabled = false;
+              btn.textContent = "🎬 Tải video";
+
+              document.getElementById("video-processing-wrap").style.display =
+                "none";
+            };
+
+            recorder.start();
+
+            video.currentTime = 0;
+
+            try {
+              await video.play();
+            } catch (e) {
+              alert("Không thể phát video.");
+
+              btn.disabled = false;
+              btn.textContent = "🎬 Tải video";
+
+              return;
+            }
+
+            function drawFrame() {
+              if (video.ended) {
+                if (recorder.state !== "inactive") {
+                  recorder.stop();
+                }
+                return;
+              }
+
+              // clear
+              outputCtx.clearRect(0, 0, vw, vh);
+
+              // frame video
+              outputCtx.drawImage(video, 0, 0, vw, vh);
+
+              // watermark
+              outputCtx.drawImage(wmCanvas, 0, 0);
+
+              requestAnimationFrame(drawFrame);
+            }
+
+            drawFrame();
+
+            video.onended = () => {
+              setTimeout(() => {
+                if (recorder.state !== "inactive") {
+                  recorder.stop();
+                }
+              }, 200);
+            };
+          }
+        };
+
+        video.onerror = () => {
+          btn.disabled = false;
+
+          btn.textContent = "🎬 Tải video";
+
+          document.getElementById("video-processing-wrap").style.display =
+            "none";
+
+          alert("Không đọc được file video.");
+        };
+      }
+
+      // ===== DRAG & DROP =====
+
+      const box = document.getElementById("preview-box");
+      box.addEventListener("dragover", (e) => e.preventDefault());
+      box.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const f = e.dataTransfer.files[0];
+        if (!f) return;
+        if (f.type.startsWith("image/")) {
+          const r = new FileReader();
+          r.onload = (ev) => {
+            curImg = ev.target.result;
+            curVideoFile = null;
+            mediaMode = "image";
+            document.getElementById("video-preview").style.display = "none";
+            document.getElementById("video-hint").style.display = "none";
+            document.getElementById("btn-dl-video").style.display = "none";
+            redraw();
+          };
+          r.readAsDataURL(f);
+        } else if (f.type.startsWith("video/")) {
+          // Simulate handleVideo
+          const fakeInput = { files: [f] };
+          handleVideo(fakeInput);
+        }
+      });
+    </script>
+  </body>
+</html>
