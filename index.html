@@ -908,8 +908,8 @@
         </div>
       </div>
       <div class="header-btns">
-        <button id="btn-dl" onclick="showTrialNotice()">⬇ Tải ảnh</button>
-        <button id="btn-dl-video" onclick="showTrialNotice()">
+        <button id="btn-dl" onclick="downloadImage()">⬇ Tải ảnh</button>
+        <button id="btn-dl-video" onclick="downloadVideo()">
           🎬 Tải video
         </button>
         <button id="btn-install" onclick="installPWA()">+ Cài app</button>
@@ -2537,21 +2537,21 @@
 
       // ===== DOWNLOAD IMAGE =====
 
-     // function showTrialNotice() {
-      //  showNotify(
+      function showTrialNotice() {
+        showNotify(
           "🔒",
-     //    "Tính năng bị khóa",
-      //    "Bạn đang dùng thử Timemark.\nKích hoạt key để tải ảnh & video.",
-      //    [
-        //    {
-        //      label: "🛒 Mua key",
-       //       primary: true,
-       //       action: () => window.open("https://zalo.me/", "_blank"),
-      //      },
-     //       { label: "Đóng", primary: false, action: closeNotify },
-      //    ],
-      //  );
-    //  }
+         "Tính năng bị khóa",
+          "Bạn đang dùng thử Timemark.\nKích hoạt key để tải ảnh & video.",
+          [
+            {
+              label: "🛒 Mua key",
+              primary: true,
+              action: () => window.open("https://zalo.me/", "_blank"),
+            },
+            { label: "Đóng", primary: false, action: closeNotify },
+          ],
+        );
+      }
 
       function downloadImage() {
         const canvas = document.getElementById("canvas");
