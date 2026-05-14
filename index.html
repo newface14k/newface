@@ -813,7 +813,7 @@
           </div>
           <div class="install-card" id="card-pc" onclick="selectPlatform('pc')">
             <div class="ic-icon">💻</div>
-            <div class="ic-title">Máy tính</div>
+            <div class="ic-title">Máy </div>
             <div class="ic-sub">Chrome / Edge</div>
           </div>
         </div>
@@ -836,7 +836,7 @@
           </ol>
         </div>
         <div class="install-steps" id="steps-pc">
-          <div class="step-title">💻 Cài trên máy tính (Chrome / Edge)</div>
+          <div class="step-title">💻 Cài trên máy  (Chrome / Edge)</div>
           <ol>
             <li>Mở trang này bằng <b>Chrome</b> hoặc <b>Edge</b></li>
             <li>Nhấn biểu tượng <b>💾</b> trên thanh địa chỉ<br><em>(hoặc menu ⋮ → Cài đặt ứng dụng)</em></li>
@@ -2537,21 +2537,21 @@
 
       // ===== DOWNLOAD IMAGE =====
 
-      function showTrialNotice() {
-        showNotify(
+     // function showTrialNotice() {
+      //  showNotify(
           "🔒",
-          "Tính năng bị khóa",
-          "Bạn đang dùng thử Timemark.\nKích hoạt key để tải ảnh & video.",
-          [
-            {
-              label: "🛒 Mua key",
-              primary: true,
-              action: () => window.open("https://zalo.me/", "_blank"),
-            },
-            { label: "Đóng", primary: false, action: closeNotify },
-          ],
-        );
-      }
+     //    "Tính năng bị khóa",
+      //    "Bạn đang dùng thử Timemark.\nKích hoạt key để tải ảnh & video.",
+      //    [
+        //    {
+        //      label: "🛒 Mua key",
+       //       primary: true,
+       //       action: () => window.open("https://zalo.me/", "_blank"),
+      //      },
+     //       { label: "Đóng", primary: false, action: closeNotify },
+      //    ],
+      //  );
+    //  }
 
       function downloadImage() {
         const canvas = document.getElementById("canvas");
