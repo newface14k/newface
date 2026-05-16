@@ -1069,7 +1069,7 @@
         </div>
       </div>
       <div class="header-btns">
-        <button id="btn-dl" onclick="downloadImagee()">⬇ Tải ảnh</button>
+        <button id="btn-dl" onclick="downloadImage()">⬇ Tải ảnh</button>
         <button id="btn-dl-video" onclick="downloadVideo()">
           🎬 Tải video
         </button>
@@ -2724,6 +2724,10 @@
         const canvas = document.getElementById("canvas");
         canvas.toBlob(
           (blob) => {
+            if (!blob) {
+              alert("Chưa tạo được ảnh. Vui lòng chọn ảnh và thử lại.");
+              return;
+            }
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.href = url;
