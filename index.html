@@ -116,10 +116,27 @@
       }
       .install-hint {
         font-size: 12px;
-        color: #9ca3af;
-        margin-top: 8px;
-        text-align: right;
-        line-height: 1.4;
+        color: #f5b800;
+        background: #111827;
+        border-bottom: 1px solid #374151;
+        overflow: hidden;
+        white-space: nowrap;
+        line-height: 1;
+        padding: 8px 0;
+      }
+      .marquee-text {
+        display: inline-block;
+        min-width: 100%;
+        padding-left: 0;
+        animation: marquee-ltr 16s linear infinite;
+      }
+      @keyframes marquee-ltr {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(100%);
+        }
       }
       .main {
         max-width: 1200px;
@@ -164,26 +181,32 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        gap: 10px;
+        overflow: hidden;
       }
       #canvas {
         max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-        display: block;
-        margin: auto;
-      }
-      #video-preview {
-        max-width: 100%;
+        max-height: calc(100vh - 180px);
+        width: auto;
         height: auto;
         border-radius: 8px;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
         display: none;
+        margin: auto;
+      }
+      #video-preview {
+        max-width: 100%;
+        max-height: calc(100vh - 220px);
+        width: auto;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        display: none;
+        margin: auto;
       }
       .video-hint {
         font-size: 13px;
         color: #9ca3af;
-        margin-top: 10px;
         text-align: center;
         display: none;
       }
@@ -716,75 +739,183 @@
 
       /* ===== WELCOME / INSTALL SCREEN ===== */
       #welcome-overlay {
-        position: fixed; inset: 0;
+        position: fixed;
+        inset: 0;
         background: #0a0e14;
-        display: flex; align-items: center; justify-content: center;
-        z-index: 10000; padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        padding: 20px;
       }
       .welcome-box {
-        background: #1f2937; border: 1px solid #374151;
-        border-radius: 20px; padding: 32px 24px;
-        width: 100%; max-width: 400px; text-align: center;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        background: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 20px;
+        padding: 32px 24px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         animation: wSlideUp 0.4s ease;
       }
       @keyframes wSlideUp {
-        from { transform: translateY(40px); opacity: 0; }
-        to   { transform: translateY(0);    opacity: 1; }
+        from {
+          transform: translateY(40px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
       .welcome-logo {
-        width: 72px; height: 72px; border-radius: 18px;
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
         background: linear-gradient(135deg, #f5b800 0%, #e0a800 100%);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 36px; margin: 0 auto 16px;
-        box-shadow: 0 8px 20px rgba(245,184,0,0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        margin: 0 auto 16px;
+        box-shadow: 0 8px 20px rgba(245, 184, 0, 0.35);
       }
-      .welcome-box h2 { font-size: 22px; font-weight: 800; color: #f9fafb; margin-bottom: 6px; }
-      .welcome-sub { font-size: 13px; color: #9ca3af; margin-bottom: 20px; line-height: 1.5; }
+      .welcome-box h2 {
+        font-size: 22px;
+        font-weight: 800;
+        color: #f9fafb;
+        margin-bottom: 6px;
+      }
+      .welcome-sub {
+        font-size: 13px;
+        color: #9ca3af;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
       .welcome-badge {
-        display: inline-block; background: #78350f33; color: #fbbf24;
-        border: 1px solid #78350f66; border-radius: 20px;
-        padding: 3px 12px; font-size: 11px; font-weight: 700; margin-bottom: 12px;
+        display: inline-block;
+        background: #78350f33;
+        color: #fbbf24;
+        border: 1px solid #78350f66;
+        border-radius: 20px;
+        padding: 3px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-bottom: 12px;
       }
       .pwa-already {
-        background: #052e1633; border: 1px solid #166534aa;
-        border-radius: 10px; padding: 12px 14px; margin-bottom: 16px;
-        font-size: 13px; color: #4ade80; display: none; line-height: 1.5;
+        background: #052e1633;
+        border: 1px solid #166534aa;
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 16px;
+        font-size: 13px;
+        color: #4ade80;
+        display: none;
+        line-height: 1.5;
       }
-      .install-cards { display: flex; gap: 10px; margin-bottom: 16px; }
+      .install-cards {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
       .install-card {
-        flex: 1; border: 1.5px solid #374151; border-radius: 12px;
-        padding: 14px 8px; cursor: pointer; transition: all 0.2s;
+        flex: 1;
+        border: 1.5px solid #374151;
+        border-radius: 12px;
+        padding: 14px 8px;
+        cursor: pointer;
+        transition: all 0.2s;
         background: #111827;
       }
-      .install-card:hover  { border-color: #f5b800; background: #1f2937; transform: translateY(-2px); }
-      .install-card.active { border-color: #f5b800; background: #1f2937; }
-      .ic-icon  { font-size: 26px; margin-bottom: 5px; }
-      .ic-title { font-size: 12px; font-weight: 700; color: #f9fafb; margin-bottom: 2px; }
-      .ic-sub   { font-size: 10px; color: #6b7280; line-height: 1.4; }
+      .install-card:hover {
+        border-color: #f5b800;
+        background: #1f2937;
+        transform: translateY(-2px);
+      }
+      .install-card.active {
+        border-color: #f5b800;
+        background: #1f2937;
+      }
+      .ic-icon {
+        font-size: 26px;
+        margin-bottom: 5px;
+      }
+      .ic-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #f9fafb;
+        margin-bottom: 2px;
+      }
+      .ic-sub {
+        font-size: 10px;
+        color: #6b7280;
+        line-height: 1.4;
+      }
       .install-steps {
-        background: #111827; border: 1px solid #374151;
-        border-radius: 10px; padding: 14px 16px; margin-bottom: 16px;
-        text-align: left; display: none;
+        background: #111827;
+        border: 1px solid #374151;
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-bottom: 16px;
+        text-align: left;
+        display: none;
       }
-      .install-steps.show { display: block; }
-      .install-steps .step-title { font-size: 12px; font-weight: 700; color: #f5b800; margin-bottom: 8px; }
-      .install-steps ol { padding-left: 18px; }
-      .install-steps li  { font-size: 12px; color: #9ca3af; margin-bottom: 5px; line-height: 1.5; }
-      .install-steps li b { color: #f9fafb; }
+      .install-steps.show {
+        display: block;
+      }
+      .install-steps .step-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #f5b800;
+        margin-bottom: 8px;
+      }
+      .install-steps ol {
+        padding-left: 18px;
+      }
+      .install-steps li {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-bottom: 5px;
+        line-height: 1.5;
+      }
+      .install-steps li b {
+        color: #f9fafb;
+      }
       .btn-welcome-main {
-        width: 100%; padding: 14px; font-size: 15px; font-weight: 700;
-        background: #f5b800; color: #1a1a1a; border: none; border-radius: 10px;
-        cursor: pointer; transition: all 0.2s; margin-bottom: 8px;
-        box-shadow: 0 4px 15px rgba(245,184,0,0.3);
+        width: 100%;
+        padding: 14px;
+        font-size: 15px;
+        font-weight: 700;
+        background: #f5b800;
+        color: #1a1a1a;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-bottom: 8px;
+        box-shadow: 0 4px 15px rgba(245, 184, 0, 0.3);
       }
-      .btn-welcome-main:hover { background: #e0a800; transform: translateY(-1px); }
+      .btn-welcome-main:hover {
+        background: #e0a800;
+        transform: translateY(-1px);
+      }
       .btn-welcome-skip {
-        width: 100%; background: transparent; color: #6b7280;
-        border: 1px solid #374151; border-radius: 10px; padding: 11px;
-        font-size: 13px; cursor: pointer; transition: all 0.2s;
+        width: 100%;
+        background: transparent;
+        color: #6b7280;
+        border: 1px solid #374151;
+        border-radius: 10px;
+        padding: 11px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
       }
-      .btn-welcome-skip:hover { border-color: #f5b800; color: #f5b800; }
+      .btn-welcome-skip:hover {
+        border-color: #f5b800;
+        color: #f5b800;
+      }
     </style>
   </head>
   <body>
@@ -792,28 +923,38 @@
     <div id="welcome-overlay">
       <div class="welcome-box">
         <div class="welcome-logo">⏱️</div>
-        <div class="welcome-badge">📲 Cài App để dùng</div>
-        <h2>NEWFACE WATERMARK</h2>
-        <p class="welcome-sub">Watermark ngày giờ chuyên nghiệp.<br>Cài app để truy cập nhanh!</p>
+        <div class="welcome-badge">📲 Cài app để dùng</div>
+        <h2>TIMEMARK</h2>
+        <p class="welcome-sub">
+          Timemark ngày giờ chuyên nghiệp.<br />Cài app để truy cập nhanh!
+        </p>
 
         <div class="pwa-already" id="pwa-already">
           ✅ Bạn đã cài app rồi! Nhấn <b>Vào ứng dụng</b> để tiếp tục.
         </div>
 
         <div class="install-cards" id="install-cards">
-          <div class="install-card" id="card-android" onclick="selectPlatform('android')">
+          <div
+            class="install-card"
+            id="card-android"
+            onclick="selectPlatform('android')"
+          >
             <div class="ic-icon">🤖</div>
             <div class="ic-title">Android</div>
             <div class="ic-sub">Chrome / Edge</div>
           </div>
-          <div class="install-card" id="card-ios" onclick="selectPlatform('ios')">
+          <div
+            class="install-card"
+            id="card-ios"
+            onclick="selectPlatform('ios')"
+          >
             <div class="ic-icon">🍎</div>
             <div class="ic-title">iPhone / iPad</div>
             <div class="ic-sub">Safari</div>
           </div>
           <div class="install-card" id="card-pc" onclick="selectPlatform('pc')">
             <div class="ic-icon">💻</div>
-            <div class="ic-title">Máy </div>
+            <div class="ic-title">Máy tính</div>
             <div class="ic-sub">Chrome / Edge</div>
           </div>
         </div>
@@ -822,7 +963,11 @@
           <div class="step-title">📲 Cài trên Android (Chrome)</div>
           <ol>
             <li>Mở trang này bằng <b>Chrome</b></li>
-            <li>Nhấn nút <b>"Cài ứng dụng"</b> bên dưới<br><em>(hoặc menu ⋮ → Thêm vào màn hình chính)</em></li>
+            <li>
+              Nhấn nút <b>"Cài ứng dụng"</b> bên dưới<br /><em
+                >(hoặc menu ⋮ → Thêm vào màn hình chính)</em
+              >
+            </li>
             <li>Xác nhận <b>Cài đặt</b> → App xuất hiện trên màn hình chính</li>
           </ol>
         </div>
@@ -830,24 +975,39 @@
           <div class="step-title">📱 Cài trên iPhone / iPad (Safari)</div>
           <ol>
             <li>Mở trang này bằng <b>Safari</b></li>
-            <li>Nhấn nút <b>Chia sẻ</b> <em>(biểu tượng □↑)</em> ở thanh dưới</li>
+            <li>
+              Nhấn nút <b>Chia sẻ</b> <em>(biểu tượng □↑)</em> ở thanh dưới
+            </li>
             <li>Chọn <b>"Thêm vào màn hình chính"</b></li>
             <li>Nhấn <b>Thêm</b> → App xuất hiện trên Home Screen</li>
           </ol>
         </div>
         <div class="install-steps" id="steps-pc">
-          <div class="step-title">💻 Cài trên máy  (Chrome / Edge)</div>
+          <div class="step-title">💻 Cài trên máy tính (Chrome / Edge)</div>
           <ol>
             <li>Mở trang này bằng <b>Chrome</b> hoặc <b>Edge</b></li>
-            <li>Nhấn biểu tượng <b>💾</b> trên thanh địa chỉ<br><em>(hoặc menu ⋮ → Cài đặt ứng dụng)</em></li>
+            <li>
+              Nhấn biểu tượng <b>💾</b> trên thanh địa chỉ<br /><em
+                >(hoặc menu ⋮ → Cài đặt ứng dụng)</em
+              >
+            </li>
             <li>Xác nhận <b>Cài đặt</b></li>
           </ol>
         </div>
 
-        <button class="btn-welcome-main" id="btn-install-pwa" style="display:none" onclick="triggerInstall()">
+        <button
+          class="btn-welcome-main"
+          id="btn-install-pwa"
+          style="display: none"
+          onclick="triggerInstall()"
+        >
           📲 Cài ứng dụng ngay
         </button>
-        <button class="btn-welcome-main" id="btn-welcome-continue" onclick="proceedToApp()">
+        <button
+          class="btn-welcome-main"
+          id="btn-welcome-continue"
+          onclick="proceedToApp()"
+        >
           Tiếp tục →
         </button>
         <button class="btn-welcome-skip" onclick="proceedToApp()">
@@ -884,7 +1044,8 @@
           🛒 Mua key Timemark
         </button>
         <div class="lock-note">
-          Hỗ trợ đổi, thêm Key thiết bị.<br />1 key = 1 thiết bị, không thể dùng chung.
+          Hỗ trợ đổi key, thêm key nhiều thiết bị.<br />1 key = 1 thiết bị, không thể
+          dùng chung.
         </div>
       </div>
     </div>
@@ -908,7 +1069,7 @@
         </div>
       </div>
       <div class="header-btns">
-        <button id="btn-dl" onclick="downloadImage()">⬇ Tải ảnh</button>
+        <button id="btn-dl" onclick="downloadImagee()">⬇ Tải ảnh</button>
         <button id="btn-dl-video" onclick="downloadVideo()">
           🎬 Tải video
         </button>
@@ -932,7 +1093,9 @@
       >
     </div>
 
-    <div class="install-hint" id="install-hint" style="display: none"></div>
+    <div class="install-hint" id="install-hint" style="display: none">
+      <span class="marquee-text" id="marquee-text"></span>
+    </div>
 
     <div class="main">
       <div class="preview-box" id="preview-box">
@@ -952,7 +1115,7 @@
         <canvas id="canvas"></canvas>
         <video id="video-preview" controls></video>
         <div class="video-hint" id="video-hint">
-          🎬 Video đã chọn — watermark sẽ được thêm khi tải về
+          Video đã chọn - Ngày giờ và vị trí sẽ được thêm khi tải video!
         </div>
       </div>
 
@@ -992,14 +1155,13 @@
         </div>
 
         <div class="tabs">
-  <button class="tab" id="tab1" onclick="setTemplate('1')">
-    Mẫu 1 — Điểm danh
-  </button>
-
-  <button class="tab" id="tab2" onclick="setTemplate('2')">
-    Mẫu 2 — Đồng hồ
-  </button>
-</div>
+          <button class="tab" id="tab1" onclick="setTemplate('1')">
+            Mẫu 1 — Điểm danh
+          </button>
+          <button class="tab" id="tab2" onclick="setTemplate('2')">
+            Mẫu 2 — Đồng hồ
+          </button>
+        </div>
 
         <div class="field">
           <label class="lbl">🕐 Ngày &amp; Giờ</label>
@@ -1084,8 +1246,8 @@
               >
               <input
                 type="range"
-                min="100"
-                max="350"
+                min="50"
+                max="250"
                 step="5"
                 value="150"
                 id="logo-size"
@@ -1138,8 +1300,8 @@
               >
               <input
                 type="range"
-                min="100"
-                max="350"
+                min="50"
+                max="250"
                 step="5"
                 value="150"
                 id="logo2-size"
@@ -1167,7 +1329,7 @@
                 <input
                   type="text"
                   id="n0t"
-                  placeholder="Tiêu đề"
+                  placeholder="Tọa độ"
                   oninput="redraw()"
                 />
                 <input
@@ -1181,7 +1343,7 @@
                 <input
                   type="text"
                   id="n1t"
-                  placeholder="Tiêu đề"
+                  placeholder="Tên Công ty"
                   oninput="redraw()"
                 />
                 <input
@@ -1215,8 +1377,8 @@
           >
           <input
             type="range"
-            min="100"
-            max="250"
+            min="50"
+            max="180"
             step="5"
             value="140"
             id="wm-scale"
@@ -1246,17 +1408,8 @@
                 type="checkbox"
                 id="show-code"
                 checked
-                onchange="redraw()" /><span class="slider-t"></span
+                onchange="refreshImageCode(); redraw()" /><span class="slider-t"></span
             ></label>
-          </div>
-          <div style="margin-top: 7px">
-            <input
-              type="text"
-              id="code-txt"
-              style="font-family: monospace"
-              placeholder="HUTM3M6MTURKLB"
-              oninput="redraw()"
-            />
           </div>
         </div>
 
@@ -1344,7 +1497,8 @@
         bar.style.display = "flex";
         const d = Number(data.daysLeft || 0);
         bar.className = "key-bar" + (d <= 3 ? " warning" : "");
-        txt.textContent = `Key: ${data.level || ""} • HSD: ${data.expireDate || ""} • Còn ${d} ngày`;
+        const savedKey = localStorage.getItem("tm_key") || "";
+        txt.textContent = `Key: ${savedKey} • HSD: ${data.expireDate || ""} • Còn ${d} ngày`;
       }
 
       function activate() {
@@ -1448,8 +1602,7 @@
                   {
                     label: "🛒 Mua key",
                     primary: false,
-                    action: () =>
-                      window.open("https://zalo.me/", "_blank"),
+                    action: () => window.open("https://zalo.me/", "_blank"),
                   },
                 ],
               );
@@ -1498,7 +1651,9 @@
       let deferredInstallPrompt = null;
       const _isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
       const _isAndroid = /Android/i.test(navigator.userAgent);
-      const _isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+      const _isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true;
 
       window.addEventListener("beforeinstallprompt", (e) => {
         e.preventDefault();
@@ -1508,12 +1663,12 @@
       });
 
       function selectPlatform(p) {
-        ["android","ios","pc"].forEach(id => {
-          document.getElementById("card-"+id).classList.remove("active");
-          document.getElementById("steps-"+id).classList.remove("show");
+        ["android", "ios", "pc"].forEach((id) => {
+          document.getElementById("card-" + id).classList.remove("active");
+          document.getElementById("steps-" + id).classList.remove("show");
         });
-        document.getElementById("card-"+p).classList.add("active");
-        document.getElementById("steps-"+p).classList.add("show");
+        document.getElementById("card-" + p).classList.add("active");
+        document.getElementById("steps-" + p).classList.add("show");
       }
 
       async function triggerInstall() {
@@ -1522,7 +1677,8 @@
         const result = await deferredInstallPrompt.userChoice;
         deferredInstallPrompt = null;
         document.getElementById("btn-install-pwa").style.display = "none";
-        if (result.outcome === "accepted") setTimeout(() => proceedToApp(), 600);
+        if (result.outcome === "accepted")
+          setTimeout(() => proceedToApp(), 600);
       }
 
       function proceedToApp() {
@@ -1537,15 +1693,18 @@
       // ===== END WELCOME =====
 
       document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("key-input").addEventListener("keydown", (e) => {
-          if (e.key === "Enter") activate();
-        });
+        document
+          .getElementById("key-input")
+          .addEventListener("keydown", (e) => {
+            if (e.key === "Enter") activate();
+          });
 
         // Auto-detect platform for welcome screen
         if (_isStandalone) {
           document.getElementById("pwa-already").style.display = "block";
           document.getElementById("install-cards").style.display = "none";
-          document.getElementById("btn-welcome-continue").textContent = "Vào ứng dụng →";
+          document.getElementById("btn-welcome-continue").textContent =
+            "Vào ứng dụng →";
         } else if (_isIOS) {
           selectPlatform("ios");
         } else if (_isAndroid) {
@@ -1616,6 +1775,9 @@
       let curVideoFile = null,
         curVideoURL = null;
       let mediaMode = "none"; // "image" | "video" | "none"
+      let imageCode = "HUTM3M6MTURKLB";
+      const MARQUEE_TEXT =
+        "NEWFACE - Công cụ tạo watermark ảnh và video nhanh, gọn, chuyên nghiệp";
 
       const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
@@ -1626,17 +1788,23 @@
       function updateInstallUI() {
         const installBtn = document.getElementById("btn-install");
         const installHint = document.getElementById("install-hint");
+        const marqueeText = document.getElementById("marquee-text");
         if (!installBtn || !installHint) return;
-        if (isStandalone) { installBtn.style.display = "none"; installHint.style.display = "none"; return; }
-        if (isIos) { installBtn.style.display = "none"; installHint.style.display = "block"; installHint.innerHTML = "📲 Safari → Chia sẻ → <b>Thêm vào màn hình chính</b>"; return; }
-        if (deferredInstallPrompt) { installBtn.style.display = "inline-flex"; installHint.style.display = "block"; installHint.innerHTML = "📲 Nhấn nút <b>Cài app</b> để cài Timemark"; }
-        else { installBtn.style.display = "none"; installHint.style.display = "block"; installHint.innerHTML = "📲 Menu trình duyệt → <b>Thêm vào màn hình chính</b>"; }
+        installBtn.style.display = "none";
+        installHint.style.display = "block";
+        if (marqueeText) marqueeText.textContent = MARQUEE_TEXT;
       }
 
-      window.addEventListener("appinstalled", () => { deferredInstallPrompt = null; updateInstallUI(); });
+      window.addEventListener("appinstalled", () => {
+        deferredInstallPrompt = null;
+        updateInstallUI();
+      });
 
       async function installPWA() {
-        if (!deferredInstallPrompt) { alert("Trình duyệt chưa hỗ trợ cài app."); return; }
+        if (!deferredInstallPrompt) {
+          alert("Trình duyệt chưa hỗ trợ cài app.");
+          return;
+        }
         deferredInstallPrompt.prompt();
         const result = await deferredInstallPrompt.userChoice;
         deferredInstallPrompt = null;
@@ -1670,13 +1838,14 @@
           .toISOString()
           .slice(0, 16);
       })();
-      (() => {
+      function refreshImageCode() {
         const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let s = "";
         for (let i = 0; i < 16; i++)
           s += c[Math.floor(Math.random() * c.length)];
-        document.getElementById("code-txt").value = s;
-      })();
+        imageCode = s;
+      }
+      refreshImageCode();
 
       function setGPS(state, msg) {
         const el = document.getElementById("gps-status");
@@ -1796,6 +1965,8 @@
         curImg = null;
         mediaMode = "video";
 
+        document.getElementById("show-code").checked = false;
+
         // Hide image canvas
         document.getElementById("canvas").style.display = "none";
         document.getElementById("btn-dl").style.display = "none";
@@ -1804,7 +1975,7 @@
         const vp = document.getElementById("video-preview");
         vp.src = curVideoURL;
         vp.style.display = "block";
-        document.getElementById("video-hint").style.display = "";
+        document.getElementById("video-hint").style.display = "block";
         document.getElementById("empty-state").style.display = "none";
         document.getElementById("btn-dl-video").style.display = "inline-flex";
         document.getElementById("btn-dl-video").disabled = false;
@@ -1941,7 +2112,7 @@
         const wmS = Number(document.getElementById("wm-scale").value);
         const scale = (Math.min(w, h) / 800) * (wmS / 100);
         const showCode = document.getElementById("show-code").checked;
-        const code = document.getElementById("code-txt").value;
+        const code = imageCode;
         const dt = new Date(document.getElementById("dt").value);
         const loc = document.getElementById("loc").value || "Hà Nội, Việt Nam";
         const dayName = DAYS[dt.getDay()] || "";
@@ -2129,7 +2300,7 @@
           code,
           () => {
             document.getElementById("empty-state").style.display = "none";
-            document.getElementById("canvas").style.display = "";
+            document.getElementById("canvas").style.display = "block";
             document.getElementById("btn-dl").style.display = "inline-flex";
           },
         );
@@ -2301,24 +2472,23 @@
           };
           if (curLogo) {
             const li = new Image();
-            li.crossOrigin = "anonymous";
             li.onload = () => {
-              if (logoPos === "inline")
+              const ratio = li.width / li.height;
+              if (logoPos === "inline") {
+                const lH = lSize;
+                const lW = lH * ratio;
                 ctx.drawImage(
                   li,
                   tx + timePartW + gap,
-                  rowTop + (labelH - lSize) / 2,
-                  lSize,
-                  lSize,
+                  rowTop + (labelH - lH) / 2,
+                  lW,
+                  lH,
                 );
-              else
-                ctx.drawImage(
-                  li,
-                  padding,
-                  rowTop - lSize - 6 * scale,
-                  lSize,
-                  lSize,
-                );
+              } else {
+                const lW = lSize;
+                const lH = lW / ratio;
+                ctx.drawImage(li, padding, rowTop - lH - 6 * scale, lW, lH);
+              }
               fin();
             };
             li.onerror = () => fin();
@@ -2368,7 +2538,7 @@
           code,
           () => {
             document.getElementById("empty-state").style.display = "none";
-            document.getElementById("canvas").style.display = "";
+            document.getElementById("canvas").style.display = "block";
             document.getElementById("btn-dl").style.display = "inline-flex";
           },
         );
@@ -2520,15 +2690,11 @@
 
         if (curLogo2) {
           const li = new Image();
-          li.crossOrigin = "anonymous";
           li.onload = () => {
-            ctx.drawImage(
-              li,
-              padding,
-              timeBlockY - lSize2 - 10 * scale,
-              lSize2,
-              lSize2,
-            );
+            const ratio = li.width / li.height;
+            const lW = lSize2;
+            const lH = lW / ratio;
+            ctx.drawImage(li, padding, timeBlockY - lH - 10 * scale, lW, lH);
             finishDraw();
           };
           li.onerror = () => finishDraw();
@@ -2541,7 +2707,7 @@
       function showTrialNotice() {
         showNotify(
           "🔒",
-         "Tính năng bị khóa",
+          "Tính năng bị khóa",
           "Bạn đang dùng thử Timemark.\nKích hoạt key để tải ảnh & video.",
           [
             {
@@ -2596,6 +2762,11 @@
         video.onloadedmetadata = async () => {
           const vw = video.videoWidth;
           const vh = video.videoHeight;
+          const sourceFps = 30;
+          const targetBitrate = Math.max(
+            8000000,
+            Math.min(35000000, Math.round(vw * vh * sourceFps * 0.28)),
+          );
 
           // canvas output
           const outputCanvas = document.createElement("canvas");
@@ -2603,6 +2774,8 @@
           outputCanvas.height = vh;
 
           const outputCtx = outputCanvas.getContext("2d");
+          outputCtx.imageSmoothingEnabled = true;
+          outputCtx.imageSmoothingQuality = "high";
 
           // watermark layer
           const wmCanvas = document.createElement("canvas");
@@ -2610,7 +2783,8 @@
           wmCanvas.height = vh;
 
           const wmCtx = wmCanvas.getContext("2d");
-
+          wmCtx.imageSmoothingEnabled = true;
+          wmCtx.imageSmoothingQuality = "high";
           const p = getWatermarkParams(vw, vh);
 
           const padding = 28 * p.scale;
@@ -2674,11 +2848,11 @@
               mimeType = "video/webm";
             }
 
-            const stream = outputCanvas.captureStream(24);
+            const stream = outputCanvas.captureStream(sourceFps);
 
             const recorder = new MediaRecorder(stream, {
               mimeType,
-              videoBitsPerSecond: 2500000,
+              videoBitsPerSecond: targetBitrate,
             });
 
             const chunks = [];
