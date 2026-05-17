@@ -2195,6 +2195,12 @@
         ctx.shadowOffsetX = 1 * scale;
         ctx.shadowOffsetY = 1 * scale;
       }
+      function setTextShadow(ctx, scale) {
+        ctx.shadowColor = "rgba(0,0,0,0.45)";
+        ctx.shadowBlur = 0.8 * scale;
+        ctx.shadowOffsetX = 0.6 * scale;
+        ctx.shadowOffsetY = 0.6 * scale;
+      }
       function clearShadow(ctx) {
         ctx.shadowColor = "transparent";
         ctx.shadowBlur = 0;
@@ -2218,6 +2224,24 @@
           ctx.strokeText(line, x, yy);
           ctx.fillText(line, x, yy);
         });
+      }
+
+      function drawBrandImage(ctx, img, x, y, width, height) {
+        const prevSmoothing = ctx.imageSmoothingEnabled;
+        const prevQuality = ctx.imageSmoothingQuality;
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(
+          img,
+          Math.round(x),
+          Math.round(y),
+          Math.round(width),
+          Math.round(height),
+        );
+
+        ctx.imageSmoothingEnabled = prevSmoothing;
+        ctx.imageSmoothingQuality = prevQuality;
       }
 
       function drawCodeVert(ctx, w, h, scale, code) {
@@ -2549,10 +2573,7 @@
           ctx.fillRect(barX, barY, 4 * scale, barH);
           const textX = barX + 14 * scale;
 
-          ctx.shadowColor = "rgba(0,0,0,0.25)";
-          ctx.shadowBlur = 0.5 * scale;
-          ctx.shadowOffsetX = 0.5 * scale;
-          ctx.shadowOffsetY = 0.5 * scale;
+          setTextShadow(ctx, scale);
           ctx.fillStyle = "#ffffff";
           ctx.font = `700 ${18 * scale}px RobotoCondensed`;
           ctx.textBaseline = "top";
@@ -2574,10 +2595,7 @@
           ctx.strokeStyle = "rgba(60,60,60,0.4)";
           ctx.lineWidth = 0.5 * scale;
           drawTextLines(ctx, loc, textX, barY + 35 * scale, locLineH);
-          ctx.shadowColor = "transparent";
-          ctx.shadowBlur = 0;
-          ctx.shadowOffsetX = 0;
-          ctx.shadowOffsetY = 0;
+          clearShadow(ctx);
 
           const commitY = h - 15 * scale;
           ctx.fillStyle = "rgba(255,255,255,0.75)";
@@ -2617,7 +2635,7 @@
             bi.onload = () => {
               const bh = 144 * scale,
                 bw = bh * (bi.width / bi.height);
-              ctx.drawImage(bi, w - bw, h - bh, bw, bh);
+              drawBrandImage(ctx, bi, w - bw, h - bh, bw, bh);
               if (showCode) drawCodeVert(ctx, w, h, scale, code);
               callback && callback();
             };
@@ -2779,6 +2797,7 @@
           ctx.stroke();
 
           const dateX = sepX + 10 * scale;
+          setTextShadow(ctx, scale);
           ctx.fillStyle = "#ffffff";
           ctx.font = `500 ${18 * scale}px RobotoCondensed`;
           ctx.textBaseline = "alphabetic";
@@ -2820,6 +2839,7 @@
             ctx.fillStyle = grad;
             roundRect(ctx, padding, barY, noteW, notesAreaH, 5 * scale);
             ctx.fill();
+            setTextShadow(ctx, scale);
             notes.forEach((n, i) => {
               const midY = barY + i * (noteH + noteGap) + noteH / 2;
               ctx.textBaseline = "middle";
@@ -2837,6 +2857,7 @@
                 ctx.fillText(n.content, padding + 14 * scale, midY);
               }
             });
+            clearShadow(ctx);
           }
 
           const bi = new Image();
@@ -2844,7 +2865,7 @@
           bi.onload = () => {
             const bH = 144 * scale,
               bW = bH * (bi.width / bi.height);
-            ctx.drawImage(bi, w - bW, h - bH, bW, bH);
+            drawBrandImage(ctx, bi, w - bW, h - bH, bW, bH);
             if (showCode) drawCodeVert(ctx, w, h, scale, code);
             callback && callback();
           };
