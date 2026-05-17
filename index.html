@@ -1306,14 +1306,14 @@
                 </button>
               </div>
               <label class="lbl"
-                >Kích thước logo: <span id="ls-val">150</span>%</label
+                >Kích thước logo: <span id="ls-val">190</span>%</label
               >
               <input
                 type="range"
                 min="50"
-                max="250"
+                max="350"
                 step="5"
-                value="150"
+                value="190"
                 id="logo-size"
                 oninput="
                   document.getElementById('ls-val').textContent = this.value;
@@ -1360,14 +1360,14 @@
             </div>
             <div id="logo2-extras" style="display: none; margin-top: 6px">
               <label class="lbl"
-                >Kích thước logo: <span id="ls2-val">150</span>%</label
+                >Kích thước logo: <span id="ls2-val">190</span>%</label
               >
               <input
                 type="range"
-                min="50"
-                max="250"
+                min="100"
+                max="350"
                 step="5"
-                value="150"
+                value="190"
                 id="logo2-size"
                 oninput="
                   document.getElementById('ls2-val').textContent = this.value;
@@ -1560,7 +1560,7 @@
         }
         bar.style.display = "flex";
         const d = Number(data.daysLeft || 0);
-        bar.className = "key-bar" + (d <= 3 ? " warning" : "");
+        bar.className = "key-bar" + (d <= 1 ? " warning" : "");
         const savedKey = localStorage.getItem("tm_key") || "";
         txt.textContent = `Key: ${savedKey} • HSD: ${data.expireDate || ""} • Còn ${d} ngày`;
       }
@@ -1983,6 +1983,11 @@
       }
 
       // ===== MEDIA HANDLING =====
+
+      function isIOSCanvas() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      }
 
       function openImageChooser() {
         document.getElementById("image-choice-modal").style.display = "flex";
@@ -2690,8 +2695,9 @@
           ctx.lineWidth = 2 * scale;
           ctx.lineJoin = "round";
           const clockCenterY = timeBlockY + 31 * scale;
-          ctx.strokeText(`${hh}:${mm}`, padding, clockCenterY);
-          ctx.fillText(`${hh}:${mm}`, padding, clockCenterY);
+          const clockY = clockCenterY - (isIOSCanvas() ? 2 * scale : 0);
+          ctx.strokeText(`${hh}:${mm}`, padding, clockY);
+          ctx.fillText(`${hh}:${mm}`, padding, clockY);
           clearShadow(ctx);
 
           const timeW = ctx.measureText(`${hh}:${mm}`).width;
