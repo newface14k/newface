@@ -169,6 +169,19 @@
       @media (max-width: 768px) {
         .main {
           grid-template-columns: 1fr;
+          padding: 12px;
+          gap: 12px;
+        }
+        .controls {
+          max-height: none;
+          overflow-y: visible;
+        }
+        .controls input[type="text"],
+        .controls input[type="datetime-local"],
+        .controls textarea,
+        .controls input[type="range"],
+        .controls button {
+          font-size: 16px;
         }
       }
       .preview-box {
@@ -255,7 +268,8 @@
         margin-bottom: 5px;
       }
       input[type="text"],
-      input[type="datetime-local"] {
+      input[type="datetime-local"],
+      textarea {
         width: 100%;
         background: #374151;
         border: 1px solid #4b5563;
@@ -266,8 +280,14 @@
         font-family: "RobotoCondensed", sans-serif;
         outline: none;
       }
+      textarea {
+        min-height: 64px;
+        line-height: 1.35;
+        resize: vertical;
+      }
       input[type="text"]:focus,
-      input[type="datetime-local"]:focus {
+      input[type="datetime-local"]:focus,
+      textarea:focus {
         border-color: #f5b800;
       }
       input[type="range"] {
@@ -382,8 +402,15 @@
         gap: 6px;
         align-items: center;
       }
-      .gps-row input {
+      .gps-row input,
+      .gps-row textarea {
         flex: 1;
+      }
+      .gps-row textarea {
+        min-width: 0;
+      }
+      .gps-row .gps-btn {
+        align-self: flex-start;
       }
       .gps-btn {
         background: #374151;
@@ -1235,9 +1262,10 @@
         <div class="field">
           <label class="lbl">📍 Vị trí</label>
           <div class="gps-row">
-            <input
+            <textarea id="loc" oninput="redraw()">Hà Nội, Việt Nam</textarea>
+            <input style="display: none"
               type="text"
-              id="loc"
+              id="loc-old"
               value="Hà Nội, Việt Nam"
               oninput="redraw()"
             />
@@ -2157,6 +2185,24 @@
         ctx.shadowOffsetY = 0;
       }
 
+      function getTextLines(text) {
+        return String(text || "")
+          .replace(/\r\n/g, "\n")
+          .split("\n");
+      }
+
+      function drawTextLines(ctx, text, x, y, lineHeight, direction = "down") {
+        const lines = getTextLines(text);
+        lines.forEach((line, i) => {
+          const yy =
+            direction === "up"
+              ? y - (lines.length - 1 - i) * lineHeight
+              : y + i * lineHeight;
+          ctx.strokeText(line, x, yy);
+          ctx.fillText(line, x, yy);
+        });
+      }
+
       function drawCodeVert(ctx, w, h, scale, code) {
         ctx.save();
         ctx.translate(w - 9 * scale, h * 0.5);
@@ -2433,7 +2479,10 @@
           lSize = lBase * (lSizePct / 100);
         const logoInlineW = curLogo && logoPos === "inline" ? lSize + gap : 0;
         const totalW = gap + labelPartW + gap + timePartW + logoInlineW + gap;
-        const row1Y = bottomY - 82 * scale,
+        const locLines = getTextLines(loc);
+        const locLineH = 20 * scale;
+        const locExtraH = Math.max(0, locLines.length - 1) * locLineH;
+        const row1Y = bottomY - 82 * scale - locExtraH,
           rowTop = row1Y - labelH + 1 * scale;
 
         const drawAll = (patImg) => {
@@ -2478,7 +2527,7 @@
 
           const barX = padding,
             barY = row1Y + 10 * scale,
-            barH = 50 * scale;
+            barH = 50 * scale + locExtraH;
           ctx.fillStyle = "#e6a817";
           ctx.fillRect(barX, barY, 3 * scale, barH);
           const textX = barX + 14 * scale;
@@ -2507,8 +2556,7 @@
           ctx.font = `500 ${18 * scale}px RobotoCondensed`;
           ctx.strokeStyle = "rgba(60,60,60,0.4)";
           ctx.lineWidth = 0.5 * scale;
-          ctx.strokeText(loc, textX, barY + 35 * scale);
-          ctx.fillText(loc, textX, barY + 35 * scale);
+          drawTextLines(ctx, loc, textX, barY + 35 * scale, locLineH);
           ctx.shadowColor = "transparent";
           ctx.shadowBlur = 0;
           ctx.shadowOffsetX = 0;
@@ -2677,10 +2725,13 @@
         const bottomEdge = h - padding;
         const notesBottomY = bottomEdge,
           notesTopY = notesBottomY - notesAreaH;
+        const locLines = getTextLines(loc);
+        const locLineH = 20 * scale;
+        const locExtraH = Math.max(0, locLines.length - 1) * locLineH;
         const locGap = notes.length > 0 ? 10 * scale : 0;
         const locationY = notesTopY - locGap;
         const timeBlockH = 80 * scale,
-          timeBlockY = locationY - timeBlockH - 8 * scale;
+          timeBlockY = locationY - locExtraH - timeBlockH - 8 * scale;
         const lSizePct2 = Number(document.getElementById("logo2-size").value);
         const lBase2 = 56 * scale,
           lSize2 = lBase2 * (lSizePct2 / 100);
@@ -2695,7 +2746,7 @@
           ctx.lineWidth = 2 * scale;
           ctx.lineJoin = "round";
           const clockCenterY = timeBlockY + 31 * scale;
-          const clockY = clockCenterY - (isIOSCanvas() ? 2 * scale : 0);
+          const clockY = clockCenterY - (isIOSCanvas() ? 4 * scale : 0);
           ctx.strokeText(`${hh}:${mm}`, padding, clockY);
           ctx.fillText(`${hh}:${mm}`, padding, clockY);
           clearShadow(ctx);
@@ -2729,8 +2780,14 @@
           ctx.textAlign = "left";
           ctx.strokeStyle = "rgba(0,0,0,0.18)";
           ctx.lineWidth = 0.5 * scale;
-          ctx.strokeText(loc, padding, locationY - 5 * scale);
-          ctx.fillText(loc, padding, locationY - 5 * scale);
+          drawTextLines(
+            ctx,
+            loc,
+            padding,
+            locationY - 5 * scale,
+            locLineH,
+            "up",
+          );
           clearShadow(ctx);
 
           if (notes.length > 0) {
