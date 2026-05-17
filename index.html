@@ -1103,8 +1103,8 @@
           🛒 Mua key Timemark
         </button>
         <div class="lock-note">
-          Hỗ trợ đổi key, thêm key nhiều thiết bị.<br />1 key = 1 thiết bị, không thể
-          dùng chung.
+          Hỗ trợ đổi key, thêm key nhiều thiết bị.<br />1 key = 1 thiết bị,
+          không thể dùng chung.
         </div>
       </div>
     </div>
@@ -1158,11 +1158,7 @@
 
     <div class="main">
       <div class="preview-box" id="preview-box">
-        <div
-          class="empty-state"
-          id="empty-state"
-          onclick="openImageChooser()"
-        >
+        <div class="empty-state" id="empty-state" onclick="openImageChooser()">
           <div class="empty-icon">🖼️</div>
           <div style="font-size: 17px; font-weight: 600; margin-bottom: 5px">
             Chọn ảnh hoặc video để bắt đầu
@@ -1184,10 +1180,7 @@
         <!-- Media selector -->
         <div class="field">
           <div class="media-btns">
-            <button
-              class="btn-primary"
-              onclick="openImageChooser()"
-            >
+            <button class="btn-primary" onclick="openImageChooser()">
               📁 Chọn ảnh
             </button>
             <button
@@ -1280,7 +1273,8 @@
           <label class="lbl">📍 Vị trí</label>
           <div class="gps-row">
             <textarea id="loc" oninput="redraw()">Hà Nội, Việt Nam</textarea>
-            <input style="display: none"
+            <input
+              style="display: none"
               type="text"
               id="loc-old"
               value="Hà Nội, Việt Nam"
@@ -1478,6 +1472,20 @@
               </div>
             </div>
           </div>
+          <div class="field">
+            <div class="toggle-row">
+              <label class="lbl" style="margin-bottom: 0">Mã ảnh dưới</label>
+              <label class="toggle"
+                ><input
+                  type="checkbox"
+                  id="show-bottom-code2"
+                  onchange="
+                    refreshImageCode();
+                    redraw();
+                  " /><span class="slider-t"></span
+              ></label>
+            </div>
+          </div>
         </div>
 
         <div class="field">
@@ -1517,7 +1525,10 @@
                 type="checkbox"
                 id="show-code"
                 checked
-                onchange="refreshImageCode(); redraw()" /><span class="slider-t"></span
+                onchange="
+                  refreshImageCode();
+                  redraw();
+                " /><span class="slider-t"></span
             ></label>
           </div>
         </div>
@@ -2030,8 +2041,10 @@
       // ===== MEDIA HANDLING =====
 
       function isIOSCanvas() {
-        return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        return (
+          /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+        );
       }
 
       function openImageChooser() {
@@ -2285,12 +2298,80 @@
         ctx.restore();
       }
 
+      function drawShieldIcon(ctx, x, y, size, color) {
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2.4 * (size / 24);
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(x + size * 0.5, y);
+        ctx.lineTo(x + size * 0.88, y + size * 0.16);
+        ctx.lineTo(x + size * 0.88, y + size * 0.52);
+        ctx.quadraticCurveTo(
+          x + size * 0.88,
+          y + size * 0.8,
+          x + size * 0.5,
+          y + size,
+        );
+        ctx.quadraticCurveTo(
+          x + size * 0.12,
+          y + size * 0.8,
+          x + size * 0.12,
+          y + size * 0.52,
+        );
+        ctx.lineTo(x + size * 0.12, y + size * 0.16);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x + size * 0.32, y + size * 0.52);
+        ctx.lineTo(x + size * 0.45, y + size * 0.66);
+        ctx.lineTo(x + size * 0.7, y + size * 0.36);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawBottomImageCode(ctx, x, y, width, scale, code) {
+        const color = "rgba(255,255,255,0.68)";
+        ctx.save();
+        setTextShadow(ctx, scale);
+        ctx.strokeStyle = "rgba(255,255,255,0.38)";
+        ctx.lineWidth = 1 * scale;
+        const lineOffsetY = 24 * scale; // chỉnh số này để thấp/cao hơn
+        const linePad = 40 * scale; // tăng lên = ngắn hơn
+        const lineShiftX = 38 * scale;// tăng lên = dịch trái nhiều hơn
+        ctx.beginPath();
+        ctx.moveTo(x - lineShiftX + linePad, y + lineOffsetY);
+        ctx.lineTo(x - lineShiftX + width - linePad, y + lineOffsetY);
+        ctx.stroke();
+
+        const iconSize = 16 * scale;// tăng từ 18 lên 20 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
+        const textY = y + 45 * scale;// tăng từ 40 lên 44 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
+        drawShieldIcon(ctx, x, y + 36 * scale, iconSize, color);// tăng từ 30 lên 33 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
+
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "left";
+        ctx.fillStyle = color;
+        ctx.font = `500 ${14 * scale}px RobotoCondensed`;// tăng từ 14 lên 16 để rõ hơn khi scale lớn, đồng thời giảm khoảng cách giữa icon và text
+        const label = "Mã ảnh: ";
+        const textShiftX = 8 * scale; // tăng = dịch trái nhiều hơn
+        const labelX = x + iconSize + 14 * scale - textShiftX;//
+        ctx.fillText(label, labelX, textY);
+
+        ctx.font = `700 ${14 * scale}px RobotoCondensed`;
+        ctx.fillText(code, labelX + ctx.measureText(label).width, textY);
+        clearShadow(ctx);
+        ctx.restore();
+      }
+
       // ===== WATERMARK PARAMS =====
 
       function getWatermarkParams(w, h) {
         const wmS = Number(document.getElementById("wm-scale").value);
         const scale = (Math.min(w, h) / 800) * (wmS / 100);
         const showCode = document.getElementById("show-code").checked;
+        const showBottomCode2 =
+          document.getElementById("show-bottom-code2")?.checked || false;
         const code = imageCode;
         const dt = new Date(document.getElementById("dt").value);
         const loc = document.getElementById("loc").value || "Hà Nội, Việt Nam";
@@ -2303,6 +2384,7 @@
         return {
           scale,
           showCode,
+          showBottomCode2,
           code,
           loc,
           dayName,
@@ -2375,6 +2457,7 @@
               p.year,
               p.loc,
               p.showCode,
+              p.showBottomCode2,
               p.code,
             );
           }
@@ -2694,6 +2777,7 @@
         year,
         loc,
         showCode,
+        showBottomCode2,
         code,
       ) {
         drawTemplate2Async(
@@ -2710,6 +2794,7 @@
           year,
           loc,
           showCode,
+          showBottomCode2,
           code,
           () => {
             document.getElementById("empty-state").style.display = "none";
@@ -2733,6 +2818,7 @@
         year,
         loc,
         showCode,
+        showBottomCode2,
         code,
         callback,
       ) {
@@ -2752,13 +2838,18 @@
           },
         ].filter((n) => n.title || n.content);
 
-        const noteH = 27 * scale,
-          noteGap = 3 * scale;
-        const noteW = w / 2 - padding;
+        const noteH = 27 * scale, // chiều cao mỗi note, tăng số này để cao hơn, giảm để thấp hơn
+          noteGap = 3 * scale; 
+        const noteW = w / 2 - padding; 
         const notesAreaH =
           notes.length > 0 ? notes.length * (noteH + noteGap) - noteGap : 0;
         const bottomEdge = h - padding;
-        const notesBottomY = bottomEdge,
+        const bottomCodeH = showBottomCode2 ? 58 * scale : 0;
+        const bottomCodeGap = showBottomCode2 ? -8 * scale : 0; // tăng số này để code thấp hơn, giảm để cao hơn
+        const bottomCodeTopY = bottomEdge - bottomCodeH;
+        const notesBottomY = showBottomCode2
+            ? bottomCodeTopY - bottomCodeGap
+            : bottomEdge,
           notesTopY = notesBottomY - notesAreaH;
         const locLines = getTextLines(loc);
         const locLineH = 20 * scale;
@@ -2766,9 +2857,9 @@
         const locGap = notes.length > 0 ? 10 * scale : 0;
         const locationY = notesTopY - locGap;
         const timeBlockH = 80 * scale,
-          timeBlockY = locationY - locExtraH - timeBlockH - 8 * scale;
+          timeBlockY = locationY - locExtraH - timeBlockH - 9 * scale;
         const lSizePct2 = Number(document.getElementById("logo2-size").value);
-        const lBase2 = 56 * scale,
+        const lBase2 = 66 * scale,
           lSize2 = lBase2 * (lSizePct2 / 100);
 
         const finishDraw = () => {
@@ -2858,6 +2949,17 @@
               }
             });
             clearShadow(ctx);
+          }
+
+          if (showBottomCode2) {
+            drawBottomImageCode(
+              ctx,
+              padding,
+              bottomCodeTopY,
+              noteW,
+              scale,
+              code,
+            );
           }
 
           const bi = new Image();
@@ -3021,6 +3123,7 @@
               p.year,
               p.loc,
               p.showCode,
+              p.showBottomCode2,
               p.code,
               renderDone,
             );
