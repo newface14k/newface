@@ -487,6 +487,38 @@
         grid-template-columns: 1fr 1fr;
         gap: 8px;
       }
+      .media-choice-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 14, 20, 0.72);
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 9997;
+        padding: 16px;
+      }
+      .media-choice-sheet {
+        width: 100%;
+        max-width: 420px;
+        background: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+      }
+      .media-choice-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .media-choice-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .media-choice-cancel {
+        margin-top: 8px;
+      }
       .processing-bar {
         background: #374151;
         border-radius: 6px;
@@ -1102,7 +1134,7 @@
         <div
           class="empty-state"
           id="empty-state"
-          onclick="document.getElementById('file-in').click()"
+          onclick="openImageChooser()"
         >
           <div class="empty-icon">🖼️</div>
           <div style="font-size: 17px; font-weight: 600; margin-bottom: 5px">
@@ -1127,7 +1159,7 @@
           <div class="media-btns">
             <button
               class="btn-primary"
-              onclick="document.getElementById('file-in').click()"
+              onclick="openImageChooser()"
             >
               📁 Chọn ảnh
             </button>
@@ -1140,8 +1172,16 @@
           </div>
           <input
             type="file"
-            id="file-in"
+            id="image-library-in"
             accept="image/*"
+            style="display: none"
+            onchange="handleImg(this)"
+          />
+          <input
+            type="file"
+            id="image-camera-in"
+            accept="image/*"
+            capture="environment"
             style="display: none"
             onchange="handleImg(this)"
           />
@@ -1152,6 +1192,30 @@
             style="display: none"
             onchange="handleVideo(this)"
           />
+        </div>
+
+        <div
+          class="media-choice-modal"
+          id="image-choice-modal"
+          onclick="closeImageChooser(event)"
+        >
+          <div class="media-choice-sheet" onclick="event.stopPropagation()">
+            <div class="media-choice-title">Chọn nguồn ảnh</div>
+            <div class="media-choice-actions">
+              <button class="btn-primary" onclick="pickImageFromCamera()">
+                📷 Camera
+              </button>
+              <button class="btn-secondary" onclick="pickImageFromLibrary()">
+                📁 Thư viện
+              </button>
+            </div>
+            <button
+              class="btn-outline media-choice-cancel"
+              onclick="closeImageChooser()"
+            >
+              Hủy
+            </button>
+          </div>
         </div>
 
         <div class="tabs">
@@ -1919,6 +1983,29 @@
       }
 
       // ===== MEDIA HANDLING =====
+
+      function openImageChooser() {
+        document.getElementById("image-choice-modal").style.display = "flex";
+      }
+
+      function closeImageChooser(e) {
+        if (e && e.target !== e.currentTarget) return;
+        document.getElementById("image-choice-modal").style.display = "none";
+      }
+
+      function pickImageFromCamera() {
+        closeImageChooser();
+        const input = document.getElementById("image-camera-in");
+        input.value = "";
+        input.click();
+      }
+
+      function pickImageFromLibrary() {
+        closeImageChooser();
+        const input = document.getElementById("image-library-in");
+        input.value = "";
+        input.click();
+      }
 
       function handleImg(i) {
         const f = i.files[0];
