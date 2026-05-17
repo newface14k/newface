@@ -1221,6 +1221,23 @@
           />
         </div>
 
+        <!-- Video processing status -->
+        <div id="video-processing-wrap" class="field" style="display: none">
+          <div
+            style="font-size: 12px; color: #f5b800; margin-bottom: 4px"
+            id="video-processing-label"
+          >
+            ⏳ Đang xử lý video...
+          </div>
+          <div
+            class="processing-bar"
+            id="processing-bar"
+            style="display: block"
+          >
+            <div class="processing-bar-inner"></div>
+          </div>
+        </div>
+
         <div
           class="media-choice-modal"
           id="image-choice-modal"
@@ -1247,10 +1264,10 @@
 
         <div class="tabs">
           <button class="tab" id="tab1" onclick="setTemplate('1')">
-            Mẫu 1 — Điểm danh
+            Mẫu 1
           </button>
           <button class="tab" id="tab2" onclick="setTemplate('2')">
-            Mẫu 2 — Đồng hồ
+            Mẫu 2
           </button>
         </div>
 
@@ -1506,16 +1523,16 @@
         </div>
 
         <!-- Video processing status -->
-        <div id="video-processing-wrap" style="display: none">
+        <div id="video-processing-wrap-old" style="display: none">
           <div
             style="font-size: 12px; color: #f5b800; margin-bottom: 4px"
-            id="video-processing-label"
+            id="video-processing-label-old"
           >
             ⏳ Đang xử lý video...
           </div>
           <div
             class="processing-bar"
-            id="processing-bar"
+            id="processing-bar-old"
             style="display: block"
           >
             <div class="processing-bar-inner"></div>
@@ -2529,7 +2546,7 @@
             barY = row1Y + 10 * scale,
             barH = 50 * scale + locExtraH;
           ctx.fillStyle = "#e6a817";
-          ctx.fillRect(barX, barY, 3 * scale, barH);
+          ctx.fillRect(barX, barY, 4 * scale, barH);
           const textX = barX + 14 * scale;
 
           ctx.shadowColor = "rgba(0,0,0,0.25)";
@@ -2552,7 +2569,7 @@
             textX,
             barY + 2 * scale,
           );
-          ctx.fillStyle = "rgba(255,255,255,0.92)";
+          ctx.fillStyle = "rgba(255,255,255,1)";
           ctx.font = `500 ${18 * scale}px RobotoCondensed`;
           ctx.strokeStyle = "rgba(60,60,60,0.4)";
           ctx.lineWidth = 0.5 * scale;
@@ -2564,7 +2581,7 @@
 
           const commitY = h - 15 * scale;
           ctx.fillStyle = "rgba(255,255,255,0.75)";
-          ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+          ctx.font = `500 ${15 * scale}px RobotoCondensed`;
           ctx.textBaseline = "bottom";
           const sx = padding,
             sy = commitY - 15 * scale,
