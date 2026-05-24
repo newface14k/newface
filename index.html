@@ -23,117 +23,137 @@
 
       /* ===== LIQUID GLASS TOKENS — WHITE THEME (default) ===== */
       :root {
-        --glass-bg: rgba(0,0,0,0.04);
-        --glass-bg-strong: rgba(0,0,0,0.07);
-        --glass-border: rgba(0,0,0,0.12);
-        --glass-border-bright: rgba(0,0,0,0.22);
-        --glass-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 1.5px 0 rgba(255,255,255,0.7) inset;
-        --glass-shadow-btn: 0 4px 18px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.6) inset;
+        --glass-bg: rgba(0, 0, 0, 0.04);
+        --glass-bg-strong: rgba(0, 0, 0, 0.07);
+        --glass-border: rgba(0, 0, 0, 0.12);
+        --glass-border-bright: rgba(0, 0, 0, 0.22);
+        --glass-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.1),
+          0 1.5px 0 rgba(255, 255, 255, 0.7) inset;
+        --glass-shadow-btn:
+          0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 0 rgba(255, 255, 255, 0.6) inset;
         --glass-blur: blur(18px) saturate(180%);
         --glass-blur-sm: blur(10px) saturate(160%);
         --gold: #f5b800;
-        --gold-glow: rgba(245,184,0,0.25);
+        --gold-glow: rgba(245, 184, 0, 0.25);
         /* semantic */
         --bg-page: #f0f2f5;
-        --bg-page-grad1: rgba(0,0,0,0.04);
-        --bg-page-grad2: rgba(0,0,0,0.03);
+        --bg-page-grad1: rgba(0, 0, 0, 0.04);
+        --bg-page-grad2: rgba(0, 0, 0, 0.03);
         --text-primary: #111827;
         --text-secondary: #4b5563;
         --text-muted: #6b7280;
-        --header-bg: rgba(255,255,255,0.72);
-        --header-shadow: 0 4px 24px rgba(0,0,0,0.06);
-        --input-bg: rgba(255,255,255,0.65);
+        --header-bg: rgba(255, 255, 255, 0.72);
+        --header-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        --input-bg: rgba(255, 255, 255, 0.65);
         --input-color: #111827;
-        --note-head-bg: rgba(0,0,0,0.04);
-        --note-input-bg: rgba(255,255,255,0.55);
-        --modal-bg: rgba(255,255,255,0.90);
-        --modal-shadow: 0 24px 60px rgba(0,0,0,0.10), 0 1px 0 rgba(255,255,255,0.9) inset;
-        --sheet-bg: rgba(255,255,255,0.88);
-        --overlay-bg: rgba(240,242,245,0.85);
-        --keybar-bg: rgba(255,255,255,0.72);
-        --toggle-off-bg: rgba(0,0,0,0.10);
-        --tab-bg: rgba(255,255,255,0.50);
+        --note-head-bg: rgba(0, 0, 0, 0.04);
+        --note-input-bg: rgba(255, 255, 255, 0.55);
+        --modal-bg: rgba(255, 255, 255, 0.9);
+        --modal-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+        --sheet-bg: rgba(255, 255, 255, 0.88);
+        --overlay-bg: rgba(240, 242, 245, 0.85);
+        --keybar-bg: rgba(255, 255, 255, 0.72);
+        --toggle-off-bg: rgba(0, 0, 0, 0.1);
+        --tab-bg: rgba(255, 255, 255, 0.5);
         --tab-color: #6b7280;
         --btn-outline-color: #111827;
-        --btn-outline-bg: rgba(0,0,0,0.04);
-        --btn-skip-bg: rgba(0,0,0,0.03);
-        --processing-bar-bg: rgba(0,0,0,0.06);
-        --lock-overlay-bg: rgba(240,242,245,0.85);
-        --install-card-bg: rgba(255,255,255,0.55);
-        --install-steps-bg: rgba(0,0,0,0.03);
+        --btn-outline-bg: rgba(0, 0, 0, 0.04);
+        --btn-skip-bg: rgba(0, 0, 0, 0.03);
+        --processing-bar-bg: rgba(0, 0, 0, 0.06);
+        --lock-overlay-bg: rgba(240, 242, 245, 0.85);
+        --install-card-bg: rgba(255, 255, 255, 0.55);
+        --install-steps-bg: rgba(0, 0, 0, 0.03);
         --step-title-color: #374151;
         --step-li-color: #6b7280;
         --step-li-b-color: #111827;
-        --buy-btn-bg: rgba(0,0,0,0.04);
+        --buy-btn-bg: rgba(0, 0, 0, 0.04);
         --buy-btn-color: #6b7280;
-        --hint-bg: rgba(0,0,0,0.04);
+        --hint-bg: rgba(0, 0, 0, 0.04);
         --hint-color: #374151;
         --empty-color: #6b7280;
         --logo-img-border: #d1d5db;
-        --notify-sec-bg: rgba(0,0,0,0.04);
+        --notify-sec-bg: rgba(0, 0, 0, 0.04);
         --notify-sec-color: #6b7280;
-        --gps-btn-bg: rgba(0,0,0,0.07);
+        --gps-btn-bg: rgba(0, 0, 0, 0.07);
       }
 
       /* ===== DARK THEME ===== */
       body.dark {
-        --glass-bg: rgba(255,255,255,0.08);
-        --glass-bg-strong: rgba(255,255,255,0.13);
-        --glass-border: rgba(255,255,255,0.22);
-        --glass-border-bright: rgba(255,255,255,0.42);
-        --glass-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 1.5px 0 rgba(255,255,255,0.12) inset;
-        --glass-shadow-btn: 0 4px 18px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.18) inset;
-        --gold-glow: rgba(245,184,0,0.35);
+        --glass-bg: rgba(255, 255, 255, 0.08);
+        --glass-bg-strong: rgba(255, 255, 255, 0.13);
+        --glass-border: rgba(255, 255, 255, 0.22);
+        --glass-border-bright: rgba(255, 255, 255, 0.42);
+        --glass-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.45),
+          0 1.5px 0 rgba(255, 255, 255, 0.12) inset;
+        --glass-shadow-btn:
+          0 4px 18px rgba(0, 0, 0, 0.35),
+          0 1px 0 rgba(255, 255, 255, 0.18) inset;
+        --gold-glow: rgba(245, 184, 0, 0.35);
         --bg-page: #141920;
-        --bg-page-grad1: rgba(245,184,0,0.08);
-        --bg-page-grad2: rgba(14,165,233,0.07);
+        --bg-page-grad1: rgba(245, 184, 0, 0.08);
+        --bg-page-grad2: rgba(14, 165, 233, 0.07);
         --text-primary: #f9fafb;
         --text-secondary: #9ca3af;
         --text-muted: #9ca3af;
-        --header-bg: rgba(20,25,32,0.72);
-        --header-shadow: 0 4px 24px rgba(0,0,0,0.3);
-        --input-bg: rgba(255,255,255,0.06);
+        --header-bg: rgba(20, 25, 32, 0.72);
+        --header-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        --input-bg: rgba(255, 255, 255, 0.06);
         --input-color: #f9fafb;
-        --note-head-bg: rgba(255,255,255,0.07);
-        --note-input-bg: rgba(255,255,255,0.04);
-        --modal-bg: rgba(20,25,32,0.88);
-        --modal-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.15) inset;
-        --sheet-bg: rgba(20,25,32,0.85);
-        --overlay-bg: rgba(5,8,12,0.92);
-        --keybar-bg: rgba(20,25,32,0.72);
-        --toggle-off-bg: rgba(255,255,255,0.12);
-        --tab-bg: rgba(255,255,255,0.08);
+        --note-head-bg: rgba(255, 255, 255, 0.07);
+        --note-input-bg: rgba(255, 255, 255, 0.04);
+        --modal-bg: rgba(20, 25, 32, 0.88);
+        --modal-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.55),
+          0 1px 0 rgba(255, 255, 255, 0.15) inset;
+        --sheet-bg: rgba(20, 25, 32, 0.85);
+        --overlay-bg: rgba(5, 8, 12, 0.92);
+        --keybar-bg: rgba(20, 25, 32, 0.72);
+        --toggle-off-bg: rgba(255, 255, 255, 0.12);
+        --tab-bg: rgba(255, 255, 255, 0.08);
         --tab-color: #9ca3af;
         --btn-outline-color: #f9fafb;
-        --btn-outline-bg: rgba(255,255,255,0.08);
-        --btn-skip-bg: rgba(255,255,255,0.05);
-        --processing-bar-bg: rgba(255,255,255,0.08);
-        --lock-overlay-bg: rgba(5,8,12,0.92);
-        --install-card-bg: rgba(255,255,255,0.05);
-        --install-steps-bg: rgba(255,255,255,0.05);
+        --btn-outline-bg: rgba(255, 255, 255, 0.08);
+        --btn-skip-bg: rgba(255, 255, 255, 0.05);
+        --processing-bar-bg: rgba(255, 255, 255, 0.08);
+        --lock-overlay-bg: rgba(5, 8, 12, 0.92);
+        --install-card-bg: rgba(255, 255, 255, 0.05);
+        --install-steps-bg: rgba(255, 255, 255, 0.05);
         --step-title-color: #f5b800;
         --step-li-color: #9ca3af;
         --step-li-b-color: #f9fafb;
-        --buy-btn-bg: rgba(255,255,255,0.05);
+        --buy-btn-bg: rgba(255, 255, 255, 0.05);
         --buy-btn-color: #9ca3af;
-        --hint-bg: rgba(245,184,0,0.07);
+        --hint-bg: rgba(245, 184, 0, 0.07);
         --hint-color: #f5b800;
         --empty-color: #9ca3af;
         --logo-img-border: #4b5563;
-        --notify-sec-bg: rgba(255,255,255,0.05);
+        --notify-sec-bg: rgba(255, 255, 255, 0.05);
         --notify-sec-color: #9ca3af;
-        --gps-btn-bg: rgba(255,255,255,0.13);
+        --gps-btn-bg: rgba(255, 255, 255, 0.13);
       }
 
       body {
         font-family: "RobotoCondensed", sans-serif;
         background: var(--bg-page);
         background-image:
-          radial-gradient(ellipse at 20% 30%, var(--bg-page-grad1) 0%, transparent 55%),
-          radial-gradient(ellipse at 80% 70%, var(--bg-page-grad2) 0%, transparent 55%);
+          radial-gradient(
+            ellipse at 20% 30%,
+            var(--bg-page-grad1) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 80% 70%,
+            var(--bg-page-grad2) 0%,
+            transparent 55%
+          );
         color: var(--text-primary);
         min-height: 100vh;
-        transition: background 0.3s, color 0.3s;
+        transition:
+          background 0.3s,
+          color 0.3s;
       }
 
       /* ===== THEME TOGGLE BUTTON ===== */
@@ -187,7 +207,12 @@
       .logo-mark {
         width: 34px;
         height: 34px;
-        background: linear-gradient(135deg, #f5b800 0%, #ffda47 60%, #e0a800 100%);
+        background: linear-gradient(
+          135deg,
+          #f5b800 0%,
+          #ffda47 60%,
+          #e0a800 100%
+        );
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -197,7 +222,9 @@
         color: #1a1a1a;
         margin-right: 10px;
         flex-shrink: 0;
-        box-shadow: 0 2px 12px var(--gold-glow), 0 1px 0 rgba(255,255,255,0.4) inset;
+        box-shadow:
+          0 2px 12px var(--gold-glow),
+          0 1px 0 rgba(255, 255, 255, 0.4) inset;
       }
       .hl {
         display: flex;
@@ -217,9 +244,13 @@
         align-items: center;
       }
       #btn-dl {
-        background: linear-gradient(135deg, rgba(245,184,0,0.85) 0%, rgba(245,184,0,0.65) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.85) 0%,
+          rgba(245, 184, 0, 0.65) 100%
+        );
         color: #1a1a1a;
-        border: 1px solid rgba(255,210,80,0.7);
+        border: 1px solid rgba(255, 210, 80, 0.7);
         padding: 9px 18px;
         border-radius: 10px;
         font-weight: 700;
@@ -228,18 +259,30 @@
         display: none;
         backdrop-filter: var(--glass-blur-sm);
         -webkit-backdrop-filter: var(--glass-blur-sm);
-        box-shadow: var(--glass-shadow-btn), 0 0 12px var(--gold-glow);
+        box-shadow:
+          var(--glass-shadow-btn),
+          0 0 12px var(--gold-glow);
         transition: all 0.2s;
       }
       #btn-dl:hover {
-        background: linear-gradient(135deg, rgba(245,184,0,1) 0%, rgba(224,168,0,0.9) 100%);
-        box-shadow: 0 6px 24px var(--gold-glow), 0 1px 0 rgba(255,255,255,0.25) inset;
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 1) 0%,
+          rgba(224, 168, 0, 0.9) 100%
+        );
+        box-shadow:
+          0 6px 24px var(--gold-glow),
+          0 1px 0 rgba(255, 255, 255, 0.25) inset;
         transform: translateY(-1px);
       }
       #btn-dl-video {
-        background: linear-gradient(135deg, rgba(245,184,0,0.85) 0%, rgba(245,184,0,0.65) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.85) 0%,
+          rgba(245, 184, 0, 0.65) 100%
+        );
         color: #1a1a1a;
-        border: 1px solid rgba(255,210,80,0.7);
+        border: 1px solid rgba(255, 210, 80, 0.7);
         padding: 9px 18px;
         border-radius: 10px;
         font-weight: 700;
@@ -248,26 +291,38 @@
         display: none;
         backdrop-filter: var(--glass-blur-sm);
         -webkit-backdrop-filter: var(--glass-blur-sm);
-        box-shadow: var(--glass-shadow-btn), 0 0 12px var(--gold-glow);
+        box-shadow:
+          var(--glass-shadow-btn),
+          0 0 12px var(--gold-glow);
         transition: all 0.2s;
       }
       #btn-dl-video:hover {
-        background: linear-gradient(135deg, rgba(245,184,0,1) 0%, rgba(224,168,0,0.9) 100%);
-        box-shadow: 0 6px 24px var(--gold-glow), 0 1px 0 rgba(255,255,255,0.25) inset;
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 1) 0%,
+          rgba(224, 168, 0, 0.9) 100%
+        );
+        box-shadow:
+          0 6px 24px var(--gold-glow),
+          0 1px 0 rgba(255, 255, 255, 0.25) inset;
         transform: translateY(-1px);
       }
       #btn-dl-video:disabled {
-        background: rgba(156,163,175,0.3);
-        border-color: rgba(156,163,175,0.3);
+        background: rgba(156, 163, 175, 0.3);
+        border-color: rgba(156, 163, 175, 0.3);
         color: #6b7280;
         box-shadow: none;
         cursor: not-allowed;
         transform: none;
       }
       #btn-install {
-        background: linear-gradient(135deg, rgba(14,165,233,0.85) 0%, rgba(14,165,233,0.65) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(14, 165, 233, 0.85) 0%,
+          rgba(14, 165, 233, 0.65) 100%
+        );
         color: #ffffff;
-        border: 1px solid rgba(14,165,233,0.5);
+        border: 1px solid rgba(14, 165, 233, 0.5);
         padding: 9px 18px;
         border-radius: 10px;
         font-weight: 700;
@@ -276,11 +331,17 @@
         display: none;
         backdrop-filter: var(--glass-blur-sm);
         -webkit-backdrop-filter: var(--glass-blur-sm);
-        box-shadow: var(--glass-shadow-btn), 0 0 12px rgba(14,165,233,0.2);
+        box-shadow:
+          var(--glass-shadow-btn),
+          0 0 12px rgba(14, 165, 233, 0.2);
         transition: all 0.2s;
       }
       #btn-install:hover {
-        background: linear-gradient(135deg, rgba(14,165,233,0.95) 0%, rgba(2,132,199,0.85) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(14, 165, 233, 0.95) 0%,
+          rgba(2, 132, 199, 0.85) 100%
+        );
         transform: translateY(-1px);
       }
       .install-hint {
@@ -460,7 +521,9 @@
         font-size: 13px;
         font-family: "RobotoCondensed", sans-serif;
         outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
       }
       textarea {
         min-height: 64px;
@@ -470,8 +533,8 @@
       input[type="text"]:focus,
       input[type="datetime-local"]:focus,
       textarea:focus {
-        border-color: rgba(245,184,0,0.7);
-        box-shadow: 0 0 0 3px rgba(245,184,0,0.12);
+        border-color: rgba(245, 184, 0, 0.7);
+        box-shadow: 0 0 0 3px rgba(245, 184, 0, 0.12);
       }
       input[type="range"] {
         width: 100%;
@@ -480,9 +543,13 @@
       }
       .btn-primary {
         width: 100%;
-        background: linear-gradient(135deg, rgba(245,184,0,0.82) 0%, rgba(245,184,0,0.6) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.82) 0%,
+          rgba(245, 184, 0, 0.6) 100%
+        );
         color: #1a1a1a;
-        border: 1px solid rgba(255,210,80,0.65);
+        border: 1px solid rgba(255, 210, 80, 0.65);
         border-radius: 10px;
         padding: 11px;
         font-size: 14px;
@@ -490,20 +557,28 @@
         cursor: pointer;
         backdrop-filter: var(--glass-blur-sm);
         -webkit-backdrop-filter: var(--glass-blur-sm);
-        box-shadow: var(--glass-shadow-btn), 0 0 14px var(--gold-glow);
+        box-shadow:
+          var(--glass-shadow-btn),
+          0 0 14px var(--gold-glow);
         transition: all 0.2s;
       }
       .btn-primary:hover {
-        background: linear-gradient(135deg, rgba(245,184,0,1) 0%, rgba(224,168,0,0.9) 100%);
-        box-shadow: 0 6px 24px var(--gold-glow), 0 1px 0 rgba(255,255,255,0.25) inset;
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 1) 0%,
+          rgba(224, 168, 0, 0.9) 100%
+        );
+        box-shadow:
+          0 6px 24px var(--gold-glow),
+          0 1px 0 rgba(255, 255, 255, 0.25) inset;
         transform: translateY(-1px);
       }
       .btn-secondary {
         width: 100%;
-        background: rgba(245,184,0,0.08);
+        background: rgba(245, 184, 0, 0.08);
         backdrop-filter: var(--glass-blur-sm);
         -webkit-backdrop-filter: var(--glass-blur-sm);
-        border: 1px solid rgba(245,184,0,0.45);
+        border: 1px solid rgba(245, 184, 0, 0.45);
         color: #f5b800;
         border-radius: 10px;
         padding: 11px;
@@ -514,8 +589,8 @@
         transition: all 0.2s;
       }
       .btn-secondary:hover {
-        background: rgba(245,184,0,0.16);
-        border-color: rgba(245,184,0,0.7);
+        background: rgba(245, 184, 0, 0.16);
+        border-color: rgba(245, 184, 0, 0.7);
         transform: translateY(-1px);
       }
       .btn-outline {
@@ -533,15 +608,15 @@
         transition: all 0.2s;
       }
       .btn-outline:hover {
-        border-color: rgba(245,184,0,0.55);
+        border-color: rgba(245, 184, 0, 0.55);
         color: #f5b800;
-        background: rgba(245,184,0,0.07);
+        background: rgba(245, 184, 0, 0.07);
       }
       .btn-red {
-        background: rgba(239,68,68,0.1);
+        background: rgba(239, 68, 68, 0.1);
         backdrop-filter: var(--glass-blur-sm);
         -webkit-backdrop-filter: var(--glass-blur-sm);
-        border: 1px solid rgba(239,68,68,0.4);
+        border: 1px solid rgba(239, 68, 68, 0.4);
         border-radius: 8px;
         padding: 9px 11px;
         color: #f87171;
@@ -551,8 +626,8 @@
         transition: all 0.2s;
       }
       .btn-red:hover {
-        background: rgba(239,68,68,0.2);
-        border-color: rgba(239,68,68,0.7);
+        background: rgba(239, 68, 68, 0.2);
+        border-color: rgba(239, 68, 68, 0.7);
       }
       .row {
         display: flex;
@@ -634,8 +709,8 @@
         transition: all 0.2s;
       }
       .gps-btn:hover {
-        border-color: rgba(245,184,0,0.55);
-        background: rgba(245,184,0,0.1);
+        border-color: rgba(245, 184, 0, 0.55);
+        background: rgba(245, 184, 0, 0.1);
       }
       .gps-status {
         font-size: 11px;
@@ -674,10 +749,16 @@
         box-shadow: var(--glass-shadow-btn);
       }
       .tab.active {
-        background: linear-gradient(135deg, rgba(245,184,0,0.82) 0%, rgba(245,184,0,0.6) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.82) 0%,
+          rgba(245, 184, 0, 0.6) 100%
+        );
         color: #1a1a1a;
-        border-color: rgba(255,210,80,0.65);
-        box-shadow: var(--glass-shadow-btn), 0 0 14px var(--gold-glow);
+        border-color: rgba(255, 210, 80, 0.65);
+        box-shadow:
+          var(--glass-shadow-btn),
+          0 0 14px var(--gold-glow);
       }
       .note-table {
         border: 1px solid var(--glass-border);
@@ -849,11 +930,13 @@
         text-align: center;
         letter-spacing: 2px;
         margin-bottom: 12px;
-        transition: border-color 0.2s, box-shadow 0.2s;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
       }
       .key-input:focus {
-        border-color: rgba(0,0,0,0.3);
-        box-shadow: 0 0 0 3px rgba(0,0,0,0.07);
+        border-color: rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.07);
       }
       .key-input::placeholder {
         letter-spacing: 0;
@@ -861,9 +944,13 @@
       }
       .btn-activate {
         width: 100%;
-        background: linear-gradient(135deg, rgba(245,184,0,0.9) 0%, rgba(245,184,0,0.65) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.9) 0%,
+          rgba(245, 184, 0, 0.65) 100%
+        );
         color: #1a1a1a;
-        border: 1px solid rgba(255,210,80,0.65);
+        border: 1px solid rgba(255, 210, 80, 0.65);
         border-radius: 10px;
         padding: 13px;
         font-size: 15px;
@@ -872,18 +959,24 @@
         font-family: "RobotoCondensed", sans-serif;
         backdrop-filter: var(--glass-blur-sm);
         -webkit-backdrop-filter: var(--glass-blur-sm);
-        box-shadow: var(--glass-shadow-btn), 0 0 16px var(--gold-glow);
+        box-shadow:
+          var(--glass-shadow-btn),
+          0 0 16px var(--gold-glow);
         transition: all 0.2s;
         margin-bottom: 10px;
       }
       .btn-activate:hover {
-        background: linear-gradient(135deg, rgba(245,184,0,1) 0%, rgba(224,168,0,0.9) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 1) 0%,
+          rgba(224, 168, 0, 0.9) 100%
+        );
         transform: translateY(-1px);
       }
       .btn-activate:disabled {
-        background: rgba(75,85,99,0.4);
+        background: rgba(75, 85, 99, 0.4);
         color: #6b7280;
-        border-color: rgba(75,85,99,0.4);
+        border-color: rgba(75, 85, 99, 0.4);
         box-shadow: none;
         cursor: not-allowed;
         transform: none;
@@ -916,9 +1009,9 @@
         line-height: 1.4;
       }
       .lock-error {
-        background: rgba(127,29,29,0.2);
+        background: rgba(127, 29, 29, 0.2);
         backdrop-filter: blur(6px);
-        border: 1px solid rgba(127,29,29,0.55);
+        border: 1px solid rgba(127, 29, 29, 0.55);
         color: #f87171;
         border-radius: 8px;
         padding: 10px 12px;
@@ -932,7 +1025,7 @@
       #notify-modal {
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.6);
+        background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(6px);
         display: none;
         align-items: center;
@@ -975,9 +1068,13 @@
         flex-direction: column;
       }
       .notify-btn-primary {
-        background: linear-gradient(135deg, rgba(245,184,0,0.85) 0%, rgba(245,184,0,0.65) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.85) 0%,
+          rgba(245, 184, 0, 0.65) 100%
+        );
         color: #1a1a1a;
-        border: 1px solid rgba(255,210,80,0.65);
+        border: 1px solid rgba(255, 210, 80, 0.65);
         border-radius: 8px;
         padding: 11px;
         font-size: 14px;
@@ -985,7 +1082,9 @@
         cursor: pointer;
         font-family: "RobotoCondensed", sans-serif;
         backdrop-filter: var(--glass-blur-sm);
-        box-shadow: var(--glass-shadow-btn), 0 0 12px var(--gold-glow);
+        box-shadow:
+          var(--glass-shadow-btn),
+          0 0 12px var(--gold-glow);
         transition: all 0.2s;
       }
       .notify-btn-secondary {
@@ -1022,7 +1121,7 @@
         gap: 8px;
       }
       .key-bar.warning {
-        background: rgba(120,53,15,0.25);
+        background: rgba(120, 53, 15, 0.25);
         color: #fbbf24;
       }
       .key-dot {
@@ -1112,10 +1211,10 @@
       }
       .welcome-badge {
         display: inline-block;
-        background: rgba(120,53,15,0.25);
+        background: rgba(31, 23, 18, 0.822);
         backdrop-filter: blur(6px);
         color: #fbbf24;
-        border: 1px solid rgba(120,53,15,0.5);
+        border: 1px solid rgba(120, 53, 15, 0.5);
         border-radius: 20px;
         padding: 3px 12px;
         font-size: 11px;
@@ -1123,9 +1222,9 @@
         margin-bottom: 12px;
       }
       .pwa-already {
-        background: rgba(5,46,22,0.3);
+        background: rgba(48, 63, 54, 0.808);
         backdrop-filter: blur(6px);
-        border: 1px solid rgba(22,101,52,0.55);
+        border: 1px solid rgba(22, 101, 52, 0.55);
         border-radius: 10px;
         padding: 12px 14px;
         margin-bottom: 16px;
@@ -1214,21 +1313,33 @@
         padding: 14px;
         font-size: 15px;
         font-weight: 700;
-        background: linear-gradient(135deg, rgba(245,184,0,0.88) 0%, rgba(245,184,0,0.65) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.88) 0%,
+          rgba(245, 184, 0, 0.65) 100%
+        );
         color: #1a1a1a;
-        border: 1px solid rgba(255,210,80,0.65);
+        border: 1px solid rgba(255, 210, 80, 0.65);
         border-radius: 12px;
         cursor: pointer;
         transition: all 0.2s;
         margin-bottom: 8px;
         backdrop-filter: var(--glass-blur-sm);
         -webkit-backdrop-filter: var(--glass-blur-sm);
-        box-shadow: var(--glass-shadow-btn), 0 0 18px var(--gold-glow);
+        box-shadow:
+          var(--glass-shadow-btn),
+          0 0 18px var(--gold-glow);
       }
       .btn-welcome-main:hover {
-        background: linear-gradient(135deg, rgba(245,184,0,1) 0%, rgba(224,168,0,0.9) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 1) 0%,
+          rgba(224, 168, 0, 0.9) 100%
+        );
         transform: translateY(-1px);
-        box-shadow: 0 8px 28px var(--gold-glow), 0 1px 0 rgba(255,255,255,0.25) inset;
+        box-shadow:
+          0 8px 28px var(--gold-glow),
+          0 1px 0 rgba(255, 255, 255, 0.25) inset;
       }
       .btn-welcome-skip {
         width: 100%;
@@ -1398,7 +1509,7 @@
         <div class="logo-mark">NF</div>
         <div>
           <div class="ht">NEWFACE</div>
-          <div class="hs">Công cụ tạo watermark</div>
+          <div class="hs">Ngày giờ Ảnh & Video</div>
         </div>
       </div>
       <div class="header-btns">
@@ -1540,11 +1651,49 @@
           <button class="tab" id="tab2" onclick="setTemplate('2')">
             Mẫu 2
           </button>
+          <button class="tab" id="tab3" onclick="setTemplate('3')">
+            Mẫu 3
+          </button>
+          <button class="tab" id="tab4" onclick="setTemplate('4')">
+            Mẫu 4
+          </button>
         </div>
 
         <div class="field">
           <label class="lbl">🕐 Ngày &amp; Giờ</label>
           <input type="datetime-local" id="dt" oninput="redraw()" />
+          <div style="display: flex; gap: 6px; margin-top: 7px">
+            <button
+              id="dfmt-btn-1"
+              class="tab active"
+              style="
+                flex: 1;
+                font-size: 11px;
+                padding: 7px 4px;
+                line-height: 1.3;
+                white-space: normal;
+                text-align: center;
+              "
+              onclick="setDateFormat('long')"
+            >
+              Chủ nhật, 24 Tháng 5,2026 13:51
+            </button>
+            <button
+              id="dfmt-btn-2"
+              class="tab"
+              style="
+                flex: 1;
+                font-size: 11px;
+                padding: 7px 4px;
+                line-height: 1.3;
+                white-space: normal;
+                text-align: center;
+              "
+              onclick="setDateFormat('short')"
+            >
+              Chủ nhật, 24/05/2026 13:51
+            </button>
+          </div>
         </div>
 
         <div class="field">
@@ -1752,7 +1901,9 @@
           </div>
           <div class="field">
             <div class="toggle-row">
-              <label class="lbl" style="margin-bottom: 0">🔢 Mã ảnh (Dưới)</label>
+              <label class="lbl" style="margin-bottom: 0"
+                >🔢 Mã ảnh (Dưới)</label
+              >
               <label class="toggle"
                 ><input
                   type="checkbox"
@@ -1810,6 +1961,142 @@
             ></label>
           </div>
         </div>
+        <!-- Mẫu 3 fields -->
+        <div id="m3-fields" style="display: none">
+          <!-- Tọa độ GPS toggle -->
+          <div class="field">
+            <div
+              id="m3-coords-header"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--glass-bg-strong);
+                border: 1px solid var(--glass-border);
+                border-radius: 8px;
+                padding: 10px 12px;
+              "
+            >
+              <div>
+                <div style="font-size: 13px; font-weight: 600">
+                  🌐 Tọa độ GPS
+                </div>
+                <div
+                  id="m3-coords-hint"
+                  style="
+                    font-size: 11px;
+                    color: var(--text-muted);
+                    margin-top: 2px;
+                  "
+                >
+                  Nhấn GPS để lấy tọa độ
+                </div>
+              </div>
+              <label class="toggle">
+                <input
+                  type="checkbox"
+                  id="show-coords3"
+                  onchange="
+                    document.getElementById(
+                      'm3-coords-input-wrap',
+                    ).style.display = this.checked ? '' : 'none';
+                    document.getElementById(
+                      'm3-coords-header',
+                    ).style.borderRadius = this.checked ? '8px 8px 0 0' : '8px';
+                    redraw();
+                  "
+                /><span class="slider-t"></span>
+              </label>
+            </div>
+            <div id="m3-coords-input-wrap" style="display: none">
+              <input
+                type="text"
+                id="m3-coords"
+                placeholder="21.028511°N, 105.804817°E"
+                oninput="redraw()"
+                style="
+                  border-top: none;
+                  border-radius: 0 0 8px 8px;
+                  background: var(--glass-bg);
+                "
+              />
+            </div>
+          </div>
+          <!-- Mã ảnh dưới toggle -->
+          <div class="field">
+            <div class="toggle-row">
+              <label class="lbl" style="margin-bottom: 0"
+                >🔢 Mã ảnh (Dưới)</label
+              >
+              <label class="toggle">
+                <input
+                  type="checkbox"
+                  id="show-bottom-code3"
+                  onchange="
+                    refreshImageCode();
+                    redraw();
+                  "
+                /><span class="slider-t"></span>
+              </label>
+            </div>
+          </div>
+          <!-- Mã ảnh dọc toggle -->
+          <div class="field">
+            <div class="toggle-row">
+              <label class="lbl" style="margin-bottom: 0"
+                >🔢 Mã ảnh (Dọc)</label
+              >
+              <label class="toggle">
+                <input
+                  type="checkbox"
+                  id="show-code3"
+                  checked
+                  onchange="
+                    refreshImageCode();
+                    redraw();
+                  "
+                /><span class="slider-t"></span>
+              </label>
+            </div>
+          </div>
+          <!-- Ghi chú 2 dòng -->
+          <div class="field">
+            <label class="lbl">📝 Ghi chú (2 dòng)</label>
+            <div class="note-table">
+              <div class="note-head">
+                <span>Tiêu đề</span><span>Nội dung</span>
+              </div>
+              <div class="note-row">
+                <input
+                  type="text"
+                  id="m3n0t"
+                  placeholder="Ghi chú"
+                  oninput="redraw()"
+                />
+                <input
+                  type="text"
+                  id="m3n0c"
+                  placeholder="Nhập nội dung"
+                  oninput="redraw()"
+                />
+              </div>
+              <div class="note-row">
+                <input
+                  type="text"
+                  id="m3n1t"
+                  placeholder="Họ tên"
+                  oninput="redraw()"
+                />
+                <input
+                  type="text"
+                  id="m3n1c"
+                  placeholder="Nhập nội dung"
+                  oninput="redraw()"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Video processing status -->
         <div id="video-processing-wrap-old" style="display: none">
@@ -1832,35 +2119,35 @@
 
     <script>
       // ===== THEME TOGGLE =====
-      (function() {
-        const saved = localStorage.getItem('nf_theme') || 'light';
-        if (saved === 'dark') {
-          document.body.classList.add('dark');
+      (function () {
+        const saved = localStorage.getItem("nf_theme") || "light";
+        if (saved === "dark") {
+          document.body.classList.add("dark");
         }
       })();
 
       function toggleTheme() {
-        const isDark = document.body.classList.toggle('dark');
-        localStorage.setItem('nf_theme', isDark ? 'dark' : 'light');
-        const icon = document.getElementById('theme-icon');
-        const label = document.getElementById('theme-label');
+        const isDark = document.body.classList.toggle("dark");
+        localStorage.setItem("nf_theme", isDark ? "dark" : "light");
+        const icon = document.getElementById("theme-icon");
+        const label = document.getElementById("theme-label");
         if (isDark) {
-          icon.textContent = '🌙';
-          label.textContent = 'Tối';
+          icon.textContent = "🌙";
+          label.textContent = "Tối";
         } else {
-          icon.textContent = '☀️';
-          label.textContent = 'Sáng';
+          icon.textContent = "☀️";
+          label.textContent = "Sáng";
         }
       }
 
       // Init icon on load
-      document.addEventListener('DOMContentLoaded', function() {
-        const isDark = document.body.classList.contains('dark');
-        const icon = document.getElementById('theme-icon');
-        const label = document.getElementById('theme-label');
+      document.addEventListener("DOMContentLoaded", function () {
+        const isDark = document.body.classList.contains("dark");
+        const icon = document.getElementById("theme-icon");
+        const label = document.getElementById("theme-label");
         if (icon) {
-          icon.textContent = isDark ? '🌙' : '☀️';
-          label.textContent = isDark ? 'Tối' : 'Sáng';
+          icon.textContent = isDark ? "🌙" : "☀️";
+          label.textContent = isDark ? "Tối" : "Sáng";
         }
       });
 
@@ -2207,6 +2494,7 @@
         curVideoURL = null;
       let mediaMode = "none"; // "image" | "video" | "none"
       let imageCode = "HUTM3M6MTURKLB";
+      let dateFormat = "long"; // "long" = Chủ nhật, 24 Tháng 5,2026 | "short" = Chủ nhật, 24/05/2026
       const MARQUEE_TEXT =
         "NEWFACE - Công cụ tạo watermark ảnh và video nhanh, gọn, chuyên nghiệp";
 
@@ -2278,6 +2566,24 @@
       }
       refreshImageCode();
 
+      function setDateFormat(fmt) {
+        dateFormat = fmt;
+        document.getElementById("dfmt-btn-1").className =
+          "tab" + (fmt === "long" ? " active" : "");
+        document.getElementById("dfmt-btn-2").className =
+          "tab" + (fmt === "short" ? " active" : "");
+        redraw();
+      }
+
+      function formatDateStr(dayName, day, month, year, hh, mm) {
+        if (dateFormat === "short") {
+          const d = String(day).padStart(2, "0");
+          const m = String(month).padStart(2, "0");
+          return `${dayName}, ${d}/${m}/${year} ${hh}:${mm}`;
+        }
+        return `${dayName}, ${day} Tháng ${month},${year} ${hh}:${mm}`;
+      }
+
       function setGPS(state, msg) {
         const el = document.getElementById("gps-status");
         el.textContent = msg;
@@ -2311,6 +2617,13 @@
               document.getElementById("loc").value = parts.length
                 ? parts.join(", ")
                 : d.display_name;
+              // Cũng cập nhật tọa độ vào m3-coords
+              const coordsEl = document.getElementById("m3-coords");
+              if (coordsEl) {
+                coordsEl.value = `${lat.toFixed(6)}°N, ${lon.toFixed(6)}°E`;
+                document.getElementById("m3-coords-hint").textContent =
+                  `${lat.toFixed(6)}°N, ${lon.toFixed(6)}°E`;
+              }
               setGPS("ok", `✓ GPS OK (±${Math.round(acc)}m)`);
               redraw();
             } catch {
@@ -2338,14 +2651,23 @@
 
       function setTemplate(t) {
         template = t;
-        document.getElementById("tab1").className =
-          "tab" + (t === "1" ? " active" : "");
-        document.getElementById("tab2").className =
-          "tab" + (t === "2" ? " active" : "");
+
+        ["1", "2", "3", "4"].forEach((n) => {
+          const tab = document.getElementById("tab" + n);
+          if (tab) tab.className = "tab" + (t === n ? " active" : "");
+        });
+
         document.getElementById("m1-fields").style.display =
           t === "1" ? "" : "none";
         document.getElementById("m2-fields").style.display =
           t === "2" ? "" : "none";
+        document.getElementById("m3-fields").style.display =
+          t === "3" ? "" : "none";
+
+        // Mẫu 3 có show-code riêng trong GPS coords; ẩn global show-code khi ở mẫu 3
+        const showCodeWrap = document.querySelector(".field:has(#show-code)");
+        if (showCodeWrap) showCodeWrap.style.display = t === "3" ? "none" : "";
+
         redraw();
       }
 
@@ -2650,23 +2972,23 @@
         ctx.lineWidth = 1 * scale;
         const lineOffsetY = 24 * scale; // chỉnh số này để thấp/cao hơn
         const linePad = 40 * scale; // tăng lên = ngắn hơn
-        const lineShiftX = 38 * scale;// tăng lên = dịch trái nhiều hơn
+        const lineShiftX = 38 * scale; // tăng lên = dịch trái nhiều hơn
         ctx.beginPath();
         ctx.moveTo(x - lineShiftX + linePad, y + lineOffsetY);
         ctx.lineTo(x - lineShiftX + width - linePad, y + lineOffsetY);
         ctx.stroke();
 
-        const iconSize = 16 * scale;// tăng từ 18 lên 20 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
-        const textY = y + 45 * scale;// tăng từ 40 lên 44 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
-        drawShieldIcon(ctx, x, y + 36 * scale, iconSize, color);// tăng từ 30 lên 33 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
+        const iconSize = 16 * scale; // tăng từ 18 lên 20 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
+        const textY = y + 45 * scale; // tăng từ 40 lên 44 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
+        drawShieldIcon(ctx, x, y + 36 * scale, iconSize, color); // tăng từ 30 lên 33 để rõ hơn khi scale lớn, đồng thời tăng khoảng cách giữa icon và text
 
         ctx.textBaseline = "middle";
         ctx.textAlign = "left";
         ctx.fillStyle = color;
-        ctx.font = `500 ${14 * scale}px RobotoCondensed`;// tăng từ 14 lên 16 để rõ hơn khi scale lớn, đồng thời giảm khoảng cách giữa icon và text
+        ctx.font = `500 ${14 * scale}px RobotoCondensed`; // tăng từ 14 lên 16 để rõ hơn khi scale lớn, đồng thời giảm khoảng cách giữa icon và text
         const label = "Mã ảnh: ";
         const textShiftX = 8 * scale; // tăng = dịch trái nhiều hơn
-        const labelX = x + iconSize + 14 * scale - textShiftX;//
+        const labelX = x + iconSize + 14 * scale - textShiftX; //
         ctx.fillText(label, labelX, textY);
 
         ctx.font = `700 ${14 * scale}px RobotoCondensed`;
@@ -2680,9 +3002,28 @@
       function getWatermarkParams(w, h) {
         const wmS = Number(document.getElementById("wm-scale").value);
         const scale = (Math.min(w, h) / 800) * (wmS / 100);
-        const showCode = document.getElementById("show-code").checked;
+        const showCode =
+          template === "3"
+            ? document.getElementById("show-code3")?.checked !== false
+            : document.getElementById("show-code").checked;
         const showBottomCode2 =
           document.getElementById("show-bottom-code2")?.checked || false;
+        const showBottomCode3 =
+          document.getElementById("show-bottom-code3")?.checked || false;
+        const showCode3 = document.getElementById("show-code").checked; // mẫu 3 dùng chung
+        const showCoords3 =
+          document.getElementById("show-coords3")?.checked !== false;
+        const coords3 = document.getElementById("m3-coords")?.value || "";
+        const notes3 = [
+          {
+            title: document.getElementById("m3n0t")?.value || "",
+            content: document.getElementById("m3n0c")?.value || "",
+          },
+          {
+            title: document.getElementById("m3n1t")?.value || "",
+            content: document.getElementById("m3n1c")?.value || "",
+          },
+        ];
         const code = imageCode;
         const dt = new Date(document.getElementById("dt").value);
         const loc = document.getElementById("loc").value || "Hà Nội, Việt Nam";
@@ -2696,6 +3037,10 @@
           scale,
           showCode,
           showBottomCode2,
+          showBottomCode3,
+          showCoords3,
+          coords3,
+          notes3,
           code,
           loc,
           dayName,
@@ -2752,6 +3097,31 @@
               p.loc,
               p.showCode,
               p.code,
+            );
+          } else if (template === "3") {
+            drawTemplate3(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCoords3 ? p.coords3 : "",
+              p.notes3,
+              p.showCode,
+              p.showBottomCode3,
+              p.code,
+              () => {
+                canvas.style.display = "block";
+                document.getElementById("empty-state").style.display = "none";
+                document.getElementById("btn-dl").style.display = "inline-flex";
+              },
             );
           } else {
             drawTemplate2(
@@ -2811,6 +3181,27 @@
               p.year,
               p.loc,
               p.showCode,
+              p.code,
+              done,
+            );
+          } else if (template === "3") {
+            drawTemplate3(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCoords3 ? p.coords3 : "",
+              p.notes3,
+              p.showCode,
+              p.showBottomCode3,
               p.code,
               done,
             );
@@ -2975,12 +3366,16 @@
           ctx.lineWidth = 0.5 * scale;
           ctx.lineJoin = "round";
           ctx.strokeText(
-            `${dayName}, ${day} Tháng ${month},${year}`,
+            dateFormat === "short"
+              ? `${dayName}, ${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+              : `${dayName}, ${day} Tháng ${month},${year}`,
             textX,
             barY + 2 * scale,
           );
           ctx.fillText(
-            `${dayName}, ${day} Tháng ${month},${year}`,
+            dateFormat === "short"
+              ? `${dayName}, ${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+              : `${dayName}, ${day} Tháng ${month},${year}`,
             textX,
             barY + 2 * scale,
           );
@@ -3150,8 +3545,8 @@
         ].filter((n) => n.title || n.content);
 
         const noteH = 27 * scale, // chiều cao mỗi note, tăng số này để cao hơn, giảm để thấp hơn
-          noteGap = 3 * scale; 
-        const noteW = w / 2 - padding; 
+          noteGap = 3 * scale;
+        const noteW = w / 2 - padding;
         const notesAreaH =
           notes.length > 0 ? notes.length * (noteH + noteGap) - noteGap : 0;
         const bottomEdge = h - padding;
@@ -3206,8 +3601,20 @@
           ctx.strokeStyle = "rgba(0,0,0,0.10)";
           ctx.lineWidth = 0.35 * scale;
           const dateY = clockCenterY - 16 * scale;
-          ctx.strokeText(`${day} Tháng ${month},${year}`, dateX, dateY);
-          ctx.fillText(`${day} Tháng ${month},${year}`, dateX, dateY);
+          ctx.strokeText(
+            dateFormat === "short"
+              ? `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+              : `${day} Tháng ${month},${year}`,
+            dateX,
+            dateY,
+          );
+          ctx.fillText(
+            dateFormat === "short"
+              ? `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+              : `${day} Tháng ${month},${year}`,
+            dateX,
+            dateY,
+          );
           ctx.fillStyle = "rgba(255,255,255,0.92)";
           ctx.strokeText(dayName, dateX, dateY + 34 * scale);
           ctx.fillText(dayName, dateX, dateY + 34 * scale);
@@ -3303,6 +3710,175 @@
         } else finishDraw();
       }
 
+      // ===== TEMPLATE 3 =====
+
+      function drawTemplate3(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        coords,
+        notes,
+        showCode,
+        showBottomCode,
+        code,
+        callback,
+      ) {
+        padding = 12 * scale;// tăng số này để đẩy toàn bộ nội dung vào trong hơn, giảm để ra sát mép hơn
+        const textIndent = padding + 12 * scale;// tăng số này để đẩy text vào trong hơn, giảm để ra sát mép hơn
+
+        // === Layout từ dưới lên — giống mẫu 2 ===
+        const bottomEdge = h - padding;
+        const noteH = 26 * scale; // chiều cao mỗi note, tăng số này để cao hơn, giảm để thấp hơn
+        const noteGap = 2 * scale; // khoảng cách giữa các note, tăng số này để giãn hơn, giảm để gần hơn
+        const activeNotes = (notes || []).filter((n) => n.title || n.content);
+        const notesAreaH =
+          activeNotes.length > 0
+            ? activeNotes.length * noteH + (activeNotes.length - 1) * noteGap
+            : 0;
+
+        // Bottom code chiếm chỗ, đẩy notes lên (giống mẫu 2)
+        const bottomCodeH = showBottomCode ? 58 * scale : 0; //
+        const bottomCodeGap = showBottomCode ? -24 * scale : 0;
+        const bottomCodeTopY = bottomEdge - bottomCodeH;
+        const notesBottomY = showBottomCode
+          ? bottomCodeTopY - bottomCodeGap
+          : bottomEdge;
+        const notesTopY = notesBottomY - notesAreaH - 8 * scale;
+
+        const sectionGap = 5 * scale; // khoảng cách giữa khối ngày tháng năm + địa điểm + tọa độ với khối notes ở dưới, tăng số này để giãn hơn, giảm để gần hơn
+
+        const locLines = getTextLines(loc);
+        const locLineH = 20 * scale; // tăng số này để giãn dòng hơn, giảm để gần dòng hơn
+        const locBlockH = locLines.length * locLineH;
+        const coordsH = coords ? 28 * scale : 0; // chiều cao khối tọa độ, tăng số này để cao hơn, giảm để thấp hơn
+        const dateFontSize = 18 * scale; // tăng số này để chữ ngày tháng năm lớn hơn, giảm để nhỏ hơn
+        const contentBlockH =
+          dateFontSize +
+          18 * scale +
+          locBlockH +
+          (coords ? coordsH * 0.8 + 4 * scale : 0); // tổng chiều cao của khối ngày tháng + địa điểm + tọa độ
+        const contentBlockBottomY = notesTopY - sectionGap;
+        const contentBlockTopY = contentBlockBottomY - contentBlockH;
+
+        const dateY = contentBlockTopY + dateFontSize;
+        const locTopY = dateY + 18 * scale;//
+
+        // Yellow vertical bar
+        const yellowBarX = padding;
+        const yellowBarW = 3 * scale; // tăng số này để dày hơn, giảm để mỏng hơn
+        const yellowBarTopY = contentBlockTopY + 4 * scale;// tăng số này để đẩy bar xuống thấp hơn, giảm để lên cao hơn
+        const yellowBarBottomY = activeNotes.length > 0
+          ? notesTopY + notesAreaH - 2 * scale
+          : contentBlockBottomY - 0 * scale;
+        ctx.fillStyle = "#f5b800";
+        ctx.fillRect(
+          yellowBarX,
+          yellowBarTopY,
+          yellowBarW,
+          yellowBarBottomY - yellowBarTopY,
+        );
+
+        // Date & Time
+        setTextShadow(ctx, scale);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `500 ${dateFontSize}px RobotoCondensed`;
+        ctx.textBaseline = "alphabetic";
+        ctx.textAlign = "left";
+        ctx.strokeStyle = "rgba(0,0,0,0.15)"; // Tăng alpha để chữ nổi hơn trên nền sáng, giảm để mờ hơn trên nền tối
+        ctx.lineWidth = 0.4 * scale; // Tăng số này để nét đậm hơn, giảm để mảnh hơn
+        const dateStr = formatDateStr(dayName, day, month, year, hh, mm);
+        ctx.strokeText(dateStr, textIndent, dateY);
+        ctx.fillText(dateStr, textIndent, dateY);
+
+        // Location
+        ctx.font = `500 ${19 * scale}px RobotoCondensed`;
+        ctx.fillStyle = "#ffffff";
+        locLines.forEach((line, i) => {
+          const ly = locTopY + i * locLineH + locLineH * 0.8;
+          ctx.strokeText(line, textIndent, ly);
+          ctx.fillText(line, textIndent, ly);
+        });
+
+        // GPS Coords
+        if (coords) {
+          ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+          ctx.fillStyle = "rgba(255,255,255,0.9)";
+          const coordY = locTopY + locBlockH + coordsH * 0.8 + 4 * scale;
+          ctx.strokeText(coords, textIndent, coordY);
+          ctx.fillText(coords, textIndent, coordY);
+        }
+        clearShadow(ctx);
+
+        // Notes — dải gradient trắng fade sang phải (giống mẫu 2)
+        if (activeNotes.length > 0) {
+          const noteW = w / 2 - padding;
+          const grad = ctx.createLinearGradient(
+            textIndent,
+            notesTopY,
+            textIndent + noteW,
+            notesTopY,
+          );
+          grad.addColorStop(0, "rgba(255,255,255,0.42)");
+          grad.addColorStop(1, "rgba(255,255,255,0.0)");
+          ctx.fillStyle = grad;
+          roundRect(ctx, textIndent, notesTopY, noteW, notesAreaH, 5 * scale);
+          ctx.fill();
+          setTextShadow(ctx, scale);
+          activeNotes.forEach((n, i) => {
+            const midY = notesTopY + i * (noteH + noteGap) + noteH / 2;
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "left";
+            ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+            ctx.fillStyle = "#ffffff";
+            if (n.title && n.content) {
+              const ts = n.title + ": ";
+              const tw = ctx.measureText(ts).width;
+              ctx.fillText(ts, textIndent + 14 * scale, midY);
+              ctx.fillText(n.content, textIndent + 14 * scale + tw, midY);
+            } else if (n.title) {
+              ctx.fillText(n.title, textIndent + 14 * scale, midY);
+            } else if (n.content) {
+              ctx.fillText(n.content, textIndent + 14 * scale, midY);
+            }
+          });
+          clearShadow(ctx);
+        }
+
+        // Bottom code — dùng drawBottomImageCode giống mẫu 2
+        if (showBottomCode) {
+          const noteW = w / 2 - padding; // chiều rộng tối đa cho code, tăng số này để code có thể dài hơn, giảm để ngắn hơn
+          drawBottomImageCode(ctx, padding, bottomCodeTopY, noteW, scale, code);
+        }
+
+        // Vertical code
+        if (showCode) drawCodeVert(ctx, w, h, scale, code);
+
+        // Brand watermark
+        const bi = new Image();
+        bi.crossOrigin = "anonymous";
+        bi.onload = () => {
+          const bh = 144 * scale,
+            bw = bh * (bi.width / bi.height);
+          drawBrandImage(ctx, bi, w - bw, h - bh, bw, bh);
+          if (showCode) drawCodeVert(ctx, w, h, scale, code);
+          callback && callback();
+        };
+        bi.onerror = () => {
+          if (showCode) drawCodeVert(ctx, w, h, scale, code);
+          callback && callback();
+        };
+        bi.src = BRAND_URL;
+      }
+
       // ===== DOWNLOAD IMAGE =====
 
       function downloadImage() {
@@ -3323,7 +3899,7 @@
             setTimeout(() => URL.revokeObjectURL(url), 1000);
           },
           "image/jpeg",
-          0.75,
+          0.85,
         );
       }
 
@@ -3400,6 +3976,27 @@
               p.year,
               p.loc,
               p.showCode,
+              p.code,
+              renderDone,
+            );
+          } else if (template === "3") {
+            drawTemplate3(
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCoords3 ? p.coords3 : "",
+              p.notes3,
+              p.showCode,
+              p.showBottomCode3,
               p.code,
               renderDone,
             );
