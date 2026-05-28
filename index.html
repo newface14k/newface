@@ -2098,6 +2098,94 @@
           </div>
         </div>
 
+        <!-- Mẫu 4 fields -->
+        <div id="m4-fields" style="display: none">
+          <!-- Tọa độ GPS toggle -->
+          <div class="field">
+            <div
+              id="m4-coords-header"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--glass-bg-strong);
+                border: 1px solid var(--glass-border);
+                border-radius: 8px;
+                padding: 10px 12px;
+              "
+            >
+              <div>
+                <div style="font-size: 13px; font-weight: 600">
+                  🌐 Tọa độ GPS
+                </div>
+                <div
+                  id="m4-coords-hint"
+                  style="
+                    font-size: 11px;
+                    color: var(--text-muted);
+                    margin-top: 2px;
+                  "
+                >
+                  Nhấn GPS để lấy tọa độ
+                </div>
+              </div>
+
+              <label class="toggle">
+                <input
+                  type="checkbox"
+                  id="show-coords4"
+                  onchange="
+                    document.getElementById(
+                      'm4-coords-input-wrap',
+                    ).style.display = this.checked ? '' : 'none';
+
+                    document.getElementById(
+                      'm4-coords-header',
+                    ).style.borderRadius = this.checked ? '8px 8px 0 0' : '8px';
+
+                    redraw();
+                  "
+                />
+                <span class="slider-t"></span>
+              </label>
+            </div>
+
+            <div id="m4-coords-input-wrap" style="display: none">
+              <input
+                type="text"
+                id="m4-coords"
+                placeholder="21.028511°N, 105.804817°E"
+                oninput="redraw()"
+                style="
+                  border-top: none;
+                  border-radius: 0 0 8px 8px;
+                  background: var(--glass-bg);
+                "
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="lbl">🧭 Hướng gió &amp; Nhiệt độ</label>
+            <div style="display: flex; gap: 8px">
+              <input
+                type="text"
+                id="m4-wind"
+                placeholder="222° SW"
+                oninput="redraw()"
+                style="flex: 1"
+              />
+              <input
+                type="text"
+                id="m4-temp"
+                placeholder="30°C"
+                oninput="redraw()"
+                style="flex: 1"
+              />
+            </div>
+          </div>
+        </div>
+
         <!-- Video processing status -->
         <div id="video-processing-wrap-old" style="display: none">
           <div
@@ -2618,12 +2706,29 @@
                 ? parts.join(", ")
                 : d.display_name;
               // Cũng cập nhật tọa độ vào m3-coords
-              const coordsEl = document.getElementById("m3-coords");
-              if (coordsEl) {
-                coordsEl.value = `${lat.toFixed(6)}°N, ${lon.toFixed(6)}°E`;
-                document.getElementById("m3-coords-hint").textContent =
-                  `${lat.toFixed(6)}°N, ${lon.toFixed(6)}°E`;
+              const gpsText = `${lat.toFixed(6)}°N, ${lon.toFixed(6)}°E`;
+
+              // mẫu 3
+              const m3 = document.getElementById("m3-coords");
+              if (m3) {
+                m3.value = gpsText;
+
+                const hint3 = document.getElementById("m3-coords-hint");
+
+                if (hint3) hint3.textContent = gpsText;
               }
+
+              // mẫu 4
+              const m4 = document.getElementById("m4-coords");
+              if (m4) {
+                m4.value = gpsText;
+
+                const hint4 = document.getElementById("m4-coords-hint");
+
+                if (hint4) hint4.textContent = gpsText;
+              }
+
+              redraw();
               setGPS("ok", `✓ GPS OK (±${Math.round(acc)}m)`);
               redraw();
             } catch {
@@ -2663,10 +2768,13 @@
           t === "2" ? "" : "none";
         document.getElementById("m3-fields").style.display =
           t === "3" ? "" : "none";
+        document.getElementById("m4-fields").style.display =
+          t === "4" ? "" : "none";
 
-        // Mẫu 3 có show-code riêng trong GPS coords; ẩn global show-code khi ở mẫu 3
+        // Mẫu 3/4 có show-code riêng; ẩn global show-code khi ở mẫu 3/4
         const showCodeWrap = document.querySelector(".field:has(#show-code)");
-        if (showCodeWrap) showCodeWrap.style.display = t === "3" ? "none" : "";
+        if (showCodeWrap)
+          showCodeWrap.style.display = t === "3" || t === "4" ? "none" : "";
 
         redraw();
       }
@@ -3014,6 +3122,11 @@
         const showCoords3 =
           document.getElementById("show-coords3")?.checked !== false;
         const coords3 = document.getElementById("m3-coords")?.value || "";
+        const showCoords4 =
+          document.getElementById("show-coords4")?.checked !== false;
+        const coords4 = showCoords4
+          ? document.getElementById("m4-coords")?.value || ""
+          : "";
         const notes3 = [
           {
             title: document.getElementById("m3n0t")?.value || "",
@@ -3040,6 +3153,8 @@
           showBottomCode3,
           showCoords3,
           coords3,
+          showCoords4,
+          coords4,
           notes3,
           code,
           loc,
@@ -3117,6 +3232,27 @@
               p.showCode,
               p.showBottomCode3,
               p.code,
+              () => {
+                canvas.style.display = "block";
+                document.getElementById("empty-state").style.display = "none";
+                document.getElementById("btn-dl").style.display = "inline-flex";
+              },
+            );
+          } else if (template === "4") {
+            drawTemplate4(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.coords4,
               () => {
                 canvas.style.display = "block";
                 document.getElementById("empty-state").style.display = "none";
@@ -3203,6 +3339,22 @@
               p.showCode,
               p.showBottomCode3,
               p.code,
+              done,
+            );
+          } else if (template === "4") {
+            drawTemplate4(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
               done,
             );
           } else {
@@ -3732,8 +3884,8 @@
         code,
         callback,
       ) {
-        padding = 12 * scale;// tăng số này để đẩy toàn bộ nội dung vào trong hơn, giảm để ra sát mép hơn
-        const textIndent = padding + 12 * scale;// tăng số này để đẩy text vào trong hơn, giảm để ra sát mép hơn
+        padding = 12 * scale; // tăng số này để đẩy toàn bộ nội dung vào trong hơn, giảm để ra sát mép hơn
+        const textIndent = padding + 12 * scale; // tăng số này để đẩy text vào trong hơn, giảm để ra sát mép hơn
 
         // === Layout từ dưới lên — giống mẫu 2 ===
         const bottomEdge = h - padding;
@@ -3770,15 +3922,16 @@
         const contentBlockTopY = contentBlockBottomY - contentBlockH;
 
         const dateY = contentBlockTopY + dateFontSize;
-        const locTopY = dateY + 18 * scale;//
+        const locTopY = dateY + 18 * scale; //
 
         // Yellow vertical bar
         const yellowBarX = padding;
         const yellowBarW = 3 * scale; // tăng số này để dày hơn, giảm để mỏng hơn
-        const yellowBarTopY = contentBlockTopY + 4 * scale;// tăng số này để đẩy bar xuống thấp hơn, giảm để lên cao hơn
-        const yellowBarBottomY = activeNotes.length > 0
-          ? notesTopY + notesAreaH - 2 * scale
-          : contentBlockBottomY - 0 * scale;
+        const yellowBarTopY = contentBlockTopY + 4 * scale; // tăng số này để đẩy bar xuống thấp hơn, giảm để lên cao hơn
+        const yellowBarBottomY =
+          activeNotes.length > 0
+            ? notesTopY + notesAreaH - 2 * scale
+            : contentBlockBottomY - 0 * scale;
         ctx.fillStyle = "#f5b800";
         ctx.fillRect(
           yellowBarX,
@@ -3877,6 +4030,250 @@
           callback && callback();
         };
         bi.src = BRAND_URL;
+      }
+
+      // ===== TEMPLATE 4 — Timemark Camera Style =====
+      function drawTemplate4(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        coords,
+        callback,
+      ) {
+        coords = (coords || "").trim();
+
+        const windTxt = (
+          document.getElementById("m4-wind")?.value || "222° SW"
+        ).trim();
+
+        const tempTxt = (
+          document.getElementById("m4-temp")?.value || "30°C"
+        ).trim();
+
+        const dateStr = formatDateStr(dayName, day, month, year, hh, mm);
+
+        // ===== SIZE =====
+        const sideGap = 10 * scale;// khoảng cách từ mép bên đến khối đen chứa text, tăng số này để đẩy khối đen vào trong hơn, giảm để ra sát mép hơn
+        const botGap = 10 * scale;// khoảng cách từ mép dưới đến gold line, tăng số này để đẩy gold line lên cao hơn, giảm để xuống thấp hơn
+        const goldH = 3 * scale;// chiều cao gold line, tăng số này để line dày hơn, giảm để mỏng hơn
+
+        const innerPadV = 10 * scale;
+        const innerPadH = 14 * scale;
+
+        const lineH = 30 * scale;// chiều cao mỗi dòng text, tăng số này để giãn dòng hơn, giảm để gần dòng hơn
+        const locLines = getTextLines(loc);
+        const nLines = locLines.length + 1 + (coords ? 1 : 0);
+
+        const textBlockH = nLines * lineH;
+        const contentH = Math.max(textBlockH, 30 * scale);// chiều cao khối chứa text, tăng số này để cao hơn, giảm để thấp hơn. Nếu text nhiều thì sẽ tự động tăng, nếu ít thì vẫn giữ chiều cao tối thiểu này để đủ chỗ cho logo và gold line bên dưới
+
+        const boxH = contentH + innerPadV * 2;
+
+        const boxX = sideGap;
+        const boxY = h - botGap - goldH - boxH;
+        const boxW = w - sideGap * 2;
+
+        // ==================================================
+        // BOX ĐEN LỚN
+        // ==================================================
+        ctx.save();
+        ctx.fillStyle = "rgba(0,0,0,0.42)";
+        ctx.fillRect(boxX, boxY, boxW, boxH);
+        ctx.restore();
+
+        // ==================================================
+        // BOX NHỎ TRÊN MÉP PHẢI
+        // ==================================================
+        const badgeH = 28 * scale;
+
+        ctx.font = `400 ${16 * scale}px RobotoCondensed`;
+
+        const labelW = ctx.measureText("Timemark Camera").width;
+
+        const logoSize = 20 * scale;
+        const gapIL = 8 * scale;
+        const badgePadding = 4 * scale;// khoảng cách từ text và logo đến viền của badge, tăng số này để đẩy text và logo vào trong hơn, giảm để ra sát viền hơn
+
+        const badgeW = logoSize + gapIL + labelW + badgePadding * 2;
+
+        const badgeX = boxX + boxW - badgeW - 0 * scale;
+
+        // chồng lên mép trên
+        const badgeY = boxY - badgeH + 0 * scale;
+
+        ctx.save();
+        ctx.fillStyle = "rgba(0,0,0,0.42)";
+        ctx.fillRect(badgeX, badgeY, badgeW, badgeH);
+        ctx.restore();
+
+        // ==================================================
+        // GOLD LINE
+        // ==================================================
+        ctx.save();
+
+        ctx.fillStyle = "#f5b800";
+
+        ctx.fillRect(boxX, h - botGap - goldH, boxW, goldH);
+
+        ctx.restore();
+
+        // ==================================================
+        // TEXT LEFT
+        // ==================================================
+        const textIndent = boxX + innerPadH;
+
+        const textStartY = boxY + innerPadV + lineH * 0.5;
+
+        ctx.save();
+
+        setTextShadow(ctx, scale);
+
+        ctx.textAlign = "left";
+        ctx.textBaseline = "middle";
+
+        ctx.strokeStyle = "rgba(0,0,0,0.25)";
+        ctx.lineWidth = 0.5 * scale;
+
+        // location
+        ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+
+        ctx.fillStyle = "#fff";
+
+        let currentY = textStartY;
+        locLines.forEach((line) => {
+          ctx.strokeText(line, textIndent, currentY);
+          ctx.fillText(line, textIndent, currentY);
+          currentY += lineH;
+        });
+
+        // gps
+        if (coords) {
+          ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+
+          ctx.fillStyle = "rgba(255,255,255,0.88)";
+
+          ctx.strokeText(coords, textIndent, currentY);
+          ctx.fillText(coords, textIndent, currentY);
+          currentY += lineH;
+        }
+
+        // date always flush to bottom edge of the black box
+        const dateLine = boxY + boxH - innerPadV;
+
+        ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+
+        ctx.fillStyle = "rgba(255,255,255,0.92)";
+        ctx.textBaseline = "bottom";
+
+        ctx.strokeText(dateStr, textIndent, dateLine);
+
+        ctx.fillText(dateStr, textIndent, dateLine);
+
+        clearShadow(ctx);
+        ctx.restore();
+
+        // ==================================================
+        // WEATHER RIGHT
+        // ==================================================
+        const rightEdge = boxX + boxW - innerPadH;
+
+        const weatherGap = 22 * scale;// khoảng cách giữa 2 dòng weather, tăng số này để giãn hơn, giảm để gần hơn
+        const weatherY2 = boxY + boxH - innerPadV;
+        const weatherY1 = weatherY2 - weatherGap;
+
+        ctx.save();
+
+        setTextShadow(ctx, scale);
+
+        ctx.font = `500 ${18 * scale}px RobotoCondensed`;
+
+        const weatherLine1 = "🧭 " + windTxt;
+        const weatherLine2 = "🌡 " + tempTxt;
+        const weatherWidth = Math.max(
+          ctx.measureText(weatherLine1).width,
+          ctx.measureText(weatherLine2).width,
+        );
+        const weatherLeft = rightEdge - weatherWidth;
+
+        ctx.textAlign = "left";
+        ctx.textBaseline = "bottom";
+
+        ctx.fillStyle = "rgba(255,255,255,0.90)";
+
+        ctx.strokeStyle = "rgba(0,0,0,0.25)";
+
+        ctx.lineWidth = 0.5 * scale;
+
+        ctx.strokeText(weatherLine1, weatherLeft, weatherY1);
+
+        ctx.fillText(weatherLine1, weatherLeft, weatherY1);
+
+        ctx.strokeText(weatherLine2, weatherLeft, weatherY2);
+
+        ctx.fillText(weatherLine2, weatherLeft, weatherY2);
+
+        clearShadow(ctx);
+        ctx.restore();
+
+        // ==================================================
+        // LOGO
+        // ==================================================
+        const logoX = badgeX + badgePadding;
+
+        const logoY = badgeY + (badgeH - logoSize) / 2;
+
+        const labelX = logoX + logoSize + gapIL;
+
+        const labelY = badgeY + badgeH / 2;
+
+        const logoImg = new Image();
+
+        logoImg.onload = () => {
+          ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
+
+          ctx.save();
+
+          setTextShadow(ctx, scale);
+
+          ctx.font = `400 ${14 * scale}px Arial, sans-serif`;
+
+          ctx.fillStyle = "#fff";
+
+          ctx.strokeStyle = "rgba(0,0,0,0.35)";
+
+          ctx.lineWidth = 0.6 * scale;
+
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+
+          ctx.strokeText("Timemark Camera", labelX, labelY);
+
+          ctx.fillText("Timemark Camera", labelX, labelY);
+
+          clearShadow(ctx);
+          ctx.restore();
+
+          drawCodeVert(ctx, w, h, scale, imageCode);
+
+          callback && callback();
+        };
+
+        logoImg.onerror = () => {
+          drawCodeVert(ctx, w, h, scale, imageCode);
+
+          callback && callback();
+        };
+
+        logoImg.src = "./global_launch_icon.png";
       }
 
       // ===== DOWNLOAD IMAGE =====
@@ -3998,6 +4395,23 @@
               p.showCode,
               p.showBottomCode3,
               p.code,
+              renderDone,
+            );
+          } else if (template === "4") {
+            drawTemplate4(
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.coords4,
               renderDone,
             );
           } else {
