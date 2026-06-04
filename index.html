@@ -1547,7 +1547,7 @@
 
     <div class="main">
       <div class="preview-box" id="preview-box">
-        <div class="empty-state" id="empty-state" onclick="openImageChooser()">
+        <div class="empty-state" id="empty-state" onclick="document.getElementById('image-library-in').click()">
           <div class="empty-icon">🖼️</div>
           <div style="font-size: 17px; font-weight: 600; margin-bottom: 5px">
             Chọn ảnh hoặc video để bắt đầu
@@ -1569,7 +1569,7 @@
         <!-- Media selector -->
         <div class="field">
           <div class="media-btns">
-            <button class="btn-primary" onclick="openImageChooser()">
+            <button class="btn-primary" onclick="document.getElementById('image-library-in').click()">
               📁 Chọn ảnh
             </button>
             <button
@@ -1586,14 +1586,7 @@
             style="display: none"
             onchange="handleImg(this)"
           />
-          <input
-            type="file"
-            id="image-camera-in"
-            accept="image/*"
-            capture="environment"
-            style="display: none"
-            onchange="handleImg(this)"
-          />
+
           <input
             type="file"
             id="video-in"
@@ -1620,29 +1613,7 @@
           </div>
         </div>
 
-        <div
-          class="media-choice-modal"
-          id="image-choice-modal"
-          onclick="closeImageChooser(event)"
-        >
-          <div class="media-choice-sheet" onclick="event.stopPropagation()">
-            <div class="media-choice-title">Chọn nguồn ảnh</div>
-            <div class="media-choice-actions">
-              <button class="btn-primary" onclick="pickImageFromCamera()">
-                📷 Camera
-              </button>
-              <button class="btn-secondary" onclick="pickImageFromLibrary()">
-                📁 Thư viện
-              </button>
-            </div>
-            <button
-              class="btn-outline media-choice-cancel"
-              onclick="closeImageChooser()"
-            >
-              Hủy
-            </button>
-          </div>
-        </div>
+
 
         <div class="tabs">
           <button class="tab" id="tab1" onclick="setTemplate('1')">
@@ -2648,7 +2619,7 @@
       function refreshImageCode() {
         const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let s = "";
-        for (let i = 0; i < 14; i++)
+        for (let i = 0; i < 16; i++)
           s += c[Math.floor(Math.random() * c.length)];
         imageCode = s;
       }
@@ -2786,29 +2757,6 @@
           /iPad|iPhone|iPod/.test(navigator.userAgent) ||
           (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
         );
-      }
-
-      function openImageChooser() {
-        document.getElementById("image-choice-modal").style.display = "flex";
-      }
-
-      function closeImageChooser(e) {
-        if (e && e.target !== e.currentTarget) return;
-        document.getElementById("image-choice-modal").style.display = "none";
-      }
-
-      function pickImageFromCamera() {
-        closeImageChooser();
-        const input = document.getElementById("image-camera-in");
-        input.value = "";
-        input.click();
-      }
-
-      function pickImageFromLibrary() {
-        closeImageChooser();
-        const input = document.getElementById("image-library-in");
-        input.value = "";
-        input.click();
       }
 
       function handleImg(i) {
@@ -3441,7 +3389,8 @@
         callback,
       ) {
         padding = 12 * scale;
-        const labelTxt = document.getElementById("label").value || "Điểm danh";
+        const labelTxt = document.getElementById("label").value;
+        const hasLabel = labelTxt.trim() !== "";
         const timeTxt = `${hh}:${mm}`;
         const labelH = 38 * scale,
           innerPad = 10 * scale,
@@ -3449,14 +3398,16 @@
           pillR = 8 * scale;
 
         ctx.font = `700 ${22 * scale}px RobotoCondensed`;
-        const labelPartW = ctx.measureText(labelTxt).width + innerPad * 2;
+        const labelPartW = hasLabel ? ctx.measureText(labelTxt).width + innerPad * 2 : 0;
         ctx.font = `700 ${28 * scale}px RobotoCondensed`;
         const timePartW = ctx.measureText(timeTxt).width + innerPad * 2;
         const lBase = 48 * scale,
           lSizePct = Number(document.getElementById("logo-size").value),
           lSize = lBase * (lSizePct / 100);
         const logoInlineW = curLogo && logoPos === "inline" ? lSize + gap : 0;
-        const totalW = gap + labelPartW + gap + timePartW + logoInlineW + gap;
+        const totalW = hasLabel
+          ? gap + labelPartW + gap + timePartW + logoInlineW + gap
+          : gap + timePartW + logoInlineW + gap;
         const locLines = getTextLines(loc);
         const locLineH = 20 * scale;
         const locExtraH = Math.max(0, locLines.length - 1) * locLineH;
@@ -3482,22 +3433,24 @@
           ctx.restore();
 
           const yx = padding + gap;
-          ctx.fillStyle = "#f5b800";
-          roundRect(
-            ctx,
-            yx,
-            rowTop + 4 * scale,
-            labelPartW,
-            labelH - 8 * scale,
-            5 * scale,
-          );
-          ctx.fill();
-          ctx.fillStyle = "#1a1a1a";
-          ctx.font = `700 ${22 * scale}px RobotoCondensed`;
-          ctx.textBaseline = "middle";
-          ctx.fillText(labelTxt, yx + innerPad, rowTop + labelH / 2);
+          if (hasLabel) {
+            ctx.fillStyle = "#f5b800";
+            roundRect(
+              ctx,
+              yx,
+              rowTop + 4 * scale,
+              labelPartW,
+              labelH - 8 * scale,
+              5 * scale,
+            );
+            ctx.fill();
+            ctx.fillStyle = "#1a1a1a";
+            ctx.font = `700 ${22 * scale}px RobotoCondensed`;
+            ctx.textBaseline = "middle";
+            ctx.fillText(labelTxt, yx + innerPad, rowTop + labelH / 2);
+          }
 
-          const tx = yx + labelPartW + gap;
+          const tx = hasLabel ? yx + labelPartW + gap : yx;
           ctx.fillStyle = "#1a3a6b";
           ctx.font = `700 ${28 * scale}px RobotoCondensed`;
           ctx.textBaseline = "middle";
