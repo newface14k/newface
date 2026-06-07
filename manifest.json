@@ -3,7 +3,7 @@
   "short_name": "NEWFACE",
   "start_url": ".",
   "scope": ".",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#111827",
   "theme_color": "#f5b800",
   "icons": [
