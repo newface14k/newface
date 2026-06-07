@@ -6,7 +6,7 @@
     <title>NEWFACE</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="icon-192.png" />
-    <meta name="theme-color" content="#00000000" />
+    <meta name="theme-color" content="#f0f2f5" id="meta-theme-color" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
@@ -135,7 +135,7 @@
         --gps-btn-bg: rgba(255, 255, 255, 0.13);
       }
 
-      /* ===== FULLSCREEN / SAFE-AREA (iOS notch, Dynamic Island, Android punch-hole) ===== */
+      /* ===== SAFE-AREA (iOS notch, Dynamic Island, Android punch-hole) ===== */
       body {
         font-family: "RobotoCondensed", sans-serif;
         background: var(--bg-page);
@@ -2205,6 +2205,12 @@
         }
       })();
 
+      // Đồng bộ màu status bar Android với nền app
+      function syncThemeColor(isDark) {
+        const meta = document.getElementById("meta-theme-color");
+        if (meta) meta.setAttribute("content", isDark ? "#141920" : "#f0f2f5");
+      }
+
       function toggleTheme() {
         const isDark = document.body.classList.toggle("dark");
         localStorage.setItem("nf_theme", isDark ? "dark" : "light");
@@ -2217,9 +2223,10 @@
           icon.textContent = "☀️";
           label.textContent = "Sáng";
         }
+        syncThemeColor(isDark);
       }
 
-      // Init icon on load
+      // Init icon + theme-color on load
       document.addEventListener("DOMContentLoaded", function () {
         const isDark = document.body.classList.contains("dark");
         const icon = document.getElementById("theme-icon");
@@ -2228,6 +2235,7 @@
           icon.textContent = isDark ? "🌙" : "☀️";
           label.textContent = isDark ? "Tối" : "Sáng";
         }
+        syncThemeColor(isDark);
       });
 
       // ===== KEY ACTIVATION =====
@@ -4558,98 +4566,6 @@
         }
       });
 
-      // ===== FULLSCREEN ANDROID — ẩn thanh thông báo =====
-      (function () {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        const isAndroid = /Android/.test(navigator.userAgent);
-        const isStandalone =
-          window.matchMedia("(display-mode: standalone)").matches ||
-          window.navigator.standalone === true;
-
-        function enterFullscreen() {
-          if (isIOS) return; // iOS dùng safe-area CSS, không dùng requestFullscreen
-          const el = document.documentElement;
-          const req =
-            el.requestFullscreen ||
-            el.webkitRequestFullscreen ||
-            el.mozRequestFullScreen ||
-            el.msRequestFullscreen;
-          if (req) {
-            return req.call(el).catch(() => {});
-          }
-        }
-
-        // Android: khi mở từ PWA (standalone) → fullscreen ngay sau gesture đầu tiên
-        if (isAndroid) {
-          // Thử ngay (một số thiết bị cho phép nếu đã có gesture từ trước)
-          enterFullscreen();
-
-          // Đảm bảo fullscreen sau gesture đầu tiên
-          const onFirstGesture = () => {
-            enterFullscreen();
-          };
-          document.addEventListener("touchstart", onFirstGesture, { once: true });
-          document.addEventListener("touchend", onFirstGesture, { once: true });
-
-          // Khi thoát fullscreen → vào lại ngay khi có gesture
-          document.addEventListener("fullscreenchange", () => {
-            if (!document.fullscreenElement) {
-              document.addEventListener("touchstart", enterFullscreen, { once: true });
-            }
-          });
-          document.addEventListener("webkitfullscreenchange", () => {
-            if (!document.webkitFullscreenElement) {
-              document.addEventListener("touchstart", enterFullscreen, { once: true });
-            }
-          });
-        }
-
-        // Thêm nút "Toàn màn hình" nổi cho Android (khi chưa fullscreen)
-        if (isAndroid && !isIOS) {
-          const btn = document.createElement("button");
-          btn.id = "btn-fullscreen-float";
-          btn.innerHTML = "⛶";
-          btn.title = "Toàn màn hình";
-          btn.style.cssText = `
-            position: fixed;
-            bottom: calc(env(safe-area-inset-bottom, 12px) + 12px);
-            right: 16px;
-            z-index: 9999;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.3);
-            background: rgba(0,0,0,0.35);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-            transition: opacity 0.3s;
-            padding: 0;
-          `;
-          btn.addEventListener("click", () => {
-            enterFullscreen();
-            btn.style.opacity = "0";
-            setTimeout(() => { btn.style.display = "none"; }, 400);
-          });
-          // Ẩn nút khi đã fullscreen
-          const hideBtn = () => {
-            if (document.fullscreenElement || document.webkitFullscreenElement) {
-              btn.style.display = "none";
-            } else {
-              btn.style.display = "flex";
-              btn.style.opacity = "1";
-            }
-          };
-          document.addEventListener("fullscreenchange", hideBtn);
-          document.addEventListener("webkitfullscreenchange", hideBtn);
-          document.body.appendChild(btn);
-        }
-      })();
     </script>
   </body>
 </html>
