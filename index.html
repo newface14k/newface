@@ -156,8 +156,7 @@
         transition:
           background 0.3s,
           color 0.3s;
-        /* Extend into safe-area (notch / Dynamic Island / home bar) */
-        padding-top: env(safe-area-inset-top, 0px);
+        /* Extend into safe-area sides/bottom */
         padding-bottom: env(safe-area-inset-bottom, 0px);
         padding-left: env(safe-area-inset-left, 0px);
         padding-right: env(safe-area-inset-right, 0px);
@@ -201,7 +200,9 @@
         backdrop-filter: var(--glass-blur);
         -webkit-backdrop-filter: var(--glass-blur);
         border-bottom: 1px solid var(--glass-border);
+        /* Đẩy nội dung xuống dưới status bar iOS (notch / Dynamic Island) */
         padding: 13px 20px;
+        padding-top: calc(13px + env(safe-area-inset-top, 0px));
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -210,6 +211,29 @@
         z-index: 100;
         box-shadow: var(--header-shadow);
         transition: background 0.3s;
+      }
+
+      /* Lớp đổ bóng trắng từ trên xuống — che icon đồng hồ/pin iOS */
+      header::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: calc(env(safe-area-inset-top, 0px) + 100%);
+        top: calc(-1 * env(safe-area-inset-top, 0px));
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.55) 0%,
+          rgba(255, 255, 255, 0.0) 100%
+        );
+        pointer-events: none;
+        z-index: -1;
+      }
+      body.dark header::before {
+        background: linear-gradient(
+          to bottom,
+          rgba(20, 25, 32, 0.75) 0%,
+          rgba(20, 25, 32, 0.0) 100%
+        );
       }
       .logo-mark {
         width: 34px;
@@ -4534,13 +4558,16 @@
         }
       });
 
-      // ===== FULLSCREEN — ẩn thanh thông báo trên mobile =====
+      // ===== FULLSCREEN ANDROID — ẩn thanh thông báo =====
       (function () {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
         const isStandalone =
           window.matchMedia("(display-mode: standalone)").matches ||
           window.navigator.standalone === true;
 
-        function requestFullscreen() {
+        function enterFullscreen() {
+          if (isIOS) return; // iOS dùng safe-area CSS, không dùng requestFullscreen
           const el = document.documentElement;
           const req =
             el.requestFullscreen ||
@@ -4548,30 +4575,80 @@
             el.mozRequestFullScreen ||
             el.msRequestFullscreen;
           if (req) {
-            req.call(el).catch(() => {});
+            return req.call(el).catch(() => {});
           }
         }
 
-        if (isStandalone) {
-          requestFullscreen();
-        } else {
-          document.addEventListener("touchstart", function onFirst() {
-            requestFullscreen();
-            document.removeEventListener("touchstart", onFirst);
-            document.removeEventListener("click", onFirst);
-          }, { once: true });
-          document.addEventListener("click", function onFirst() {
-            requestFullscreen();
-            document.removeEventListener("touchstart", onFirst);
-            document.removeEventListener("click", onFirst);
-          }, { once: true });
+        // Android: khi mở từ PWA (standalone) → fullscreen ngay sau gesture đầu tiên
+        if (isAndroid) {
+          // Thử ngay (một số thiết bị cho phép nếu đã có gesture từ trước)
+          enterFullscreen();
+
+          // Đảm bảo fullscreen sau gesture đầu tiên
+          const onFirstGesture = () => {
+            enterFullscreen();
+          };
+          document.addEventListener("touchstart", onFirstGesture, { once: true });
+          document.addEventListener("touchend", onFirstGesture, { once: true });
+
+          // Khi thoát fullscreen → vào lại ngay khi có gesture
+          document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement) {
+              document.addEventListener("touchstart", enterFullscreen, { once: true });
+            }
+          });
+          document.addEventListener("webkitfullscreenchange", () => {
+            if (!document.webkitFullscreenElement) {
+              document.addEventListener("touchstart", enterFullscreen, { once: true });
+            }
+          });
         }
 
-        document.addEventListener("fullscreenchange", () => {
-          if (!document.fullscreenElement && isStandalone) {
-            setTimeout(requestFullscreen, 300);
-          }
-        });
+        // Thêm nút "Toàn màn hình" nổi cho Android (khi chưa fullscreen)
+        if (isAndroid && !isIOS) {
+          const btn = document.createElement("button");
+          btn.id = "btn-fullscreen-float";
+          btn.innerHTML = "⛶";
+          btn.title = "Toàn màn hình";
+          btn.style.cssText = `
+            position: fixed;
+            bottom: calc(env(safe-area-inset-bottom, 12px) + 12px);
+            right: 16px;
+            z-index: 9999;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            transition: opacity 0.3s;
+            padding: 0;
+          `;
+          btn.addEventListener("click", () => {
+            enterFullscreen();
+            btn.style.opacity = "0";
+            setTimeout(() => { btn.style.display = "none"; }, 400);
+          });
+          // Ẩn nút khi đã fullscreen
+          const hideBtn = () => {
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+              btn.style.display = "none";
+            } else {
+              btn.style.display = "flex";
+              btn.style.opacity = "1";
+            }
+          };
+          document.addEventListener("fullscreenchange", hideBtn);
+          document.addEventListener("webkitfullscreenchange", hideBtn);
+          document.body.appendChild(btn);
+        }
       })();
     </script>
   </body>
