@@ -3493,24 +3493,33 @@
         // Vẽ logo nếu có, ngược lại vẽ shield mặc định
         const drawHeaderText = () => {
           const textX = logoBoxX + logoBoxSize + 10 * scale;
-          const textMidY = boxY + headerH / 2;
 
           ctx.save();
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";
-
-          // Tiêu đề chính — màu vàng, to, đậm
-          ctx.font = `700 ${22 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "#f5b800";
           ctx.shadowColor = "rgba(0,0,0,0.5)";
           ctx.shadowBlur = 3 * scale;
-          ctx.fillText(titleTxt, textX, textMidY - 12 * scale);
 
-          // Tiêu đề phụ — màu trắng
-          ctx.font = `600 ${16 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.92)";
-          ctx.shadowBlur = 2 * scale;
-          ctx.fillText(subTxt, textX, textMidY + 12 * scale);
+          if (subTxt) {
+            // Có cả title + subtitle: layout như cũ
+            const textMidY = boxY + headerH / 2;
+
+            ctx.font = `700 ${22 * scale}px RobotoCondensed`;
+            ctx.fillStyle = "#E6D94A";
+            ctx.fillText(titleTxt, textX, textMidY - 12 * scale);
+
+            ctx.font = `600 ${16 * scale}px RobotoCondensed`;
+            ctx.fillStyle = "rgba(255,255,255,0.92)";
+            ctx.shadowBlur = 2 * scale;
+            ctx.fillText(subTxt, textX, textMidY + 12 * scale);
+          } else {
+            // Chỉ có title: căn giữa dọc header
+            const textMidY = boxY + headerH / 2;
+
+            ctx.font = `700 ${22 * scale}px RobotoCondensed`;
+            ctx.fillStyle = "#E6D94A";
+            ctx.fillText(titleTxt, textX, textMidY);
+          }
 
           ctx.restore();
           drawSep();
@@ -3524,14 +3533,14 @@
 
           // Line vàng ngang
           ctx.save();
-          ctx.fillStyle = "#f5b800";
+          ctx.fillStyle = "#E6D94A";
           ctx.fillRect(boxX, sepY, boxW, lineH);
           ctx.restore();
 
           // Vẽ dải >>>>>> màu vàng trên nền xanh sáng
           ctx.save();
           ctx.font = `700 ${Math.round(arrowBandH * 0.78)}px monospace`;
-          ctx.fillStyle = "#f5b800";
+          ctx.fillStyle = "#E6D94A";
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";
           ctx.shadowColor = "rgba(0,0,0,0.3)";
@@ -3568,7 +3577,7 @@
 
           // Giờ to màu vàng
           ctx.font = `900 ${44 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "#f5b800";
+          ctx.fillStyle = "#E6D94A";
           ctx.textBaseline = "top";
           ctx.shadowColor = "rgba(0,0,0,0.5)";
           ctx.shadowBlur = 4 * scale;
@@ -3602,7 +3611,7 @@
 
           const iconX = boxX + padding;
           const iconY = locRowY + locPaddingV;
-          ctx.fillStyle = "#f5b800";
+          ctx.fillStyle = "#E6D94A";
           ctx.fillRect(iconX, iconY, iconSz, iconSz);
 
           const textX = iconX + iconSz + 7 * scale;
@@ -3660,7 +3669,7 @@
           const cx = logoBoxX + logoBoxSize / 2;
           const cy = logoBoxY + logoBoxSize / 2;
           const sz = logoBoxSize * 0.65;
-          drawShieldIcon(ctx, cx - sz / 2, cy - sz / 2, sz, "#f5b800");
+          drawShieldIcon(ctx, cx - sz / 2, cy - sz / 2, sz, "#E6D94A");
         }
       }
 
@@ -3756,7 +3765,7 @@
 
           // Cột phải: tên miền + ngày
           ctx.font = `600 ${14 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "#f5b800";
+          ctx.fillStyle = "#E6D94A";
           ctx.shadowBlur = 2 * scale;
           ctx.fillText(
             subTxt,
