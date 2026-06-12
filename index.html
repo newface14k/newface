@@ -3582,7 +3582,11 @@
           ctx.shadowColor = "rgba(0,0,0,0.5)";
           ctx.shadowBlur = 4 * scale;
           const timeMetrics = ctx.measureText(timeTxt);
-          ctx.fillText(timeTxt, boxX + padding, timeRowY + 6 * scale);
+          ctx.fillText(
+            timeTxt,
+            boxX + padding,
+            timeRowY + 6 * scale - (isIOSCanvas() ? 4 * scale : 0),
+          );
 
           // Ngày tháng bên phải giờ
           ctx.font = `500 ${16 * scale}px RobotoCondensed`;
