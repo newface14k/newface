@@ -2,7 +2,10 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>NEWFACE</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="icon-192.png" />
@@ -223,7 +226,7 @@
         background: linear-gradient(
           to bottom,
           rgba(255, 255, 255, 0.55) 0%,
-          rgba(255, 255, 255, 0.0) 100%
+          rgba(255, 255, 255, 0) 100%
         );
         pointer-events: none;
         z-index: -1;
@@ -232,7 +235,7 @@
         background: linear-gradient(
           to bottom,
           rgba(20, 25, 32, 0.75) 0%,
-          rgba(20, 25, 32, 0.0) 100%
+          rgba(20, 25, 32, 0) 100%
         );
       }
       .logo-mark {
@@ -1567,7 +1570,11 @@
 
     <div class="main">
       <div class="preview-box" id="preview-box">
-        <div class="empty-state" id="empty-state" onclick="document.getElementById('image-library-in').click()">
+        <div
+          class="empty-state"
+          id="empty-state"
+          onclick="document.getElementById('image-library-in').click()"
+        >
           <div class="empty-icon">🖼️</div>
           <div style="font-size: 17px; font-weight: 600; margin-bottom: 5px">
             Chọn ảnh hoặc video để bắt đầu
@@ -1589,7 +1596,10 @@
         <!-- Media selector -->
         <div class="field">
           <div class="media-btns">
-            <button class="btn-primary" onclick="document.getElementById('image-library-in').click()">
+            <button
+              class="btn-primary"
+              onclick="document.getElementById('image-library-in').click()"
+            >
               📁 Chọn ảnh
             </button>
             <button
@@ -1633,19 +1643,33 @@
           </div>
         </div>
 
-
-
         <div class="tabs">
-          <button class="tab" id="tab1" onclick="setTemplate('1')">Mẫu 1</button>
-          <button class="tab" id="tab2" onclick="setTemplate('2')">Mẫu 2</button>
-          <button class="tab" id="tab3" onclick="setTemplate('3')">Mẫu 3</button>
-          <button class="tab" id="tab4" onclick="setTemplate('4')">Mẫu 4</button>
+          <button class="tab" id="tab1" onclick="setTemplate('1')">
+            Mẫu 1
+          </button>
+          <button class="tab" id="tab2" onclick="setTemplate('2')">
+            Mẫu 2
+          </button>
+          <button class="tab" id="tab3" onclick="setTemplate('3')">
+            Mẫu 3
+          </button>
+          <button class="tab" id="tab4" onclick="setTemplate('4')">
+            Mẫu 4
+          </button>
         </div>
-        <div class="tabs" style="margin-top:-8px">
-          <button class="tab" id="tab5" onclick="setTemplate('5')">Mẫu 5</button>
-          <button class="tab" id="tab6" onclick="setTemplate('6')">Mẫu 6</button>
-          <button class="tab" id="tab7" onclick="setTemplate('7')">Mẫu 7</button>
-          <button class="tab" id="tab8" onclick="setTemplate('8')">Mẫu 8</button>
+        <div class="tabs" style="margin-top: -8px">
+          <button class="tab" id="tab5" onclick="setTemplate('5')">
+            Mẫu 5
+          </button>
+          <button class="tab" id="tab6" onclick="setTemplate('6')">
+            Mẫu 6
+          </button>
+          <button class="tab" id="tab7" onclick="setTemplate('7')">
+            Mẫu 7
+          </button>
+          <button class="tab" id="tab8" onclick="setTemplate('8')">
+            Mẫu 8
+          </button>
         </div>
 
         <div class="field">
@@ -1791,16 +1815,46 @@
                 <span>Tiêu đề</span><span>Nội dung</span>
               </div>
               <div class="note-row">
-                <input type="text" id="m1n0t" placeholder="Tọa độ" oninput="redraw()" />
-                <input type="text" id="m1n0c" placeholder="Vui lòng nhập nội dung" oninput="redraw()" />
+                <input
+                  type="text"
+                  id="m1n0t"
+                  placeholder="Tọa độ"
+                  oninput="redraw()"
+                />
+                <input
+                  type="text"
+                  id="m1n0c"
+                  placeholder="Vui lòng nhập nội dung"
+                  oninput="redraw()"
+                />
               </div>
               <div class="note-row">
-                <input type="text" id="m1n1t" placeholder="Tên Công ty" oninput="redraw()" />
-                <input type="text" id="m1n1c" placeholder="Vui lòng nhập nội dung" oninput="redraw()" />
+                <input
+                  type="text"
+                  id="m1n1t"
+                  placeholder="Tên Công ty"
+                  oninput="redraw()"
+                />
+                <input
+                  type="text"
+                  id="m1n1c"
+                  placeholder="Vui lòng nhập nội dung"
+                  oninput="redraw()"
+                />
               </div>
               <div class="note-row">
-                <input type="text" id="m1n2t" placeholder="Tiêu đề" oninput="redraw()" />
-                <input type="text" id="m1n2c" placeholder="Vui lòng nhập nội dung" oninput="redraw()" />
+                <input
+                  type="text"
+                  id="m1n2t"
+                  placeholder="Tiêu đề"
+                  oninput="redraw()"
+                />
+                <input
+                  type="text"
+                  id="m1n2c"
+                  placeholder="Vui lòng nhập nội dung"
+                  oninput="redraw()"
+                />
               </div>
             </div>
           </div>
@@ -2199,27 +2253,70 @@
         <div id="m5-fields" style="display: none">
           <div class="field">
             <label class="lbl">🏢 Tiêu đề chính</label>
-            <input type="text" id="m5-title" value="Tuần tra" oninput="redraw()" />
+            <input
+              type="text"
+              id="m5-title"
+              value="Tuần tra"
+              oninput="redraw()"
+            />
           </div>
           <div class="field">
             <label class="lbl">📋 Tiêu đề phụ</label>
-            <input type="text" id="m5-subtitle" value="Hồ sơ công việc" oninput="redraw()" />
+            <input
+              type="text"
+              id="m5-subtitle"
+              value="Hồ sơ công việc"
+              oninput="redraw()"
+            />
           </div>
           <div class="field">
             <label class="lbl">🖼️ Logo (shield/đơn vị)</label>
             <div class="row">
-              <button class="btn-outline" onclick="document.getElementById('logo5-in').click()" id="logo5-btn">📷 Chọn logo</button>
-              <button class="btn-red" id="logo5-rm" onclick="removeLogo5()" style="display:none">✕</button>
+              <button
+                class="btn-outline"
+                onclick="document.getElementById('logo5-in').click()"
+                id="logo5-btn"
+              >
+                📷 Chọn logo
+              </button>
+              <button
+                class="btn-red"
+                id="logo5-rm"
+                onclick="removeLogo5()"
+                style="display: none"
+              >
+                ✕
+              </button>
             </div>
-            <div class="logo-prev" id="logo5-prev" style="display:none">
-              <img id="logo5-img" src="" /><span style="font-size:11px;color:#9ca3af">Logo đã chọn</span>
+            <div class="logo-prev" id="logo5-prev" style="display: none">
+              <img id="logo5-img" src="" /><span
+                style="font-size: 11px; color: #9ca3af"
+                >Logo đã chọn</span
+              >
             </div>
-            <input type="file" id="logo5-in" accept="image/*" style="display:none" onchange="handleLogo5(this)" />
+            <input
+              type="file"
+              id="logo5-in"
+              accept="image/*"
+              style="display: none"
+              onchange="handleLogo5(this)"
+            />
           </div>
           <div class="field">
             <div class="toggle-row">
-              <label class="lbl" style="margin-bottom:0">🔢 Mã ảnh (Dọc)</label>
-              <label class="toggle"><input type="checkbox" id="show-code5" checked onchange="refreshImageCode();redraw()"/><span class="slider-t"></span></label>
+              <label class="lbl" style="margin-bottom: 0"
+                >🔢 Mã ảnh (Dọc)</label
+              >
+              <label class="toggle"
+                ><input
+                  type="checkbox"
+                  id="show-code5"
+                  checked
+                  onchange="
+                    refreshImageCode();
+                    redraw();
+                  " /><span class="slider-t"></span
+              ></label>
             </div>
           </div>
         </div>
@@ -2228,27 +2325,70 @@
         <div id="m6-fields" style="display: none">
           <div class="field">
             <label class="lbl">🏢 Tiêu đề chính</label>
-            <input type="text" id="m6-title" value="Kiểm tra" oninput="redraw()" />
+            <input
+              type="text"
+              id="m6-title"
+              value="Kiểm tra"
+              oninput="redraw()"
+            />
           </div>
           <div class="field">
             <label class="lbl">📋 Tiêu đề phụ</label>
-            <input type="text" id="m6-subtitle" value="Báo cáo công việc" oninput="redraw()" />
+            <input
+              type="text"
+              id="m6-subtitle"
+              value="Báo cáo công việc"
+              oninput="redraw()"
+            />
           </div>
           <div class="field">
             <label class="lbl">🖼️ Logo</label>
             <div class="row">
-              <button class="btn-outline" onclick="document.getElementById('logo6-in').click()" id="logo6-btn">📷 Chọn logo</button>
-              <button class="btn-red" id="logo6-rm" onclick="removeLogo6()" style="display:none">✕</button>
+              <button
+                class="btn-outline"
+                onclick="document.getElementById('logo6-in').click()"
+                id="logo6-btn"
+              >
+                📷 Chọn logo
+              </button>
+              <button
+                class="btn-red"
+                id="logo6-rm"
+                onclick="removeLogo6()"
+                style="display: none"
+              >
+                ✕
+              </button>
             </div>
-            <div class="logo-prev" id="logo6-prev" style="display:none">
-              <img id="logo6-img" src="" /><span style="font-size:11px;color:#9ca3af">Logo đã chọn</span>
+            <div class="logo-prev" id="logo6-prev" style="display: none">
+              <img id="logo6-img" src="" /><span
+                style="font-size: 11px; color: #9ca3af"
+                >Logo đã chọn</span
+              >
             </div>
-            <input type="file" id="logo6-in" accept="image/*" style="display:none" onchange="handleLogo6(this)" />
+            <input
+              type="file"
+              id="logo6-in"
+              accept="image/*"
+              style="display: none"
+              onchange="handleLogo6(this)"
+            />
           </div>
           <div class="field">
             <div class="toggle-row">
-              <label class="lbl" style="margin-bottom:0">🔢 Mã ảnh (Dọc)</label>
-              <label class="toggle"><input type="checkbox" id="show-code6" checked onchange="refreshImageCode();redraw()"/><span class="slider-t"></span></label>
+              <label class="lbl" style="margin-bottom: 0"
+                >🔢 Mã ảnh (Dọc)</label
+              >
+              <label class="toggle"
+                ><input
+                  type="checkbox"
+                  id="show-code6"
+                  checked
+                  onchange="
+                    refreshImageCode();
+                    redraw();
+                  " /><span class="slider-t"></span
+              ></label>
             </div>
           </div>
         </div>
@@ -2257,27 +2397,70 @@
         <div id="m7-fields" style="display: none">
           <div class="field">
             <label class="lbl">🏢 Tiêu đề chính</label>
-            <input type="text" id="m7-title" value="Giám sát" oninput="redraw()" />
+            <input
+              type="text"
+              id="m7-title"
+              value="Giám sát"
+              oninput="redraw()"
+            />
           </div>
           <div class="field">
             <label class="lbl">📋 Tiêu đề phụ</label>
-            <input type="text" id="m7-subtitle" value="Nhật ký công việc" oninput="redraw()" />
+            <input
+              type="text"
+              id="m7-subtitle"
+              value="Nhật ký công việc"
+              oninput="redraw()"
+            />
           </div>
           <div class="field">
             <label class="lbl">🖼️ Logo</label>
             <div class="row">
-              <button class="btn-outline" onclick="document.getElementById('logo7-in').click()" id="logo7-btn">📷 Chọn logo</button>
-              <button class="btn-red" id="logo7-rm" onclick="removeLogo7()" style="display:none">✕</button>
+              <button
+                class="btn-outline"
+                onclick="document.getElementById('logo7-in').click()"
+                id="logo7-btn"
+              >
+                📷 Chọn logo
+              </button>
+              <button
+                class="btn-red"
+                id="logo7-rm"
+                onclick="removeLogo7()"
+                style="display: none"
+              >
+                ✕
+              </button>
             </div>
-            <div class="logo-prev" id="logo7-prev" style="display:none">
-              <img id="logo7-img" src="" /><span style="font-size:11px;color:#9ca3af">Logo đã chọn</span>
+            <div class="logo-prev" id="logo7-prev" style="display: none">
+              <img id="logo7-img" src="" /><span
+                style="font-size: 11px; color: #9ca3af"
+                >Logo đã chọn</span
+              >
             </div>
-            <input type="file" id="logo7-in" accept="image/*" style="display:none" onchange="handleLogo7(this)" />
+            <input
+              type="file"
+              id="logo7-in"
+              accept="image/*"
+              style="display: none"
+              onchange="handleLogo7(this)"
+            />
           </div>
           <div class="field">
             <div class="toggle-row">
-              <label class="lbl" style="margin-bottom:0">🔢 Mã ảnh (Dọc)</label>
-              <label class="toggle"><input type="checkbox" id="show-code7" checked onchange="refreshImageCode();redraw()"/><span class="slider-t"></span></label>
+              <label class="lbl" style="margin-bottom: 0"
+                >🔢 Mã ảnh (Dọc)</label
+              >
+              <label class="toggle"
+                ><input
+                  type="checkbox"
+                  id="show-code7"
+                  checked
+                  onchange="
+                    refreshImageCode();
+                    redraw();
+                  " /><span class="slider-t"></span
+              ></label>
             </div>
           </div>
         </div>
@@ -2286,27 +2469,70 @@
         <div id="m8-fields" style="display: none">
           <div class="field">
             <label class="lbl">🏢 Tiêu đề chính</label>
-            <input type="text" id="m8-title" value="Công tác" oninput="redraw()" />
+            <input
+              type="text"
+              id="m8-title"
+              value="Công tác"
+              oninput="redraw()"
+            />
           </div>
           <div class="field">
             <label class="lbl">📋 Tiêu đề phụ</label>
-            <input type="text" id="m8-subtitle" value="Hồ sơ nghiệm thu" oninput="redraw()" />
+            <input
+              type="text"
+              id="m8-subtitle"
+              value="Hồ sơ nghiệm thu"
+              oninput="redraw()"
+            />
           </div>
           <div class="field">
             <label class="lbl">🖼️ Logo</label>
             <div class="row">
-              <button class="btn-outline" onclick="document.getElementById('logo8-in').click()" id="logo8-btn">📷 Chọn logo</button>
-              <button class="btn-red" id="logo8-rm" onclick="removeLogo8()" style="display:none">✕</button>
+              <button
+                class="btn-outline"
+                onclick="document.getElementById('logo8-in').click()"
+                id="logo8-btn"
+              >
+                📷 Chọn logo
+              </button>
+              <button
+                class="btn-red"
+                id="logo8-rm"
+                onclick="removeLogo8()"
+                style="display: none"
+              >
+                ✕
+              </button>
             </div>
-            <div class="logo-prev" id="logo8-prev" style="display:none">
-              <img id="logo8-img" src="" /><span style="font-size:11px;color:#9ca3af">Logo đã chọn</span>
+            <div class="logo-prev" id="logo8-prev" style="display: none">
+              <img id="logo8-img" src="" /><span
+                style="font-size: 11px; color: #9ca3af"
+                >Logo đã chọn</span
+              >
             </div>
-            <input type="file" id="logo8-in" accept="image/*" style="display:none" onchange="handleLogo8(this)" />
+            <input
+              type="file"
+              id="logo8-in"
+              accept="image/*"
+              style="display: none"
+              onchange="handleLogo8(this)"
+            />
           </div>
           <div class="field">
             <div class="toggle-row">
-              <label class="lbl" style="margin-bottom:0">🔢 Mã ảnh (Dọc)</label>
-              <label class="toggle"><input type="checkbox" id="show-code8" checked onchange="refreshImageCode();redraw()"/><span class="slider-t"></span></label>
+              <label class="lbl" style="margin-bottom: 0"
+                >🔢 Mã ảnh (Dọc)</label
+              >
+              <label class="toggle"
+                ><input
+                  type="checkbox"
+                  id="show-code8"
+                  checked
+                  onchange="
+                    refreshImageCode();
+                    redraw();
+                  " /><span class="slider-t"></span
+              ></label>
             </div>
           </div>
         </div>
@@ -2893,19 +3119,31 @@
           if (tab) tab.className = "tab" + (t === n ? " active" : "");
         });
 
-        document.getElementById("m1-fields").style.display = t === "1" ? "" : "none";
-        document.getElementById("m2-fields").style.display = t === "2" ? "" : "none";
-        document.getElementById("m3-fields").style.display = t === "3" ? "" : "none";
-        document.getElementById("m4-fields").style.display = t === "4" ? "" : "none";
-        document.getElementById("m5-fields").style.display = t === "5" ? "" : "none";
-        document.getElementById("m6-fields").style.display = t === "6" ? "" : "none";
-        document.getElementById("m7-fields").style.display = t === "7" ? "" : "none";
-        document.getElementById("m8-fields").style.display = t === "8" ? "" : "none";
+        document.getElementById("m1-fields").style.display =
+          t === "1" ? "" : "none";
+        document.getElementById("m2-fields").style.display =
+          t === "2" ? "" : "none";
+        document.getElementById("m3-fields").style.display =
+          t === "3" ? "" : "none";
+        document.getElementById("m4-fields").style.display =
+          t === "4" ? "" : "none";
+        document.getElementById("m5-fields").style.display =
+          t === "5" ? "" : "none";
+        document.getElementById("m6-fields").style.display =
+          t === "6" ? "" : "none";
+        document.getElementById("m7-fields").style.display =
+          t === "7" ? "" : "none";
+        document.getElementById("m8-fields").style.display =
+          t === "8" ? "" : "none";
 
         // Mẫu 3/4 có show-code riêng; ẩn global show-code khi ở mẫu 3/4/5/6/7/8
         const showCodeWrap = document.querySelector(".field:has(#show-code)");
         if (showCodeWrap)
-          showCodeWrap.style.display = ["3","4","5","6","7","8"].includes(t) ? "none" : "";
+          showCodeWrap.style.display = ["3", "4", "5", "6", "7", "8"].includes(
+            t,
+          )
+            ? "none"
+            : "";
 
         redraw();
       }
@@ -3029,80 +3267,214 @@
       }
 
       // ===== LOGO 5-8 HANDLERS =====
-      let curLogo5 = null, curLogo6 = null, curLogo7 = null, curLogo8 = null;
+      let curLogo5 = null,
+        curLogo6 = null,
+        curLogo7 = null,
+        curLogo8 = null;
 
       function handleLogo5(i) {
-        const f = i.files[0]; if (!f) return;
-        const r = new FileReader(); r.onload = (e) => { curLogo5 = e.target.result;
+        const f = i.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (e) => {
+          curLogo5 = e.target.result;
           document.getElementById("logo5-btn").textContent = "📷 Đổi logo";
           document.getElementById("logo5-rm").style.display = "";
           document.getElementById("logo5-prev").style.display = "flex";
-          document.getElementById("logo5-img").src = curLogo5; redraw(); }; r.readAsDataURL(f);
+          document.getElementById("logo5-img").src = curLogo5;
+          redraw();
+        };
+        r.readAsDataURL(f);
       }
-      function removeLogo5() { curLogo5 = null; document.getElementById("logo5-btn").textContent = "📷 Chọn logo"; document.getElementById("logo5-rm").style.display = "none"; document.getElementById("logo5-prev").style.display = "none"; redraw(); }
+      function removeLogo5() {
+        curLogo5 = null;
+        document.getElementById("logo5-btn").textContent = "📷 Chọn logo";
+        document.getElementById("logo5-rm").style.display = "none";
+        document.getElementById("logo5-prev").style.display = "none";
+        redraw();
+      }
       function handleLogo6(i) {
-        const f = i.files[0]; if (!f) return;
-        const r = new FileReader(); r.onload = (e) => { curLogo6 = e.target.result;
+        const f = i.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (e) => {
+          curLogo6 = e.target.result;
           document.getElementById("logo6-btn").textContent = "📷 Đổi logo";
           document.getElementById("logo6-rm").style.display = "";
           document.getElementById("logo6-prev").style.display = "flex";
-          document.getElementById("logo6-img").src = curLogo6; redraw(); }; r.readAsDataURL(f);
+          document.getElementById("logo6-img").src = curLogo6;
+          redraw();
+        };
+        r.readAsDataURL(f);
       }
-      function removeLogo6() { curLogo6 = null; document.getElementById("logo6-btn").textContent = "📷 Chọn logo"; document.getElementById("logo6-rm").style.display = "none"; document.getElementById("logo6-prev").style.display = "none"; redraw(); }
+      function removeLogo6() {
+        curLogo6 = null;
+        document.getElementById("logo6-btn").textContent = "📷 Chọn logo";
+        document.getElementById("logo6-rm").style.display = "none";
+        document.getElementById("logo6-prev").style.display = "none";
+        redraw();
+      }
       function handleLogo7(i) {
-        const f = i.files[0]; if (!f) return;
-        const r = new FileReader(); r.onload = (e) => { curLogo7 = e.target.result;
+        const f = i.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (e) => {
+          curLogo7 = e.target.result;
           document.getElementById("logo7-btn").textContent = "📷 Đổi logo";
           document.getElementById("logo7-rm").style.display = "";
           document.getElementById("logo7-prev").style.display = "flex";
-          document.getElementById("logo7-img").src = curLogo7; redraw(); }; r.readAsDataURL(f);
+          document.getElementById("logo7-img").src = curLogo7;
+          redraw();
+        };
+        r.readAsDataURL(f);
       }
-      function removeLogo7() { curLogo7 = null; document.getElementById("logo7-btn").textContent = "📷 Chọn logo"; document.getElementById("logo7-rm").style.display = "none"; document.getElementById("logo7-prev").style.display = "none"; redraw(); }
+      function removeLogo7() {
+        curLogo7 = null;
+        document.getElementById("logo7-btn").textContent = "📷 Chọn logo";
+        document.getElementById("logo7-rm").style.display = "none";
+        document.getElementById("logo7-prev").style.display = "none";
+        redraw();
+      }
       function handleLogo8(i) {
-        const f = i.files[0]; if (!f) return;
-        const r = new FileReader(); r.onload = (e) => { curLogo8 = e.target.result;
+        const f = i.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (e) => {
+          curLogo8 = e.target.result;
           document.getElementById("logo8-btn").textContent = "📷 Đổi logo";
           document.getElementById("logo8-rm").style.display = "";
           document.getElementById("logo8-prev").style.display = "flex";
-          document.getElementById("logo8-img").src = curLogo8; redraw(); }; r.readAsDataURL(f);
+          document.getElementById("logo8-img").src = curLogo8;
+          redraw();
+        };
+        r.readAsDataURL(f);
       }
-      function removeLogo8() { curLogo8 = null; document.getElementById("logo8-btn").textContent = "📷 Chọn logo"; document.getElementById("logo8-rm").style.display = "none"; document.getElementById("logo8-prev").style.display = "none"; redraw(); }
+      function removeLogo8() {
+        curLogo8 = null;
+        document.getElementById("logo8-btn").textContent = "📷 Chọn logo";
+        document.getElementById("logo8-rm").style.display = "none";
+        document.getElementById("logo8-prev").style.display = "none";
+        redraw();
+      }
 
       // ===== TEMPLATE 5 — Nền xanh đậm, layout theo ảnh mẫu =====
-      // Layout: góc dưới trái — box xanh đậm với header (logo + tiêu đề), dải chevron vàng-xanh, hàng giờ lớn + ngày, dòng vị trí
-      // Góc dưới phải: Timemark + 100% Chân thực
-      function drawTemplate5(ctx, w, h, scale, padding, hh, mm, dayName, day, month, year, loc, showCode, code, callback) {
+      function drawTemplate5(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        showCode,
+        code,
+        callback,
+      ) {
         padding = 10 * scale;
-        const titleTxt  = (document.getElementById("m5-title")?.value  || "Tuần tra").trim();
-        const subTxt    = (document.getElementById("m5-subtitle")?.value || "Hồ sơ công việc").trim();
-        const showCodeN = document.getElementById("show-code5")?.checked !== false;
+        const titleTxt = (
+          document.getElementById("m5-title")?.value || "Tuần tra"
+        ).trim();
+        const subTxt = (
+          document.getElementById("m5-subtitle")?.value || "Hồ sơ công việc"
+        ).trim();
+        const showCodeN =
+          document.getElementById("show-code5")?.checked !== false;
 
-        // ---- Kích thước box ----
-        const boxW    = w * 0.72;
-        const headerH = 72 * scale;
-        const sepH    = 22 * scale;
-        const timeH   = 64 * scale;
-        const locH    = 34 * scale;
-        const boxH    = headerH + sepH + timeH + locH;
-        const boxX    = padding;
-        const boxY    = h - padding - boxH;
+        const boxW = w * 0.5;
+        const headerH = 60 * scale;
+        const sepH = 18 * scale;
+        const timeH = 52 * scale;
+        const R = 8 * scale;
 
-        const R = 8 * scale; // border-radius
+        // ---- Tính trước số dòng location để biết locH động ----
+        const lineHeight = 18 * scale;
+        const locPaddingV = 4 * scale; // khoảng trống trên/dưới trong locRow
 
-        // ---- Vẽ nền box xanh đậm ----
+        // Cần set font trước khi measureText
+        ctx.save();
+        ctx.font = `500 ${16 * scale}px RobotoCondensed`;
+        const iconSz = 10 * scale;
+        const textXOffset = padding + iconSz + 7 * scale; // offset từ boxX
+        const maxLocWidth = boxW - textXOffset - padding;
+
+        const wrapText = (text, maxW) => {
+          const words = text.split(" ");
+          const lines = [];
+          let line = "";
+          words.forEach((word) => {
+            const testLine = line ? line + " " + word : word;
+            if (ctx.measureText(testLine).width > maxW && line) {
+              lines.push(line);
+              line = word;
+            } else {
+              line = testLine;
+            }
+          });
+          if (line) lines.push(line);
+          return lines;
+        };
+
+        const locLines = wrapText(loc, maxLocWidth);
+        ctx.restore();
+
+        const locH = locPaddingV + locLines.length * lineHeight + locPaddingV; // động theo số dòng
+        const contentBoxH = sepH + timeH + locH;
+
+        const boxX = padding;
+        const boxY = h - padding - (headerH + contentBoxH);
+
+        // ---- BOX 1: Header xanh đậm ----
         ctx.save();
         ctx.beginPath();
         ctx.moveTo(boxX + R, boxY);
         ctx.lineTo(boxX + boxW - R, boxY);
         ctx.quadraticCurveTo(boxX + boxW, boxY, boxX + boxW, boxY + R);
-        ctx.lineTo(boxX + boxW, boxY + boxH - R);
-        ctx.quadraticCurveTo(boxX + boxW, boxY + boxH, boxX + boxW - R, boxY + boxH);
-        ctx.lineTo(boxX + R, boxY + boxH);
-        ctx.quadraticCurveTo(boxX, boxY + boxH, boxX, boxY + boxH - R);
+        ctx.lineTo(boxX + boxW, boxY + headerH - R);
+        ctx.quadraticCurveTo(
+          boxX + boxW,
+          boxY + headerH,
+          boxX + boxW - R,
+          boxY + headerH,
+        );
+        ctx.lineTo(boxX + R, boxY + headerH);
+        ctx.quadraticCurveTo(boxX, boxY + headerH, boxX, boxY + headerH - R);
         ctx.lineTo(boxX, boxY + R);
         ctx.quadraticCurveTo(boxX, boxY, boxX + R, boxY);
         ctx.closePath();
-        ctx.fillStyle = "rgba(10, 48, 10, 0.82)";
+        ctx.fillStyle = "rgba(52,87,24,0.82)";
+        ctx.fill();
+        ctx.restore();
+
+        // ---- BOX 2: Content xanh nhạt (chiều cao động) ----
+        const box2Y = boxY + headerH;
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(boxX + R, box2Y);
+        ctx.lineTo(boxX + boxW - R, box2Y);
+        ctx.quadraticCurveTo(boxX + boxW, box2Y, boxX + boxW, box2Y + R);
+        ctx.lineTo(boxX + boxW, box2Y + contentBoxH - R);
+        ctx.quadraticCurveTo(
+          boxX + boxW,
+          box2Y + contentBoxH,
+          boxX + boxW - R,
+          box2Y + contentBoxH,
+        );
+        ctx.lineTo(boxX + R, box2Y + contentBoxH);
+        ctx.quadraticCurveTo(
+          boxX,
+          box2Y + contentBoxH,
+          boxX,
+          box2Y + contentBoxH - R,
+        );
+        ctx.lineTo(boxX, box2Y + R);
+        ctx.quadraticCurveTo(boxX, box2Y, boxX + R, box2Y);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(52,87,24,0.72)";
         ctx.fill();
         ctx.restore();
 
@@ -3144,49 +3516,52 @@
           drawSep();
         };
 
-        // ---- DẢI SEPARATOR CHEVRON ----
+        // ---- SEPARATOR: LINE VÀNG + DẢI >> ----
         const drawSep = () => {
-          const sepY = boxY + headerH;
-          const chevW = 18 * scale;
-          const chevH = sepH;
-          const cols = [
-            "#4a7c26","#f5b800","#4a7c26","#f5b800","#4a7c26","#f5b800",
-            "#4a7c26","#f5b800","#4a7c26","#f5b800","#4a7c26","#f5b800",
-            "#4a7c26","#f5b800","#4a7c26","#f5b800","#4a7c26","#f5b800",
-            "#4a7c26","#f5b800","#4a7c26","#f5b800","#4a7c26","#f5b800",
-          ];
+          const sepY = box2Y;
+          const lineH = 3 * scale;
+          const arrowBandH = sepH - lineH;
+
+          // Line vàng ngang
+          ctx.save();
+          ctx.fillStyle = "#f5b800";
+          ctx.fillRect(boxX, sepY, boxW, lineH);
+          ctx.restore();
+
+          // Vẽ dải >>>>>> màu vàng trên nền xanh sáng
+          ctx.save();
+          ctx.font = `700 ${Math.round(arrowBandH * 0.78)}px monospace`;
+          ctx.fillStyle = "#f5b800";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          ctx.shadowColor = "rgba(0,0,0,0.3)";
+          ctx.shadowBlur = 1 * scale;
+          // Vẽ đủ >> để phủ hết boxW
+          const arrowStr =
+            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
           ctx.save();
           ctx.beginPath();
-          ctx.rect(boxX, sepY, boxW, chevH);
+          ctx.rect(boxX, sepY + lineH, boxW, arrowBandH);
           ctx.clip();
-
-          let cx = boxX;
-          let ci = 0;
-          while (cx < boxX + boxW + chevW) {
-            ctx.beginPath();
-            ctx.moveTo(cx, sepY);
-            ctx.lineTo(cx + chevW * 0.6, sepY);
-            ctx.lineTo(cx + chevW, sepY + chevH / 2);
-            ctx.lineTo(cx + chevW * 0.6, sepY + chevH);
-            ctx.lineTo(cx, sepY + chevH);
-            ctx.lineTo(cx + chevW * 0.4, sepY + chevH / 2);
-            ctx.closePath();
-            ctx.fillStyle = cols[ci % cols.length];
-            ctx.fill();
-            cx += chevW * 0.75;
-            ci++;
-          }
+          ctx.fillText(
+            arrowStr,
+            boxX + 4 * scale,
+            sepY + lineH + arrowBandH / 2,
+          );
           ctx.restore();
+          ctx.restore();
+
           drawTimeRow();
         };
 
         // ---- HÀNG GIỜ + NGÀY ----
         const drawTimeRow = () => {
-          const timeRowY = boxY + headerH + sepH;
-          const timeTxt  = `${hh}:${mm}`;
-          const dateStr  = dateFormat === "short"
-            ? `${dayName}   ${String(day).padStart(2,"0")}/${String(month).padStart(2,"0")}/${year}`
-            : `${dayName}   ${day} Tháng ${month},${year}`;
+          const timeRowY = box2Y + sepH;
+          const timeTxt = `${hh}:${mm}`;
+          const dateStr =
+            dateFormat === "short"
+              ? `${dayName}   ${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+              : `${dayName}   ${day} Tháng ${month},${year}`;
 
           ctx.save();
           ctx.textAlign = "left";
@@ -3205,7 +3580,11 @@
           ctx.fillStyle = "rgba(255,255,255,0.92)";
           ctx.textBaseline = "top";
           ctx.shadowBlur = 2 * scale;
-          ctx.fillText(dateStr, boxX + padding + timeMetrics.width + 12 * scale, timeRowY + 10 * scale);
+          ctx.fillText(
+            dateStr,
+            boxX + padding + timeMetrics.width + 12 * scale,
+            timeRowY + 30 * scale,
+          );
 
           ctx.restore();
           drawLocRow();
@@ -3213,60 +3592,64 @@
 
         // ---- HÀNG VỊ TRÍ ----
         const drawLocRow = () => {
-          const locRowY = boxY + headerH + sepH + timeH;
+          const locRowY = box2Y + sepH + timeH;
           ctx.save();
           ctx.textAlign = "left";
-          ctx.textBaseline = "middle";
+          ctx.textBaseline = "top";
           ctx.font = `500 ${16 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.88)";
           ctx.shadowColor = "rgba(0,0,0,0.4)";
           ctx.shadowBlur = 2 * scale;
 
-          // icon square màu vàng
-          const iconSz = 10 * scale;
-          const iconX  = boxX + padding;
-          const iconY  = locRowY + locH/2 - iconSz/2;
+          const iconX = boxX + padding;
+          const iconY = locRowY + locPaddingV;
           ctx.fillStyle = "#f5b800";
           ctx.fillRect(iconX, iconY, iconSz, iconSz);
 
+          const textX = iconX + iconSz + 7 * scale;
           ctx.fillStyle = "rgba(255,255,255,0.88)";
-          ctx.fillText(loc, iconX + iconSz + 7 * scale, locRowY + locH/2);
+          locLines.forEach((line, i) => {
+            ctx.fillText(line, textX, locRowY + locPaddingV + i * lineHeight);
+          });
+
           ctx.restore();
           drawBrandCorner();
         };
 
-        // ---- BRAND GÓC DƯỚI PHẢI ----
+        // ---- BRAND GÓC DƯỚI PHẢI (ảnh như mẫu 1-4) ----
         const drawBrandCorner = () => {
-          ctx.save();
-          ctx.textAlign = "right";
-          ctx.textBaseline = "bottom";
-
-          // "Timemark" vàng
-          ctx.font = `700 ${18 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "#f5b800";
-          ctx.shadowColor = "rgba(0,0,0,0.5)";
-          ctx.shadowBlur = 3 * scale;
-          ctx.fillText("Timemark", w - padding, h - padding - 18 * scale);
-
-          // "100% Chân thực" trắng
-          ctx.font = `500 ${14 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.fillText("100% Chân thực", w - padding, h - padding);
-
-          ctx.restore();
-
-          if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
-          callback && callback();
+          const bi = new Image();
+          bi.crossOrigin = "anonymous";
+          bi.onload = () => {
+            const bh = 144 * scale,
+              bw = bh * (bi.width / bi.height);
+            drawBrandImage(ctx, bi, w - bw, h - bh, bw, bh);
+            if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi.onerror = () => {
+            if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi.src = BRAND_URL;
         };
 
         // Vẽ logo hoặc shield mặc định
         if (curLogo5) {
           const li = new Image();
           li.onload = () => {
-            ctx.drawImage(li, logoBoxX + 2*scale, logoBoxY + 2*scale, logoBoxSize - 4*scale, logoBoxSize - 4*scale);
+            ctx.drawImage(
+              li,
+              logoBoxX + 2 * scale,
+              logoBoxY + 2 * scale,
+              logoBoxSize - 4 * scale,
+              logoBoxSize - 4 * scale,
+            );
             drawHeaderText();
           };
-          li.onerror = () => { drawShieldDefault(); drawHeaderText(); };
+          li.onerror = () => {
+            drawShieldDefault();
+            drawHeaderText();
+          };
           li.src = curLogo5;
         } else {
           drawShieldDefault();
@@ -3274,25 +3657,46 @@
         }
 
         function drawShieldDefault() {
-          const cx = logoBoxX + logoBoxSize/2;
-          const cy = logoBoxY + logoBoxSize/2;
+          const cx = logoBoxX + logoBoxSize / 2;
+          const cy = logoBoxY + logoBoxSize / 2;
           const sz = logoBoxSize * 0.65;
-          drawShieldIcon(ctx, cx - sz/2, cy - sz/2, sz, "#f5b800");
+          drawShieldIcon(ctx, cx - sz / 2, cy - sz / 2, sz, "#f5b800");
         }
       }
 
       // ===== TEMPLATE 6 — Nền xanh navy, layout ngang hiện đại =====
-      function drawTemplate6(ctx, w, h, scale, padding, hh, mm, dayName, day, month, year, loc, showCode, code, callback) {
+      function drawTemplate6(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        showCode,
+        code,
+        callback,
+      ) {
         padding = 10 * scale;
-        const titleTxt  = (document.getElementById("m6-title")?.value  || "Kiểm tra").trim();
-        const subTxt    = (document.getElementById("m6-subtitle")?.value || "Báo cáo công việc").trim();
-        const showCodeN = document.getElementById("show-code6")?.checked !== false;
+        const titleTxt = (
+          document.getElementById("m6-title")?.value || "Kiểm tra"
+        ).trim();
+        const subTxt = (
+          document.getElementById("m6-subtitle")?.value || "Báo cáo công việc"
+        ).trim();
+        const showCodeN =
+          document.getElementById("show-code6")?.checked !== false;
 
         const boxW = w * 0.78;
         const boxH = 150 * scale;
         const boxX = padding;
         const boxY = h - padding - boxH;
-        const R    = 6 * scale;
+        const R = 6 * scale;
 
         // Nền navy
         ctx.save();
@@ -3307,8 +3711,8 @@
         ctx.moveTo(boxX + R, boxY);
         ctx.lineTo(boxX + boxW - R, boxY);
         ctx.quadraticCurveTo(boxX + boxW, boxY, boxX + boxW, boxY + R);
-        ctx.lineTo(boxX + boxW, boxY + 28*scale);
-        ctx.lineTo(boxX, boxY + 28*scale);
+        ctx.lineTo(boxX + boxW, boxY + 28 * scale);
+        ctx.lineTo(boxX, boxY + 28 * scale);
         ctx.lineTo(boxX, boxY + R);
         ctx.quadraticCurveTo(boxX, boxY, boxX + R, boxY);
         ctx.closePath();
@@ -3318,8 +3722,8 @@
 
         // Logo + tiêu đề header
         const logoSz = 22 * scale;
-        const logoX  = boxX + 8 * scale;
-        const logoY  = boxY + (28*scale - logoSz) / 2;
+        const logoX = boxX + 8 * scale;
+        const logoY = boxY + (28 * scale - logoSz) / 2;
 
         const doHeader = () => {
           ctx.save();
@@ -3334,9 +3738,10 @@
 
           // Thời gian lớn
           const timeTxt = `${hh}:${mm}`;
-          const dateStr = dateFormat === "short"
-            ? `${dayName}  ${String(day).padStart(2,"0")}/${String(month).padStart(2,"0")}/${year}`
-            : `${dayName}  ${day} Tháng ${month},${year}`;
+          const dateStr =
+            dateFormat === "short"
+              ? `${dayName}  ${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+              : `${dayName}  ${day} Tháng ${month},${year}`;
 
           ctx.save();
           ctx.textAlign = "left";
@@ -3344,55 +3749,73 @@
           ctx.font = `900 ${50 * scale}px RobotoCondensed`;
           ctx.fillStyle = "#ffffff";
           ctx.textBaseline = "top";
-          ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 4*scale;
+          ctx.shadowColor = "rgba(0,0,0,0.5)";
+          ctx.shadowBlur = 4 * scale;
           const tw = ctx.measureText(timeTxt).width;
-          ctx.fillText(timeTxt, boxX + 8*scale, boxY + 34*scale);
+          ctx.fillText(timeTxt, boxX + 8 * scale, boxY + 34 * scale);
 
           // Cột phải: tên miền + ngày
           ctx.font = `600 ${14 * scale}px RobotoCondensed`;
           ctx.fillStyle = "#f5b800";
-          ctx.shadowBlur = 2*scale;
-          ctx.fillText(subTxt, boxX + 8*scale + tw + 14*scale, boxY + 38*scale);
+          ctx.shadowBlur = 2 * scale;
+          ctx.fillText(
+            subTxt,
+            boxX + 8 * scale + tw + 14 * scale,
+            boxY + 38 * scale,
+          );
 
           ctx.font = `500 ${14 * scale}px RobotoCondensed`;
           ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.fillText(dateStr, boxX + 8*scale + tw + 14*scale, boxY + 58*scale);
+          ctx.fillText(
+            dateStr,
+            boxX + 8 * scale + tw + 14 * scale,
+            boxY + 58 * scale,
+          );
 
           ctx.restore();
 
           // Vị trí
           ctx.save();
-          ctx.textAlign = "left"; ctx.textBaseline = "middle";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
           ctx.font = `500 ${15 * scale}px RobotoCondensed`;
           ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.shadowColor = "rgba(0,0,0,0.4)"; ctx.shadowBlur = 2*scale;
+          ctx.shadowColor = "rgba(0,0,0,0.4)";
+          ctx.shadowBlur = 2 * scale;
           // icon ▸
           ctx.fillStyle = "#f5b800";
-          ctx.fillText("▸", boxX + 8*scale, boxY + boxH - 22*scale);
+          ctx.fillText("▸", boxX + 8 * scale, boxY + boxH - 22 * scale);
           ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.fillText(loc, boxX + 22*scale, boxY + boxH - 22*scale);
+          ctx.fillText(loc, boxX + 22 * scale, boxY + boxH - 22 * scale);
           ctx.restore();
 
-          // brand góc phải
-          ctx.save();
-          ctx.textAlign = "right"; ctx.textBaseline = "bottom";
-          ctx.font = `700 ${18*scale}px RobotoCondensed`;
-          ctx.fillStyle = "#f5b800";
-          ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 3*scale;
-          ctx.fillText("Timemark", w - padding, h - padding - 18*scale);
-          ctx.font = `500 ${13*scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.8)";
-          ctx.fillText("100% Chân thực", w - padding, h - padding);
-          ctx.restore();
-
-          if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
-          callback && callback();
+          // brand góc phải (ảnh như mẫu 1-4)
+          const bi6 = new Image();
+          bi6.crossOrigin = "anonymous";
+          bi6.onload = () => {
+            const bh = 144 * scale,
+              bw = bh * (bi6.width / bi6.height);
+            drawBrandImage(ctx, bi6, w - bw, h - bh, bw, bh);
+            if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi6.onerror = () => {
+            if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi6.src = BRAND_URL;
         };
 
         if (curLogo6) {
           const li = new Image();
-          li.onload = () => { ctx.drawImage(li, logoX, logoY, logoSz, logoSz); doHeader(); };
-          li.onerror = () => { drawShieldIcon(ctx, logoX, logoY, logoSz, "#ffffff"); doHeader(); };
+          li.onload = () => {
+            ctx.drawImage(li, logoX, logoY, logoSz, logoSz);
+            doHeader();
+          };
+          li.onerror = () => {
+            drawShieldIcon(ctx, logoX, logoY, logoSz, "#ffffff");
+            doHeader();
+          };
           li.src = curLogo6;
         } else {
           drawShieldIcon(ctx, logoX, logoY, logoSz, "#ffffff");
@@ -3401,11 +3824,32 @@
       }
 
       // ===== TEMPLATE 7 — Nền xanh lá đậm gradient, layout đơn giản =====
-      function drawTemplate7(ctx, w, h, scale, padding, hh, mm, dayName, day, month, year, loc, showCode, code, callback) {
+      function drawTemplate7(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        showCode,
+        code,
+        callback,
+      ) {
         padding = 10 * scale;
-        const titleTxt  = (document.getElementById("m7-title")?.value  || "Giám sát").trim();
-        const subTxt    = (document.getElementById("m7-subtitle")?.value || "Nhật ký công việc").trim();
-        const showCodeN = document.getElementById("show-code7")?.checked !== false;
+        const titleTxt = (
+          document.getElementById("m7-title")?.value || "Giám sát"
+        ).trim();
+        const subTxt = (
+          document.getElementById("m7-subtitle")?.value || "Nhật ký công việc"
+        ).trim();
+        const showCodeN =
+          document.getElementById("show-code7")?.checked !== false;
 
         const boxH = 140 * scale;
         const boxY = h - padding - boxH;
@@ -3413,7 +3857,12 @@
 
         // Gradient nền xanh đậm
         ctx.save();
-        const grad = ctx.createLinearGradient(padding, boxY, padding + boxW, boxY + boxH);
+        const grad = ctx.createLinearGradient(
+          padding,
+          boxY,
+          padding + boxW,
+          boxY + boxH,
+        );
         grad.addColorStop(0, "rgba(5,50,15,0.88)");
         grad.addColorStop(1, "rgba(10,100,30,0.72)");
         roundRect(ctx, padding, boxY, boxW, boxH, 8 * scale);
@@ -3429,67 +3878,88 @@
 
         // Logo + tiêu đề
         const logoSz = 40 * scale;
-        const logoX  = padding + 14 * scale;
-        const logoY  = boxY + 8 * scale;
+        const logoX = padding + 14 * scale;
+        const logoY = boxY + 8 * scale;
 
         const doBody = () => {
           const textX = logoX + logoSz + 10 * scale;
           ctx.save();
           ctx.textAlign = "left";
-          ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 3*scale;
+          ctx.shadowColor = "rgba(0,0,0,0.5)";
+          ctx.shadowBlur = 3 * scale;
 
           // tiêu đề
-          ctx.font = `700 ${20*scale}px RobotoCondensed`;
+          ctx.font = `700 ${20 * scale}px RobotoCondensed`;
           ctx.fillStyle = "#f5b800";
           ctx.textBaseline = "top";
-          ctx.fillText(titleTxt, textX, boxY + 10*scale);
+          ctx.fillText(titleTxt, textX, boxY + 10 * scale);
 
-          ctx.font = `500 ${15*scale}px RobotoCondensed`;
+          ctx.font = `500 ${15 * scale}px RobotoCondensed`;
           ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.fillText(subTxt, textX, boxY + 34*scale);
+          ctx.fillText(subTxt, textX, boxY + 34 * scale);
 
           // Giờ lớn dưới
-          ctx.font = `900 ${44*scale}px RobotoCondensed`;
+          ctx.font = `900 ${44 * scale}px RobotoCondensed`;
           ctx.fillStyle = "#ffffff";
           ctx.textBaseline = "top";
-          ctx.fillText(`${hh}:${mm}`, padding + 14*scale, boxY + boxH - 58*scale);
+          ctx.fillText(
+            `${hh}:${mm}`,
+            padding + 14 * scale,
+            boxY + boxH - 58 * scale,
+          );
 
           const tw2 = ctx.measureText(`${hh}:${mm}`).width;
-          const dateStr = dateFormat === "short"
-            ? `${dayName} ${String(day).padStart(2,"0")}/${String(month).padStart(2,"0")}/${year}`
-            : `${dayName} ${day} Tháng ${month},${year}`;
-          ctx.font = `500 ${15*scale}px RobotoCondensed`;
+          const dateStr =
+            dateFormat === "short"
+              ? `${dayName} ${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+              : `${dayName} ${day} Tháng ${month},${year}`;
+          ctx.font = `500 ${15 * scale}px RobotoCondensed`;
           ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.fillText(dateStr, padding + 14*scale + tw2 + 10*scale, boxY + boxH - 52*scale);
+          ctx.fillText(
+            dateStr,
+            padding + 14 * scale + tw2 + 10 * scale,
+            boxY + boxH - 52 * scale,
+          );
 
           // Vị trí
-          ctx.font = `500 ${14*scale}px RobotoCondensed`;
+          ctx.font = `500 ${14 * scale}px RobotoCondensed`;
           ctx.fillStyle = "rgba(255,255,255,0.80)";
           ctx.textBaseline = "bottom";
-          ctx.fillText("📍 " + loc, padding + 14*scale, boxY + boxH - 8*scale);
+          ctx.fillText(
+            "📍 " + loc,
+            padding + 14 * scale,
+            boxY + boxH - 8 * scale,
+          );
 
           ctx.restore();
 
-          // Brand
-          ctx.save();
-          ctx.textAlign = "right"; ctx.textBaseline = "bottom";
-          ctx.font = `700 ${17*scale}px RobotoCondensed`;
-          ctx.fillStyle = "#f5b800";
-          ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 3*scale;
-          ctx.fillText("Timemark", w - padding, h - padding - 16*scale);
-          ctx.font = `500 ${13*scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.8)";
-          ctx.fillText("100% Chân thực", w - padding, h - padding);
-          ctx.restore();
-
-          if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
-          callback && callback();
+          // Brand (ảnh như mẫu 1-4)
+          const bi7 = new Image();
+          bi7.crossOrigin = "anonymous";
+          bi7.onload = () => {
+            const bh = 144 * scale,
+              bw = bh * (bi7.width / bi7.height);
+            drawBrandImage(ctx, bi7, w - bw, h - bh, bw, bh);
+            if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi7.onerror = () => {
+            if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi7.src = BRAND_URL;
         };
 
         if (curLogo7) {
           const li = new Image();
-          li.onload = () => { ctx.drawImage(li, logoX, logoY, logoSz, logoSz); doBody(); };
-          li.onerror = () => { drawShieldIcon(ctx, logoX, logoY, logoSz, "#f5b800"); doBody(); };
+          li.onload = () => {
+            ctx.drawImage(li, logoX, logoY, logoSz, logoSz);
+            doBody();
+          };
+          li.onerror = () => {
+            drawShieldIcon(ctx, logoX, logoY, logoSz, "#f5b800");
+            doBody();
+          };
           li.src = curLogo7;
         } else {
           drawShieldIcon(ctx, logoX, logoY, logoSz, "#f5b800");
@@ -3498,17 +3968,38 @@
       }
 
       // ===== TEMPLATE 8 — Nền đen bán trong, viền vàng, layout đầy đủ =====
-      function drawTemplate8(ctx, w, h, scale, padding, hh, mm, dayName, day, month, year, loc, showCode, code, callback) {
+      function drawTemplate8(
+        ctx,
+        w,
+        h,
+        scale,
+        padding,
+        hh,
+        mm,
+        dayName,
+        day,
+        month,
+        year,
+        loc,
+        showCode,
+        code,
+        callback,
+      ) {
         padding = 10 * scale;
-        const titleTxt  = (document.getElementById("m8-title")?.value  || "Công tác").trim();
-        const subTxt    = (document.getElementById("m8-subtitle")?.value || "Hồ sơ nghiệm thu").trim();
-        const showCodeN = document.getElementById("show-code8")?.checked !== false;
+        const titleTxt = (
+          document.getElementById("m8-title")?.value || "Công tác"
+        ).trim();
+        const subTxt = (
+          document.getElementById("m8-subtitle")?.value || "Hồ sơ nghiệm thu"
+        ).trim();
+        const showCodeN =
+          document.getElementById("show-code8")?.checked !== false;
 
         const boxH = 160 * scale;
         const boxW = w * 0.75;
         const boxX = padding;
         const boxY = h - padding - boxH;
-        const R    = 10 * scale;
+        const R = 10 * scale;
 
         // Nền đen đậm
         ctx.save();
@@ -3526,8 +4017,8 @@
         ctx.moveTo(boxX + R, boxY);
         ctx.lineTo(boxX + boxW - R, boxY);
         ctx.quadraticCurveTo(boxX + boxW, boxY, boxX + boxW, boxY + R);
-        ctx.lineTo(boxX + boxW, boxY + 32*scale);
-        ctx.lineTo(boxX, boxY + 32*scale);
+        ctx.lineTo(boxX + boxW, boxY + 32 * scale);
+        ctx.lineTo(boxX, boxY + 32 * scale);
         ctx.lineTo(boxX, boxY + R);
         ctx.quadraticCurveTo(boxX, boxY, boxX + R, boxY);
         ctx.closePath();
@@ -3537,70 +4028,98 @@
 
         // Header text trên nền vàng
         const logoSz = 24 * scale;
-        const logoX  = boxX + 8 * scale;
-        const logoY  = boxY + (32*scale - logoSz) / 2;
+        const logoX = boxX + 8 * scale;
+        const logoY = boxY + (32 * scale - logoSz) / 2;
 
         const doBody = () => {
           ctx.save();
-          ctx.textAlign = "left"; ctx.textBaseline = "middle";
-          ctx.font = `700 ${16*scale}px RobotoCondensed`;
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          ctx.font = `700 ${16 * scale}px RobotoCondensed`;
           ctx.fillStyle = "#1a1a1a";
-          ctx.fillText(titleTxt + "  —  " + subTxt, logoX + logoSz + 8*scale, boxY + 16*scale);
+          ctx.fillText(
+            titleTxt + "  —  " + subTxt,
+            logoX + logoSz + 8 * scale,
+            boxY + 16 * scale,
+          );
           ctx.restore();
 
           // Thời gian
           const timeTxt = `${hh}:${mm}`;
-          const dateStr = dateFormat === "short"
-            ? `${dayName}  ${String(day).padStart(2,"0")}/${String(month).padStart(2,"0")}/${year}`
-            : `${dayName}  ${day} Tháng ${month},${year}`;
+          const dateStr =
+            dateFormat === "short"
+              ? `${dayName}  ${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+              : `${dayName}  ${day} Tháng ${month},${year}`;
 
           ctx.save();
-          ctx.textAlign = "left"; ctx.textBaseline = "top";
-          ctx.font = `900 ${48*scale}px RobotoCondensed`;
+          ctx.textAlign = "left";
+          ctx.textBaseline = "top";
+          ctx.font = `900 ${48 * scale}px RobotoCondensed`;
           ctx.fillStyle = "#ffffff";
-          ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 4*scale;
-          ctx.fillText(timeTxt, boxX + 10*scale, boxY + 38*scale);
+          ctx.shadowColor = "rgba(0,0,0,0.5)";
+          ctx.shadowBlur = 4 * scale;
+          ctx.fillText(timeTxt, boxX + 10 * scale, boxY + 38 * scale);
           const tw = ctx.measureText(timeTxt).width;
 
           // Ngày tháng bên cạnh giờ
-          ctx.font = `500 ${16*scale}px RobotoCondensed`;
+          ctx.font = `500 ${16 * scale}px RobotoCondensed`;
           ctx.fillStyle = "#f5b800";
-          ctx.shadowBlur = 2*scale;
-          ctx.fillText(dateStr, boxX + 10*scale + tw + 12*scale, boxY + 44*scale);
+          ctx.shadowBlur = 2 * scale;
+          ctx.fillText(
+            dateStr,
+            boxX + 10 * scale + tw + 12 * scale,
+            boxY + 44 * scale,
+          );
 
           // Vị trí
-          ctx.font = `500 ${15*scale}px RobotoCondensed`;
+          ctx.font = `500 ${15 * scale}px RobotoCondensed`;
           ctx.fillStyle = "rgba(255,255,255,0.85)";
           ctx.textBaseline = "bottom";
           const iconSzL = 10 * scale;
           ctx.fillStyle = "#f5b800";
-          ctx.fillRect(boxX + 10*scale, boxY + boxH - 22*scale - iconSzL/2, iconSzL, iconSzL);
+          ctx.fillRect(
+            boxX + 10 * scale,
+            boxY + boxH - 22 * scale - iconSzL / 2,
+            iconSzL,
+            iconSzL,
+          );
           ctx.fillStyle = "rgba(255,255,255,0.88)";
           ctx.textBaseline = "middle";
-          ctx.fillText(loc, boxX + 10*scale + iconSzL + 6*scale, boxY + boxH - 22*scale);
+          ctx.fillText(
+            loc,
+            boxX + 10 * scale + iconSzL + 6 * scale,
+            boxY + boxH - 22 * scale,
+          );
 
           ctx.restore();
 
-          // Brand
-          ctx.save();
-          ctx.textAlign = "right"; ctx.textBaseline = "bottom";
-          ctx.font = `700 ${18*scale}px RobotoCondensed`;
-          ctx.fillStyle = "#f5b800";
-          ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 3*scale;
-          ctx.fillText("Timemark", w - padding, h - padding - 18*scale);
-          ctx.font = `500 ${13*scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.8)";
-          ctx.fillText("100% Chân thực", w - padding, h - padding);
-          ctx.restore();
-
-          if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
-          callback && callback();
+          // Brand (ảnh như mẫu 1-4)
+          const bi8 = new Image();
+          bi8.crossOrigin = "anonymous";
+          bi8.onload = () => {
+            const bh = 144 * scale,
+              bw = bh * (bi8.width / bi8.height);
+            drawBrandImage(ctx, bi8, w - bw, h - bh, bw, bh);
+            if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi8.onerror = () => {
+            if (showCodeN) drawCodeVert(ctx, w, h, scale, code);
+            callback && callback();
+          };
+          bi8.src = BRAND_URL;
         };
 
         if (curLogo8) {
           const li = new Image();
-          li.onload = () => { ctx.drawImage(li, logoX, logoY, logoSz, logoSz); doBody(); };
-          li.onerror = () => { drawShieldIcon(ctx, logoX, logoY, logoSz, "#1a1a1a"); doBody(); };
+          li.onload = () => {
+            ctx.drawImage(li, logoX, logoY, logoSz, logoSz);
+            doBody();
+          };
+          li.onerror = () => {
+            drawShieldIcon(ctx, logoX, logoY, logoSz, "#1a1a1a");
+            doBody();
+          };
           li.src = curLogo8;
         } else {
           drawShieldIcon(ctx, logoX, logoY, logoSz, "#1a1a1a");
@@ -3801,9 +4320,10 @@
         const showCode =
           template === "3"
             ? document.getElementById("show-code3")?.checked !== false
-            : ["5","6","7","8"].includes(template)
-            ? document.getElementById("show-code" + template)?.checked !== false
-            : document.getElementById("show-code").checked;
+            : ["5", "6", "7", "8"].includes(template)
+              ? document.getElementById("show-code" + template)?.checked !==
+                false
+              : document.getElementById("show-code").checked;
         const showBottomCode2 =
           document.getElementById("show-bottom-code2")?.checked || false;
         const showBottomCode3 =
@@ -3817,7 +4337,7 @@
         const coords4 = showCoords4
           ? document.getElementById("m4-coords")?.value || ""
           : "";
-          const notes1 = [
+        const notes1 = [
           {
             title: document.getElementById("m1n0t")?.value || "",
             content: document.getElementById("m1n0c")?.value || "",
@@ -3946,7 +4466,19 @@
             );
           } else if (template === "4") {
             drawTemplate4(
-              ctx, w, h, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.coords4,
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.coords4,
               () => {
                 canvas.style.display = "block";
                 document.getElementById("empty-state").style.display = "none";
@@ -3954,17 +4486,93 @@
               },
             );
           } else if (template === "5") {
-            drawTemplate5(ctx, w, h, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.showCode, p.code,
-              () => { canvas.style.display = "block"; document.getElementById("empty-state").style.display = "none"; document.getElementById("btn-dl").style.display = "inline-flex"; });
+            drawTemplate5(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              () => {
+                canvas.style.display = "block";
+                document.getElementById("empty-state").style.display = "none";
+                document.getElementById("btn-dl").style.display = "inline-flex";
+              },
+            );
           } else if (template === "6") {
-            drawTemplate6(ctx, w, h, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.showCode, p.code,
-              () => { canvas.style.display = "block"; document.getElementById("empty-state").style.display = "none"; document.getElementById("btn-dl").style.display = "inline-flex"; });
+            drawTemplate6(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              () => {
+                canvas.style.display = "block";
+                document.getElementById("empty-state").style.display = "none";
+                document.getElementById("btn-dl").style.display = "inline-flex";
+              },
+            );
           } else if (template === "7") {
-            drawTemplate7(ctx, w, h, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.showCode, p.code,
-              () => { canvas.style.display = "block"; document.getElementById("empty-state").style.display = "none"; document.getElementById("btn-dl").style.display = "inline-flex"; });
+            drawTemplate7(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              () => {
+                canvas.style.display = "block";
+                document.getElementById("empty-state").style.display = "none";
+                document.getElementById("btn-dl").style.display = "inline-flex";
+              },
+            );
           } else if (template === "8") {
-            drawTemplate8(ctx, w, h, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.showCode, p.code,
-              () => { canvas.style.display = "block"; document.getElementById("empty-state").style.display = "none"; document.getElementById("btn-dl").style.display = "inline-flex"; });
+            drawTemplate8(
+              ctx,
+              w,
+              h,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              () => {
+                canvas.style.display = "block";
+                document.getElementById("empty-state").style.display = "none";
+                document.getElementById("btn-dl").style.display = "inline-flex";
+              },
+            );
           } else {
             drawTemplate2(
               ctx,
@@ -4152,10 +4760,13 @@
       ) {
         padding = 12 * scale;
         const notes1Active = (notes1 || []).filter((n) => n.title || n.content);
-        const noteH1 = 27 * scale, noteGap1 = 3 * scale;
+        const noteH1 = 27 * scale,
+          noteGap1 = 3 * scale;
         const noteW1 = w / 2 - padding;
-        const notesAreaH1 = notes1Active.length > 0
-          ? notes1Active.length * (noteH1 + noteGap1) - noteGap1 : 0;
+        const notesAreaH1 =
+          notes1Active.length > 0
+            ? notes1Active.length * (noteH1 + noteGap1) - noteGap1
+            : 0;
         const labelTxt = document.getElementById("label").value;
         const hasLabel = labelTxt.trim() !== "";
         const timeTxt = `${hh}:${mm}`;
@@ -4165,7 +4776,9 @@
           pillR = 8 * scale;
 
         ctx.font = `700 ${22 * scale}px RobotoCondensed`;
-        const labelPartW = hasLabel ? ctx.measureText(labelTxt).width + innerPad * 2 : 0;
+        const labelPartW = hasLabel
+          ? ctx.measureText(labelTxt).width + innerPad * 2
+          : 0;
         ctx.font = `700 ${28 * scale}px RobotoCondensed`;
         const timePartW = ctx.measureText(timeTxt).width + innerPad * 2;
         const lBase = 48 * scale,
@@ -4177,7 +4790,9 @@
           : gap + timePartW + logoInlineW + gap;
         const locLines = getTextLines(loc);
         const locLineH = 20 * scale;
-        const locExtraH = Math.max(0, locLines.length - 1) * locLineH;const notesOffsetH1 = notes1Active.length > 0 ? notesAreaH1 + 10 * scale : 0;
+        const locExtraH = Math.max(0, locLines.length - 1) * locLineH;
+        const notesOffsetH1 =
+          notes1Active.length > 0 ? notesAreaH1 + 10 * scale : 0;
         const row1Y = bottomY - 82 * scale - locExtraH - notesOffsetH1,
           rowTop = row1Y - labelH + 1 * scale;
 
@@ -4261,7 +4876,12 @@
           // === GHI CHÚ MẪU 1 ===
           if (notes1Active.length > 0) {
             const notesTopY1 = barY + 50 * scale + locExtraH + 8 * scale;
-            const grad1 = ctx.createLinearGradient(padding, notesTopY1, padding + noteW1, notesTopY1);
+            const grad1 = ctx.createLinearGradient(
+              padding,
+              notesTopY1,
+              padding + noteW1,
+              notesTopY1,
+            );
             grad1.addColorStop(0, "rgba(255,255,255,0.42)");
             grad1.addColorStop(1, "rgba(255,255,255,0.0)");
             ctx.fillStyle = grad1;
@@ -4812,19 +5432,19 @@
         const dateStr = formatDateStr(dayName, day, month, year, hh, mm);
 
         // ===== SIZE =====
-        const sideGap = 10 * scale;// khoảng cách từ mép bên đến khối đen chứa text, tăng số này để đẩy khối đen vào trong hơn, giảm để ra sát mép hơn
-        const botGap = 10 * scale;// khoảng cách từ mép dưới đến gold line, tăng số này để đẩy gold line lên cao hơn, giảm để xuống thấp hơn
-        const goldH = 3 * scale;// chiều cao gold line, tăng số này để line dày hơn, giảm để mỏng hơn
+        const sideGap = 10 * scale; // khoảng cách từ mép bên đến khối đen chứa text, tăng số này để đẩy khối đen vào trong hơn, giảm để ra sát mép hơn
+        const botGap = 10 * scale; // khoảng cách từ mép dưới đến gold line, tăng số này để đẩy gold line lên cao hơn, giảm để xuống thấp hơn
+        const goldH = 3 * scale; // chiều cao gold line, tăng số này để line dày hơn, giảm để mỏng hơn
 
         const innerPadV = 10 * scale;
         const innerPadH = 14 * scale;
 
-        const lineH = 30 * scale;// chiều cao mỗi dòng text, tăng số này để giãn dòng hơn, giảm để gần dòng hơn
+        const lineH = 30 * scale; // chiều cao mỗi dòng text, tăng số này để giãn dòng hơn, giảm để gần dòng hơn
         const locLines = getTextLines(loc);
         const nLines = locLines.length + 1 + (coords ? 1 : 0);
 
         const textBlockH = nLines * lineH;
-        const contentH = Math.max(textBlockH, 30 * scale);// chiều cao khối chứa text, tăng số này để cao hơn, giảm để thấp hơn. Nếu text nhiều thì sẽ tự động tăng, nếu ít thì vẫn giữ chiều cao tối thiểu này để đủ chỗ cho logo và gold line bên dưới
+        const contentH = Math.max(textBlockH, 30 * scale); // chiều cao khối chứa text, tăng số này để cao hơn, giảm để thấp hơn. Nếu text nhiều thì sẽ tự động tăng, nếu ít thì vẫn giữ chiều cao tối thiểu này để đủ chỗ cho logo và gold line bên dưới
 
         const boxH = contentH + innerPadV * 2;
 
@@ -4851,7 +5471,7 @@
 
         const logoSize = 20 * scale;
         const gapIL = 8 * scale;
-        const badgePadding = 4 * scale;// khoảng cách từ text và logo đến viền của badge, tăng số này để đẩy text và logo vào trong hơn, giảm để ra sát viền hơn
+        const badgePadding = 4 * scale; // khoảng cách từ text và logo đến viền của badge, tăng số này để đẩy text và logo vào trong hơn, giảm để ra sát viền hơn
 
         const badgeW = logoSize + gapIL + labelW + badgePadding * 2;
 
@@ -4936,7 +5556,7 @@
         // ==================================================
         const rightEdge = boxX + boxW - innerPadH;
 
-        const weatherGap = 22 * scale;// khoảng cách giữa 2 dòng weather, tăng số này để giãn hơn, giảm để gần hơn
+        const weatherGap = 22 * scale; // khoảng cách giữa 2 dòng weather, tăng số này để giãn hơn, giảm để gần hơn
         const weatherY2 = boxY + boxH - innerPadV;
         const weatherY1 = weatherY2 - weatherGap;
 
@@ -5150,16 +5770,93 @@
             );
           } else if (template === "4") {
             drawTemplate4(
-              wmCtx, vw, vh, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.coords4, renderDone,
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.coords4,
+              renderDone,
             );
           } else if (template === "5") {
-            drawTemplate5(wmCtx, vw, vh, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.showCode, p.code, renderDone);
+            drawTemplate5(
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              renderDone,
+            );
           } else if (template === "6") {
-            drawTemplate6(wmCtx, vw, vh, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.showCode, p.code, renderDone);
+            drawTemplate6(
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              renderDone,
+            );
           } else if (template === "7") {
-            drawTemplate7(wmCtx, vw, vh, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.showCode, p.code, renderDone);
+            drawTemplate7(
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              renderDone,
+            );
           } else if (template === "8") {
-            drawTemplate8(wmCtx, vw, vh, p.scale, padding, p.hh, p.mm, p.dayName, p.day, p.month, p.year, p.loc, p.showCode, p.code, renderDone);
+            drawTemplate8(
+              wmCtx,
+              vw,
+              vh,
+              p.scale,
+              padding,
+              p.hh,
+              p.mm,
+              p.dayName,
+              p.day,
+              p.month,
+              p.year,
+              p.loc,
+              p.showCode,
+              p.code,
+              renderDone,
+            );
           } else {
             drawTemplate2Async(
               wmCtx,
@@ -5332,7 +6029,6 @@
           handleVideo(fakeInput);
         }
       });
-
     </script>
   </body>
 </html>
