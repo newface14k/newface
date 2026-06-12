@@ -3377,10 +3377,10 @@
       ) {
         padding = 10 * scale;
         const titleTxt = (
-          document.getElementById("m5-title")?.value || "Tuần tra"
+          document.getElementById("m5-title")?.value ?? ""
         ).trim();
         const subTxt = (
-          document.getElementById("m5-subtitle")?.value || "Hồ sơ công việc"
+          document.getElementById("m5-subtitle")?.value ?? ""
         ).trim();
         const showCodeN =
           document.getElementById("show-code5")?.checked !== false;
