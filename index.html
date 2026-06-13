@@ -1712,12 +1712,16 @@
         <div class="field">
           <label class="lbl">📍 Vị trí</label>
           <div class="gps-row">
-            <textarea id="loc" oninput="redraw()">Hà Nội, Việt Nam</textarea>
+            <textarea
+              id="loc"
+              placeholder="Nhập vị trí"
+              oninput="redraw()"
+            ></textarea>
             <input
               style="display: none"
               type="text"
               id="loc-old"
-              value="Hà Nội, Việt Nam"
+              value=""
               oninput="redraw()"
             />
             <button class="gps-btn" id="gps-btn" onclick="getGPS()">
@@ -3420,9 +3424,12 @@
         };
 
         const locLines = wrapText(loc, maxLocWidth);
+        const hasLoc = locLines.length > 0;
         ctx.restore();
 
-        const locH = locPaddingV + locLines.length * lineHeight + locPaddingV; // động theo số dòng
+        const locH = hasLoc
+          ? locPaddingV + locLines.length * lineHeight + locPaddingV
+          : 0; // động theo số dòng
         const contentBoxH = sepH + timeH + locH;
 
         const boxX = padding;
@@ -3605,6 +3612,10 @@
 
         // ---- HÀNG VỊ TRÍ ----
         const drawLocRow = () => {
+          if (!hasLoc) {
+            drawBrandCorner();
+            return;
+          }
           const locRowY = box2Y + sepH + timeH;
           ctx.save();
           ctx.textAlign = "left";
@@ -3787,20 +3798,22 @@
 
           ctx.restore();
 
-          // Vị trí
-          ctx.save();
-          ctx.textAlign = "left";
-          ctx.textBaseline = "middle";
-          ctx.font = `500 ${15 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.shadowColor = "rgba(0,0,0,0.4)";
-          ctx.shadowBlur = 2 * scale;
-          // icon ▸
-          ctx.fillStyle = "#f5b800";
-          ctx.fillText("▸", boxX + 8 * scale, boxY + boxH - 22 * scale);
-          ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.fillText(loc, boxX + 22 * scale, boxY + boxH - 22 * scale);
-          ctx.restore();
+          if (loc) {
+            // Vị trí
+            ctx.save();
+            ctx.textAlign = "left";
+            ctx.textBaseline = "middle";
+            ctx.font = `500 ${15 * scale}px RobotoCondensed`;
+            ctx.fillStyle = "rgba(255,255,255,0.85)";
+            ctx.shadowColor = "rgba(0,0,0,0.4)";
+            ctx.shadowBlur = 2 * scale;
+            // icon ▸
+            ctx.fillStyle = "#f5b800";
+            ctx.fillText("▸", boxX + 8 * scale, boxY + boxH - 22 * scale);
+            ctx.fillStyle = "rgba(255,255,255,0.85)";
+            ctx.fillText(loc, boxX + 22 * scale, boxY + boxH - 22 * scale);
+            ctx.restore();
+          }
 
           // brand góc phải (ảnh như mẫu 1-4)
           const bi6 = new Image();
@@ -3934,15 +3947,17 @@
             boxY + boxH - 52 * scale,
           );
 
-          // Vị trí
-          ctx.font = `500 ${14 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.80)";
-          ctx.textBaseline = "bottom";
-          ctx.fillText(
-            "📍 " + loc,
-            padding + 14 * scale,
-            boxY + boxH - 8 * scale,
-          );
+          if (loc) {
+            // Vị trí
+            ctx.font = `500 ${14 * scale}px RobotoCondensed`;
+            ctx.fillStyle = "rgba(255,255,255,0.80)";
+            ctx.textBaseline = "bottom";
+            ctx.fillText(
+              "📍 " + loc,
+              padding + 14 * scale,
+              boxY + boxH - 8 * scale,
+            );
+          }
 
           ctx.restore();
 
@@ -4084,25 +4099,27 @@
             boxY + 44 * scale,
           );
 
-          // Vị trí
-          ctx.font = `500 ${15 * scale}px RobotoCondensed`;
-          ctx.fillStyle = "rgba(255,255,255,0.85)";
-          ctx.textBaseline = "bottom";
-          const iconSzL = 10 * scale;
-          ctx.fillStyle = "#f5b800";
-          ctx.fillRect(
-            boxX + 10 * scale,
-            boxY + boxH - 22 * scale - iconSzL / 2,
-            iconSzL,
-            iconSzL,
-          );
-          ctx.fillStyle = "rgba(255,255,255,0.88)";
-          ctx.textBaseline = "middle";
-          ctx.fillText(
-            loc,
-            boxX + 10 * scale + iconSzL + 6 * scale,
-            boxY + boxH - 22 * scale,
-          );
+          if (loc) {
+            // Vị trí
+            ctx.font = `500 ${15 * scale}px RobotoCondensed`;
+            ctx.fillStyle = "rgba(255,255,255,0.85)";
+            ctx.textBaseline = "bottom";
+            const iconSzL = 10 * scale;
+            ctx.fillStyle = "#f5b800";
+            ctx.fillRect(
+              boxX + 10 * scale,
+              boxY + boxH - 22 * scale - iconSzL / 2,
+              iconSzL,
+              iconSzL,
+            );
+            ctx.fillStyle = "rgba(255,255,255,0.88)";
+            ctx.textBaseline = "middle";
+            ctx.fillText(
+              loc,
+              boxX + 10 * scale + iconSzL + 6 * scale,
+              boxY + boxH - 22 * scale,
+            );
+          }
 
           ctx.restore();
 
@@ -4185,7 +4202,9 @@
       function getTextLines(text) {
         return String(text || "")
           .replace(/\r\n/g, "\n")
-          .split("\n");
+          .split("\n")
+          .map((line) => line.trim())
+          .filter(Boolean);
       }
 
       function drawTextLines(ctx, text, x, y, lineHeight, direction = "down") {
@@ -4376,7 +4395,7 @@
         ];
         const code = imageCode;
         const dt = new Date(document.getElementById("dt").value);
-        const loc = document.getElementById("loc").value || "Hà Nội, Việt Nam";
+        const loc = (document.getElementById("loc").value || "").trim();
         const dayName = DAYS[dt.getDay()] || "";
         const day = dt.getDate(),
           month = MONTHS[dt.getMonth()],
@@ -4802,11 +4821,19 @@
           ? gap + labelPartW + gap + timePartW + logoInlineW + gap
           : gap + timePartW + logoInlineW + gap;
         const locLines = getTextLines(loc);
+        const hasLoc = locLines.length > 0;
         const locLineH = 20 * scale;
-        const locExtraH = Math.max(0, locLines.length - 1) * locLineH;
+        const locExtraH = hasLoc ? Math.max(0, locLines.length - 1) * locLineH : 0;
+        const locBlockH1 = hasLoc ? 50 * scale + locExtraH : 28 * scale;
+        const locHiddenShift1 = hasLoc ? 0 : 22 * scale;
         const notesOffsetH1 =
           notes1Active.length > 0 ? notesAreaH1 + 10 * scale : 0;
-        const row1Y = bottomY - 82 * scale - locExtraH - notesOffsetH1,
+        const row1Y =
+            bottomY -
+            82 * scale -
+            locExtraH -
+            notesOffsetH1 +
+            locHiddenShift1,
           rowTop = row1Y - labelH + 1 * scale;
 
         const drawAll = (patImg) => {
@@ -4853,7 +4880,7 @@
 
           const barX = padding,
             barY = row1Y + 10 * scale,
-            barH = 50 * scale + locExtraH;
+            barH = locBlockH1;
           ctx.fillStyle = "#e6a817";
           ctx.fillRect(barX, barY, 4 * scale, barH);
           const textX = barX + 14 * scale;
@@ -4883,12 +4910,14 @@
           ctx.font = `500 ${18 * scale}px RobotoCondensed`;
           ctx.strokeStyle = "rgba(60,60,60,0.4)";
           ctx.lineWidth = 0.5 * scale;
-          drawTextLines(ctx, loc, textX, barY + 35 * scale, locLineH);
+          if (hasLoc) {
+            drawTextLines(ctx, loc, textX, barY + 35 * scale, locLineH);
+          }
           clearShadow(ctx);
 
           // === GHI CHÚ MẪU 1 ===
           if (notes1Active.length > 0) {
-            const notesTopY1 = barY + 50 * scale + locExtraH + 8 * scale;
+            const notesTopY1 = barY + barH + 8 * scale;
             const grad1 = ctx.createLinearGradient(
               padding,
               notesTopY1,
@@ -5093,12 +5122,19 @@
             : bottomEdge,
           notesTopY = notesBottomY - notesAreaH;
         const locLines = getTextLines(loc);
+        const hasLoc = locLines.length > 0;
         const locLineH = 20 * scale;
-        const locExtraH = Math.max(0, locLines.length - 1) * locLineH;
-        const locGap = notes.length > 0 ? 10 * scale : 0;
+        const locExtraH = hasLoc ? Math.max(0, locLines.length - 1) * locLineH : 0;
+        const locGap = hasLoc && notes.length > 0 ? 10 * scale : 0;
         const locationY = notesTopY - locGap;
+        const locHiddenShift2 = hasLoc ? 0 : locLineH;
         const timeBlockH = 80 * scale,
-          timeBlockY = locationY - locExtraH - timeBlockH - 9 * scale;
+          timeBlockY =
+            locationY -
+            locExtraH -
+            timeBlockH -
+            9 * scale +
+            locHiddenShift2;
         const lSizePct2 = Number(document.getElementById("logo2-size").value);
         const lBase2 = 66 * scale,
           lSize2 = lBase2 * (lSizePct2 / 100);
@@ -5160,14 +5196,16 @@
           ctx.textAlign = "left";
           ctx.strokeStyle = "rgba(0,0,0,0.18)";
           ctx.lineWidth = 0.5 * scale;
-          drawTextLines(
-            ctx,
-            loc,
-            padding,
-            locationY - 5 * scale,
-            locLineH,
-            "up",
-          );
+          if (hasLoc) {
+            drawTextLines(
+              ctx,
+              loc,
+              padding,
+              locationY - 5 * scale,
+              locLineH,
+              "up",
+            );
+          }
           clearShadow(ctx);
 
           if (notes.length > 0) {
@@ -5292,20 +5330,22 @@
         const sectionGap = 5 * scale; // khoảng cách giữa khối ngày tháng năm + địa điểm + tọa độ với khối notes ở dưới, tăng số này để giãn hơn, giảm để gần hơn
 
         const locLines = getTextLines(loc);
+        const hasLoc = locLines.length > 0;
         const locLineH = 20 * scale; // tăng số này để giãn dòng hơn, giảm để gần dòng hơn
-        const locBlockH = locLines.length * locLineH;
+        const locBlockH = hasLoc ? locLines.length * locLineH : 0;
         const coordsH = coords ? 28 * scale : 0; // chiều cao khối tọa độ, tăng số này để cao hơn, giảm để thấp hơn
         const dateFontSize = 18 * scale; // tăng số này để chữ ngày tháng năm lớn hơn, giảm để nhỏ hơn
+        const dateGap = hasLoc || coords ? 18 * scale : 0;
         const contentBlockH =
           dateFontSize +
-          18 * scale +
+          dateGap +
           locBlockH +
           (coords ? coordsH * 0.8 + 4 * scale : 0); // tổng chiều cao của khối ngày tháng + địa điểm + tọa độ
         const contentBlockBottomY = notesTopY - sectionGap;
         const contentBlockTopY = contentBlockBottomY - contentBlockH;
 
         const dateY = contentBlockTopY + dateFontSize;
-        const locTopY = dateY + 18 * scale; //
+        const locTopY = dateY + dateGap; //
 
         // Yellow vertical bar
         const yellowBarX = padding;
@@ -5338,11 +5378,13 @@
         // Location
         ctx.font = `500 ${19 * scale}px RobotoCondensed`;
         ctx.fillStyle = "#ffffff";
-        locLines.forEach((line, i) => {
-          const ly = locTopY + i * locLineH + locLineH * 0.8;
-          ctx.strokeText(line, textIndent, ly);
-          ctx.fillText(line, textIndent, ly);
-        });
+        if (hasLoc) {
+          locLines.forEach((line, i) => {
+            const ly = locTopY + i * locLineH + locLineH * 0.8;
+            ctx.strokeText(line, textIndent, ly);
+            ctx.fillText(line, textIndent, ly);
+          });
+        }
 
         // GPS Coords
         if (coords) {
