@@ -43,6 +43,8 @@
         --bg-page: #f0f2f5;
         --bg-page-grad1: rgba(0, 0, 0, 0.04);
         --bg-page-grad2: rgba(0, 0, 0, 0.03);
+        --bg-overlay: rgba(255, 255, 255, 0.18);
+        --bg-image-url: url("./assets/white.jpg");
         --text-primary: #111827;
         --text-secondary: #4b5563;
         --text-muted: #6b7280;
@@ -98,9 +100,11 @@
         --bg-page: #141920;
         --bg-page-grad1: rgba(245, 184, 0, 0.08);
         --bg-page-grad2: rgba(14, 165, 233, 0.07);
-        --text-primary: #f9fafb;
-        --text-secondary: #9ca3af;
-        --text-muted: #9ca3af;
+        --bg-overlay: rgba(8, 12, 18, 0.38);
+        --bg-image-url: url("./assets/dark.jpg");
+        --text-primary: #ffffff;
+        --text-secondary: #d1d9e6;
+        --text-muted: #bcc7d8;
         --header-bg: rgba(20, 25, 32, 0);
         --header-shadow: 0 4px 24px rgba(0, 0, 0, 0);
         --input-bg: rgba(255, 255, 255, 0.06);
@@ -143,6 +147,7 @@
         font-family: "RobotoCondensed", sans-serif;
         background: var(--bg-page);
         background-image:
+          linear-gradient(var(--bg-overlay), var(--bg-overlay)),
           radial-gradient(
             ellipse at 20% 30%,
             var(--bg-page-grad1) 0%,
@@ -152,7 +157,24 @@
             ellipse at 80% 70%,
             var(--bg-page-grad2) 0%,
             transparent 55%
-          );
+          ),
+          var(--bg-image-url);
+        background-size:
+          100% 100%,
+          100% 100%,
+          100% 100%,
+          cover;
+        background-position:
+          center,
+          center,
+          center,
+          center;
+        background-repeat: no-repeat;
+        background-attachment:
+          scroll,
+          scroll,
+          scroll,
+          fixed;
         color: var(--text-primary);
         min-height: 100vh;
         min-height: 100dvh;
@@ -433,13 +455,53 @@
       }
       @media (max-width: 768px) {
         .main {
-          grid-template-columns: 1fr;
+          display: block;
           padding: 12px;
-          gap: 12px;
+          background: rgba(255, 255, 255, 0.11);
+          border: 1px solid rgba(255, 255, 255, 0.22);
+          border-radius: 30px;
+          box-shadow:
+            0 14px 42px rgba(0, 0, 0, 0.08),
+            0 1px 0 rgba(255, 255, 255, 0.32) inset;
+          backdrop-filter: blur(16px) saturate(165%);
+          -webkit-backdrop-filter: blur(16px) saturate(165%);
+        }
+        body.dark .main {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.14);
         }
         .controls {
           max-height: none;
           overflow-y: visible;
+          background: transparent;
+          border: 0;
+          box-shadow: none;
+          padding: 0;
+          border-radius: 0;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+        }
+        .preview-box {
+          min-height: unset;
+          margin-bottom: 16px;
+          background: transparent;
+          border: 0;
+          box-shadow: none;
+          border-radius: 0;
+          padding: 0 0 14px;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+        }
+        #canvas,
+        #video-preview {
+          max-height: 52vh;
+        }
+        .empty-state {
+          padding: 34px 14px;
+        }
+        .controls h2 {
+          margin-bottom: 12px;
+          padding-top: 4px;
         }
         .controls input[type="text"],
         .controls input[type="datetime-local"],
@@ -793,6 +855,142 @@
         box-shadow:
           var(--glass-shadow-btn),
           0 0 14px var(--gold-glow);
+      }
+      /* Nút bo tròn kiểu pill giống ảnh mẫu */
+      #btn-theme,
+      #btn-dl,
+      #btn-dl-video,
+      #btn-install,
+      .btn-primary,
+      .btn-secondary,
+      .btn-outline,
+      .btn-red,
+      .gps-btn,
+      .tab,
+      .btn-activate,
+      .btn-buy,
+      .btn-welcome-main,
+      .btn-welcome-skip {
+        border-radius: 999px;
+      }
+      /* Khối trên cùng: viên thuốc hơn và trong suốt hơn */
+      header {
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 999px;
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.05),
+          0 1px 0 rgba(255, 255, 255, 0.55) inset;
+        margin: 10px 16px 0;
+        padding: 12px 16px;
+        padding-top: calc(12px + env(safe-area-inset-top, 0px));
+      }
+      body.dark header {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow:
+          0 12px 34px rgba(0, 0, 0, 0.28),
+          0 1px 0 rgba(255, 255, 255, 0.14) inset;
+      }
+      header::before {
+        border-radius: inherit;
+      }
+      .hl {
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        padding: 7px 12px 7px 8px;
+        backdrop-filter: blur(12px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+      }
+      body.dark .hl {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+      .logo-mark {
+        border-radius: 999px;
+      }
+      .header-btns {
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        padding: 6px;
+        backdrop-filter: blur(12px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+      }
+      body.dark .header-btns {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+      #btn-theme {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      body.dark #btn-theme {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+      #btn-dl,
+      #btn-dl-video {
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.46) 0%,
+          rgba(245, 184, 0, 0.3) 100%
+        );
+        border-color: rgba(255, 230, 130, 0.32);
+        box-shadow:
+          0 6px 18px rgba(245, 184, 0, 0.12),
+          0 1px 0 rgba(255, 255, 255, 0.28) inset;
+      }
+      #btn-dl:hover,
+      #btn-dl-video:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(245, 184, 0, 0.62) 0%,
+          rgba(224, 168, 0, 0.42) 100%
+        );
+      }
+      .install-hint {
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        margin: 0;
+        padding: 8px 0;
+        box-shadow: none;
+      }
+      body.dark .install-hint {
+        background: transparent;
+        border-color: transparent;
+      }
+      .preview-box {
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 34px;
+        box-shadow:
+          0 14px 42px rgba(0, 0, 0, 0.08),
+          0 1px 0 rgba(255, 255, 255, 0.32) inset;
+      }
+      body.dark .preview-box {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+      #canvas,
+      #video-preview {
+        border-radius: 0;
+      }
+      .video-hint {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        padding: 10px 16px;
+        backdrop-filter: blur(10px) saturate(150%);
+        -webkit-backdrop-filter: blur(10px) saturate(150%);
+      }
+      body.dark .video-hint {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.14);
       }
       .note-table {
         border: 1px solid var(--glass-border);
@@ -1249,8 +1447,8 @@
         backdrop-filter: blur(6px);
         color: #fbbf24;
         border: 1px solid rgba(120, 53, 15, 0.5);
-        border-radius: 20px;
-        padding: 3px 12px;
+        border-radius: 999px;
+        padding: 6px 16px;
         font-size: 11px;
         font-weight: 700;
         margin-bottom: 12px;
