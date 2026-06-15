@@ -1696,7 +1696,7 @@
         <input
           class="key-input"
           id="key-input"
-          placeholder="Nhập key của bạn (VD: NEWFACE-XXXXXX)"
+          placeholder="Nhập key (VD: NEWFACE-XXXXXX)"
           maxlength="24"
           autocomplete="off"
           spellcheck="false"
@@ -5010,17 +5010,15 @@
         const locLines = getTextLines(loc);
         const hasLoc = locLines.length > 0;
         const locLineH = 20 * scale;
-        const locExtraH = hasLoc ? Math.max(0, locLines.length - 1) * locLineH : 0;
+        const locExtraH = hasLoc
+          ? Math.max(0, locLines.length - 1) * locLineH
+          : 0;
         const locBlockH1 = hasLoc ? 50 * scale + locExtraH : 28 * scale;
         const locHiddenShift1 = hasLoc ? 0 : 22 * scale;
         const notesOffsetH1 =
           notes1Active.length > 0 ? notesAreaH1 + 10 * scale : 0;
         const row1Y =
-            bottomY -
-            82 * scale -
-            locExtraH -
-            notesOffsetH1 +
-            locHiddenShift1,
+            bottomY - 82 * scale - locExtraH - notesOffsetH1 + locHiddenShift1,
           rowTop = row1Y - labelH + 1 * scale;
 
         const drawAll = (patImg) => {
@@ -5311,17 +5309,15 @@
         const locLines = getTextLines(loc);
         const hasLoc = locLines.length > 0;
         const locLineH = 20 * scale;
-        const locExtraH = hasLoc ? Math.max(0, locLines.length - 1) * locLineH : 0;
+        const locExtraH = hasLoc
+          ? Math.max(0, locLines.length - 1) * locLineH
+          : 0;
         const locGap = hasLoc && notes.length > 0 ? 10 * scale : 0;
         const locationY = notesTopY - locGap;
         const locHiddenShift2 = hasLoc ? 0 : locLineH;
         const timeBlockH = 80 * scale,
           timeBlockY =
-            locationY -
-            locExtraH -
-            timeBlockH -
-            9 * scale +
-            locHiddenShift2;
+            locationY - locExtraH - timeBlockH - 9 * scale + locHiddenShift2;
         const lSizePct2 = Number(document.getElementById("logo2-size").value);
         const lBase2 = 66 * scale,
           lSize2 = lBase2 * (lSizePct2 / 100);
@@ -5403,8 +5399,10 @@
               padding + noteW,
               barY,
             );
-            grad.addColorStop(0, "rgba(255,255,255,0.42)");
-            grad.addColorStop(1, "rgba(255,255,255,0.0)");
+            grad.addColorStop(0, "rgba(255,255,255,0.35)");
+            grad.addColorStop(0.4, "rgba(255,255,255,0.20)");
+            grad.addColorStop(0.8, "rgba(255,255,255,0.08)");
+            grad.addColorStop(1, "rgba(255,255,255,0)");
             ctx.fillStyle = grad;
             roundRect(ctx, padding, barY, noteW, notesAreaH, 5 * scale);
             ctx.fill();
@@ -5592,8 +5590,10 @@
             textIndent + noteW,
             notesTopY,
           );
-          grad.addColorStop(0, "rgba(255,255,255,0.42)");
-          grad.addColorStop(1, "rgba(255,255,255,0.0)");
+          grad.addColorStop(0, "rgba(255,255,255,0.35)");
+          grad.addColorStop(0.4, "rgba(255,255,255,0.20)");
+          grad.addColorStop(0.8, "rgba(255,255,255,0.08)");
+          grad.addColorStop(1, "rgba(255,255,255,0)");
           ctx.fillStyle = grad;
           roundRect(ctx, textIndent, notesTopY, noteW, notesAreaH, 5 * scale);
           ctx.fill();
