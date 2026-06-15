@@ -1740,10 +1740,8 @@
           <span class="theme-icon" id="theme-icon">☀️</span>
           <span id="theme-label">Sáng</span>
         </button>
-        <button id="btn-dl" onclick="downloadImage()">⬇ Tải ảnh</button>
-        <button id="btn-dl-video" onclick="downloadVideo()">
-          🎬 Tải video
-        </button>
+        <button id="btn-dl" onclick="downloadImage()">Tải ảnh</button>
+        <button id="btn-dl-video" onclick="downloadVideo()">Tải video</button>
       </div>
     </header>
 
@@ -3409,7 +3407,7 @@
         document.getElementById("empty-state").style.display = "none";
         document.getElementById("btn-dl-video").style.display = "inline-flex";
         document.getElementById("btn-dl-video").disabled = false;
-        document.getElementById("btn-dl-video").textContent = "🎬 Tải video";
+        document.getElementById("btn-dl-video").textContent = "Tải video";
       }
 
       function handleLogo(i) {
@@ -6182,7 +6180,7 @@
               }, 3000);
 
               btn.disabled = false;
-              btn.textContent = "🎬 Tải video";
+              btn.textContent = "Tải video";
 
               document.getElementById("video-processing-wrap").style.display =
                 "none";
@@ -6198,7 +6196,7 @@
               alert("Không thể phát video.");
 
               btn.disabled = false;
-              btn.textContent = "🎬 Tải video";
+              btn.textContent = "Tải video";
 
               return;
             }
@@ -6238,7 +6236,7 @@
         video.onerror = () => {
           btn.disabled = false;
 
-          btn.textContent = "🎬 Tải video";
+          btn.textContent = "Tải video";
 
           document.getElementById("video-processing-wrap").style.display =
             "none";
