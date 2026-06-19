@@ -3594,7 +3594,9 @@
         const maxLocWidth = boxW - textXOffset - padding;
 
         const wrapText = (text, maxW) => {
-          const words = text.split(" ");
+          const normalized = text.replace(/[\r\n]+/g, " ");
+          const leadingSpaces = normalized.match(/^(\s*)/)[1];
+          const words = normalized.trimStart().split(" ").filter(w => w !== "");
           const lines = [];
           let line = "";
           words.forEach((word) => {
@@ -3607,6 +3609,7 @@
             }
           });
           if (line) lines.push(line);
+          if (lines.length > 0 && leadingSpaces) lines[0] = leadingSpaces + lines[0];
           return lines;
         };
 
@@ -3998,7 +4001,7 @@
             ctx.fillStyle = "#f5b800";
             ctx.fillText("▸", boxX + 8 * scale, boxY + boxH - 22 * scale);
             ctx.fillStyle = "rgba(255,255,255,0.85)";
-            ctx.fillText(loc, boxX + 22 * scale, boxY + boxH - 22 * scale);
+            ctx.fillText(loc.trim(), boxX + 22 * scale, boxY + boxH - 22 * scale);
             ctx.restore();
           }
 
@@ -4390,8 +4393,8 @@
         return String(text || "")
           .replace(/\r\n/g, "\n")
           .split("\n")
-          .map((line) => line.trim())
-          .filter(Boolean);
+          .map((line) => line.replace(/\r$/, ""))
+          .filter(line => line.trim());
       }
 
       function drawTextLines(ctx, text, x, y, lineHeight, direction = "down") {
@@ -4582,7 +4585,7 @@
         ];
         const code = imageCode;
         const dt = new Date(document.getElementById("dt").value);
-        const loc = (document.getElementById("loc").value || "").trim();
+        const loc = (document.getElementById("loc").value || "");
         const dayName = DAYS[dt.getDay()] || "";
         const day = dt.getDate(),
           month = MONTHS[dt.getMonth()],
@@ -5109,7 +5112,8 @@
               padding + noteW1,
               notesTopY1,
             );
-            grad1.addColorStop(0, "rgba(255,255,255,0.42)");
+            grad1.addColorStop(0, "rgba(255,255,255,0.4)");
+            grad1.addColorStop(0.33, "rgba(255,255,255,0.1)");
             grad1.addColorStop(1, "rgba(255,255,255,0.0)");
             ctx.fillStyle = grad1;
             roundRect(ctx, padding, notesTopY1, noteW1, notesAreaH1, 5 * scale);
@@ -5399,9 +5403,9 @@
               padding + noteW,
               barY,
             );
-            grad.addColorStop(0, "rgba(255,255,255,0.35)");
-            grad.addColorStop(0.4, "rgba(255,255,255,0.20)");
-            grad.addColorStop(0.8, "rgba(255,255,255,0.08)");
+            grad.addColorStop(0, "rgba(255,255,255,0.4)");
+            grad.addColorStop(0.2, "rgba(255,255,255,0.20)");
+            grad.addColorStop(0.33, "rgba(255,255,255,0.1)");
             grad.addColorStop(1, "rgba(255,255,255,0)");
             ctx.fillStyle = grad;
             roundRect(ctx, padding, barY, noteW, notesAreaH, 5 * scale);
@@ -5590,9 +5594,9 @@
             textIndent + noteW,
             notesTopY,
           );
-          grad.addColorStop(0, "rgba(255,255,255,0.35)");
-          grad.addColorStop(0.4, "rgba(255,255,255,0.20)");
-          grad.addColorStop(0.8, "rgba(255,255,255,0.08)");
+          grad.addColorStop(0, "rgba(255,255,255,0.4)");
+          grad.addColorStop(0.2, "rgba(255,255,255,0.20)");
+          grad.addColorStop(0.33, "rgba(255,255,255,0.1)");
           grad.addColorStop(1, "rgba(255,255,255,0)");
           ctx.fillStyle = grad;
           roundRect(ctx, textIndent, notesTopY, noteW, notesAreaH, 5 * scale);
