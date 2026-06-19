@@ -1918,6 +1918,10 @@
           <div class="gps-status gps-idle" id="gps-status">
             Nhấn GPS để tự động lấy vị trí
           </div>
+          <label style="display:flex;align-items:center;gap:8px;margin-top:8px;cursor:pointer;">
+            <input type="checkbox" id="show-minimap" onchange="showMiniMap=this.checked;redraw()" style="width:18px;height:18px;accent-color:#f5b800;cursor:pointer;">
+            <span style="font-size:14px;font-weight:500;">🗺️ Hiện bản đồ GPS trên ảnh</span>
+          </label>
         </div>
 
         <!-- Mẫu 1 fields -->
@@ -3132,6 +3136,8 @@
         curVideoURL = null;
       let mediaMode = "none"; // "image" | "video" | "none"
       let imageCode = "HUTM3M6MTURKLB";
+      let gpsLat = null, gpsLon = null;
+      let showMiniMap = false;
       let dateFormat = "long"; // "long" = Chủ nhật, 24 Tháng 5,2026 | "short" = Chủ nhật, 24/05/2026
       const MARQUEE_TEXT =
         "NEWFACE - Công cụ tạo watermark ảnh và video nhanh, gọn, chuyên nghiệp";
@@ -3276,6 +3282,7 @@
                 if (hint4) hint4.textContent = gpsText;
               }
 
+              gpsLat = lat; gpsLon = lon;
               redraw();
               setGPS("ok", `✓ GPS OK (±${Math.round(acc)}m)`);
               redraw();
@@ -3546,6 +3553,76 @@
         document.getElementById("logo8-rm").style.display = "none";
         document.getElementById("logo8-prev").style.display = "none";
         redraw();
+      }
+
+      // ===== MINIMAP (OSM tile) =====
+      function drawMiniMap(ctx, w, h, scale, callback) {
+        if (!showMiniMap || gpsLat === null || gpsLon === null) {
+          callback && callback();
+          return;
+        }
+        const zoom = 16;
+        const size = Math.round(200 * scale);
+        const margin = Math.round(10 * scale);
+        const border = Math.round(3 * scale);
+        const radius = Math.round(8 * scale);
+        const n = Math.pow(2, zoom);
+        const tileX = Math.floor((gpsLon + 180) / 360 * n);
+        const latRad = gpsLat * Math.PI / 180;
+        const tileY = Math.floor((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * n);
+        const url = `https://tile.openstreetmap.org/${zoom}/${tileX}/${tileY}.png`;
+        const tileImg = new Image();
+        tileImg.crossOrigin = "anonymous";
+        tileImg.onload = () => {
+          const x = margin, y = margin;
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(x + radius, y);
+          ctx.lineTo(x + size - radius, y);
+          ctx.arcTo(x + size, y, x + size, y + radius, radius);
+          ctx.lineTo(x + size, y + size - radius);
+          ctx.arcTo(x + size, y + size, x + size - radius, y + size, radius);
+          ctx.lineTo(x + radius, y + size);
+          ctx.arcTo(x, y + size, x, y + size - radius, radius);
+          ctx.lineTo(x, y + radius);
+          ctx.arcTo(x, y, x + radius, y, radius);
+          ctx.closePath();
+          ctx.clip();
+          ctx.drawImage(tileImg, x, y, size, size);
+          ctx.restore();
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(x + radius, y);
+          ctx.lineTo(x + size - radius, y);
+          ctx.arcTo(x + size, y, x + size, y + radius, radius);
+          ctx.lineTo(x + size, y + size - radius);
+          ctx.arcTo(x + size, y + size, x + size - radius, y + size, radius);
+          ctx.lineTo(x + radius, y + size);
+          ctx.arcTo(x, y + size, x, y + size - radius, radius);
+          ctx.lineTo(x, y + radius);
+          ctx.arcTo(x, y, x + radius, y, radius);
+          ctx.closePath();
+          ctx.strokeStyle = "rgba(255,255,255,0.85)";
+          ctx.lineWidth = border;
+          ctx.stroke();
+          ctx.restore();
+          const cx = x + size / 2, cy = y + size / 2;
+          ctx.save();
+          ctx.shadowColor = "rgba(0,0,0,0.5)";
+          ctx.shadowBlur = 4 * scale;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 6 * scale, 0, Math.PI * 2);
+          ctx.fillStyle = "#e53935";
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(cx, cy, 3 * scale, 0, Math.PI * 2);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+          ctx.restore();
+          callback && callback();
+        };
+        tileImg.onerror = () => { callback && callback(); };
+        tileImg.src = url;
       }
 
       // ===== TEMPLATE 5 — Nền xanh đậm, layout theo ảnh mẫu =====
@@ -4661,6 +4738,7 @@
               p.showCode,
               p.code,
             );
+            drawMiniMap(ctx, w, h, p.scale, null);
           } else if (template === "3") {
             drawTemplate3(
               ctx,
@@ -4684,6 +4762,7 @@
                 canvas.style.display = "block";
                 document.getElementById("empty-state").style.display = "none";
                 document.getElementById("btn-dl").style.display = "inline-flex";
+                drawMiniMap(ctx, w, h, p.scale, null);
               },
             );
           } else if (template === "4") {
@@ -4705,6 +4784,7 @@
                 canvas.style.display = "block";
                 document.getElementById("empty-state").style.display = "none";
                 document.getElementById("btn-dl").style.display = "inline-flex";
+                drawMiniMap(ctx, w, h, p.scale, null);
               },
             );
           } else if (template === "5") {
@@ -4727,6 +4807,7 @@
                 canvas.style.display = "block";
                 document.getElementById("empty-state").style.display = "none";
                 document.getElementById("btn-dl").style.display = "inline-flex";
+                drawMiniMap(ctx, w, h, p.scale, null);
               },
             );
           } else if (template === "6") {
@@ -4749,6 +4830,7 @@
                 canvas.style.display = "block";
                 document.getElementById("empty-state").style.display = "none";
                 document.getElementById("btn-dl").style.display = "inline-flex";
+                drawMiniMap(ctx, w, h, p.scale, null);
               },
             );
           } else if (template === "7") {
@@ -4771,6 +4853,7 @@
                 canvas.style.display = "block";
                 document.getElementById("empty-state").style.display = "none";
                 document.getElementById("btn-dl").style.display = "inline-flex";
+                drawMiniMap(ctx, w, h, p.scale, null);
               },
             );
           } else if (template === "8") {
@@ -4793,6 +4876,7 @@
                 canvas.style.display = "block";
                 document.getElementById("empty-state").style.display = "none";
                 document.getElementById("btn-dl").style.display = "inline-flex";
+                drawMiniMap(ctx, w, h, p.scale, null);
               },
             );
           } else {
@@ -4821,6 +4905,7 @@
           document.getElementById("empty-state").style.display = "none";
 
           document.getElementById("btn-dl").style.display = "inline-flex";
+          drawMiniMap(ctx, w, h, p.scale, null);
         };
 
         img.onerror = () => {
