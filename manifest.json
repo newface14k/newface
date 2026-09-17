@@ -4,9 +4,10 @@
   "start_url": ".",
   "scope": ".",
   "display": "fullscreen",
-  "display_override": ["fullscreen", "standalone"],
-  "background_color": "#0b0713",
-  "theme_color": "#0b0713",
+  "display_override": ["fullscreen", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#04010a",
+  "theme_color": "#04010a",
   "icons": [
     {
       "src": "icon-192.png",
